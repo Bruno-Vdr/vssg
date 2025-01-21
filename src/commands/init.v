@@ -3,6 +3,7 @@ module commands
 import term
 import os
 import constants as cst
+import structures{Blog}
 
 struct Init implements Command {
 	name    string
@@ -48,6 +49,7 @@ fn init(p []string) ! {
 		return error('creating ${cst.blog_file} : The file already exists.')
 	}
 
+	blog := Blog.new(path)
 
 	return
 }

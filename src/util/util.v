@@ -1,0 +1,40 @@
+module util
+
+import os
+import time
+import constants as cst
+
+pub fn parse_topic_values(label string, s string) ?(string, i64) {
+	if s.starts_with(label) {
+		value := s.find_between('"', '"')
+		dte := s.find_between('[', ']')
+		return if value.len == 0 { none } else { value, dte.i64() }
+	}
+
+	return none
+}
+
+pub fn parse_name_value(label string, s string) ?string {
+	if s.starts_with(label) {
+		value := s.find_between('"', '"')
+		return if value.len == 0 { none } else { value }
+	}
+
+	return none
+}
+
+pub fn to_blog_date(date i64) string {
+	return time.unix(date).custom_format(cst.blog_date_format)
+}
+
+pub fn get_img_post_dir() ?string {
+	return os.getenv_opt(cst.img_src_env)
+}
+
+pub fn get_remote_url() ?string {
+	return os.getenv_opt(cst.remote_url)
+}
+
+pub fn get_blog_root() ?string {
+	return os.getenv_opt(cst.blog_root)
+}
