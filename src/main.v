@@ -67,5 +67,5 @@ fn usage(cmds map[string]Command) {
 
 // help output full given command description.
 fn help(cmd Command) {
-	println('    ${term.green('vssg')} ${term.yellow(cmd.name)} : ${cmd.help}')
+	println('${cmd.help}')
 }

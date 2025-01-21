@@ -28,6 +28,8 @@ fn Add.help() string {
 	It can span multiple lines.'
 }
 
-fn add(s []string) ! {
+// add command feature are implemented here.
+fn add(p []string) ! {
+	println('add ${p}')
 	return
 }
