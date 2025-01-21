@@ -8,13 +8,17 @@ pub interface Command {
 	arg_max int    // Maximal argument number expected
 }
 
+// get is the main command access. It returns a complete list of all available commands
+// in map to allow random or sequencial access. All commands must be added in the map,
+// in this static method.
 pub fn Command.get() map[string]Command {
 	mut c := map[string]Command{}
 
-	mut i := Init.new()
+	i := Init.new()
 	c[i.name] = i
 
 	a := Add.new()
 	c[a.name] = a
+
 	return c
 }

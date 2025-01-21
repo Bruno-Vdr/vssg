@@ -4,29 +4,55 @@ import term
 import commands { Command }
 import os
 
+enum Param {
+	exe
+	command
+	param1
+	param2
+	param3
+}
+
 fn main() {
 	mut cmds := Command.get()
-	// mut b := Blog{}
 
-	if os.args.len == 1 {
+	if os.args.len == 1 { // case: No parameters given
 		usage(cmds)
 		return
 	}
 
-	if os.args[1] == 'help' {
+	if os.args[Param.command] == 'help' {
 		if os.args.len == 3 {
-			cm := cmds[os.args[2]] or {
-				eprintln('${term.red('Error')}: Unknown command "${os.args[2]}".')
+			cm := cmds[os.args[Param.param1]] or {
+				eprintln('${term.red('Error')}: Unknown command "${os.args[Param.param1]}".')
 				return
 			}
 
 			help(cm) // Show help of the given command
+			return
 		} else {
 			// Wrong parameter number for help command
 			eprintln('${term.red('Error')}: help command expects 1 parameter (${os.args.len - 2} provided).')
 			return
 		}
 	}
+
+	cm := cmds[os.args[1]] or {
+		eprintln('${term.red('Error')}: Unknown command "${os.args[Param.command]}".')
+		return
+	}
+
+	// We have a valid command here, check it's parameter number.
+	params := os.args.len - 2
+
+	if params < cm.arg_min || params > cm.arg_max {
+		eprintln('${term.red('Error')}: Wrong argument number for  ${term.yellow(cm.name)}.')
+		println('Launch "vssg help ${cm.name}" for more details.')
+		return
+	}
+
+	// All basic checks are done, command is known, with a correct number of arguments.
+
+
 }
 
 // usage shows all vssg's commands usage.
