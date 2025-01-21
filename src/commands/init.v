@@ -8,6 +8,7 @@ struct Init implements Command {
 	help    string
 	arg_min int
 	arg_max int
+	exec    fn (s []string) ! @[required]
 }
 
 pub fn Init.new() Command {
@@ -17,6 +18,7 @@ pub fn Init.new() Command {
 		help:    Init.help()
 		arg_min: 1
 		arg_max: 1
+		exec:    init
 	}
 }
 
@@ -27,3 +29,7 @@ fn Init.help() string {
 	It can span multiple lines.'
 }
 
+fn init(p []string) ! {
+	println('init ${p}')
+	return
+}

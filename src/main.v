@@ -51,11 +51,10 @@ fn main() {
 	}
 
 	// All basic checks are done, command is known, with a correct number of arguments.
-	match cm.name {
-
+	cm.exec(os.args[2..]) or {
+		eprintln('${term.red('Error')}: ${err}')
+		exit(-1)
 	}
-
-
 }
 
 // usage shows all vssg's commands usage.

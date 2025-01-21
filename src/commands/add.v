@@ -8,6 +8,7 @@ struct Add implements Command {
 	help    string
 	arg_min int
 	arg_max int
+	exec    fn (s []string) ! @[required]
 }
 
 pub fn Add.new() Command {
@@ -17,6 +18,7 @@ pub fn Add.new() Command {
 		help:    Add.help()
 		arg_min: 8
 		arg_max: 8
+		exec:    add
 	}
 }
 
@@ -24,4 +26,8 @@ fn Add.help() string {
 	return '
 	The ${term.yellow('Add')} command creates a new topic in the blog.
 	It can span multiple lines.'
+}
+
+fn add(s []string) ! {
+	return
 }
