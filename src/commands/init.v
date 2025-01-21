@@ -2,6 +2,7 @@ module commands
 
 import term
 import os
+import constants as cst
 
 struct Init implements Command {
 	name    string
@@ -43,9 +44,9 @@ fn init(p []string) ! {
 	}
 	os.mkdir('./${path}', os.MkdirParams{0o755}) or { return error('mkdir fails: ${err}. Command init, ${@FILE_LINE}') }
 
-	//if os.exists('${path}${os.path_separator}${conf_file}') {
-	//	return error('Error creating ${conf_file} : The file already exists.')
-	//}
+	if os.exists('${path}${os.path_separator}${cst.blog_file}') {
+		return error('creating ${cst.blog_file} : The file already exists.')
+	}
 
 
 	return
