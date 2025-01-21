@@ -14,7 +14,7 @@ import util
  */
 pub struct Blog {
 	name string
-	mut:
+mut:
 	topics []string
 	date   []i64
 }
@@ -110,10 +110,10 @@ fn emit_topics(mut file os.File, b &Blog) ! {
  * commands are run from within the blog root's directory (to differentiate them) and
  * access to config_file don't need root's blog prefix.
  */
-fn (b Blog) create() ! {
+pub fn (b Blog) create() ! {
 	println('Creating ${cst.blog_file}  file in ' + term.blue('${b.name}'))
 	mut file := os.open_file('${b.name}${os.path_separator}${cst.blog_file}', 'w+', os.s_iwusr | os.s_irusr) or {
-		return error('Unable to update ${b.name}${os.path_separator}${cst.blog_file}: ${err}')
+		return error('Unable to update ${b.name}${os.path_separator}${cst.blog_file}: ${err}. ${@FILE_LINE}')
 	}
 
 	defer {
@@ -213,7 +213,9 @@ fn (b &Blog) generate_topics_list_html() ! {
 				}
 			}
 		} else {
-			index.writeln(s) or { return error('Unable to write ${cst.topics_list_filename}: ${err}') }
+			index.writeln(s) or {
+				return error('Unable to write ${cst.topics_list_filename}: ${err}')
+			}
 		}
 	}
 }

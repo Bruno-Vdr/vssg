@@ -6,7 +6,7 @@ import constants as cst
 // Some internal runtime values are inserted by default e.g. posts_list_filename for back links
 // It consists of a map of string mapping string. This table can be completed at runtime.
 pub struct DynVars {
-	mut:
+mut:
 	var_map map[string]string // initialized to  map[string]string{}
 }
 

@@ -17,6 +17,7 @@ fn main() {
 
 	if os.args.len == 1 { // case: No parameters given
 		usage(cmds)
+		println('\n    vssg compiled on ${@BUILD_DATE} ${@BUILD_TIME}')
 		return
 	}
 

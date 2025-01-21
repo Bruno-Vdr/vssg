@@ -3,7 +3,8 @@ module commands
 import term
 import os
 import constants as cst
-import structures{Blog}
+import structures
+import util
 
 struct Init implements Command {
 	name    string
@@ -28,10 +29,10 @@ pub fn Init.new() Command {
 // help give a complete description of the command, including parameters.
 fn Init.help() string {
 	return '
-	Command: ${term.green('vssg')} ${term.yellow('init')} ${term.blue ('blog_name')}
+	Command: ${term.green('vssg')} ${term.yellow('init')} ${term.blue('blog_name')}
 
 	The init command initializes a new blog:
-	-It creates a directory with the given ${term.blue ('blog_name')}
+	-It creates a directory with the given ${term.blue('blog_name')}
 '
 }
 
@@ -43,13 +44,35 @@ fn init(p []string) ! {
 	if os.exists('${path}') {
 		return error('creating ${path} : The directory already "${path}" exists. Command init, ${@FILE_LINE}')
 	}
-	os.mkdir('./${path}', os.MkdirParams{0o755}) or { return error('mkdir fails: ${err}. Command init, ${@FILE_LINE}') }
+
+	os.mkdir('./${path}', os.MkdirParams{0o755}) or {
+		return error('mkdir fails: ${err}. Command init, ${@FILE_LINE}')
+	}
 
 	if os.exists('${path}${os.path_separator}${cst.blog_file}') {
 		return error('creating ${cst.blog_file} : The file already exists.')
 	}
 
-	blog := Blog.new(path)
+	blog := structures.Blog.new(path)
+	blog.create()!
 
-	return
+	// Generate a style file that will be used to generate topic lists index.htm page.
+	// This template file is embedded in constants.v file.
+	util.create_default_file(path, cst.style_file, cst.topics_list_style_css.to_string()) or {
+		return error('creating topic list style css file fails: ${err}. Command init, ${@FILE_LINE}')
+	}
+
+	// Generate a template file that will be used to generate topic lists index.htm page.
+	// This template file is embedded in constants.v file.
+	util.create_default_file(path, cst.topics_list_template_file, cst.topics_list_template.to_string()) or {
+		return error('creating topic list template file fails: ${err}. Command init, ${@FILE_LINE}')
+	}
+
+	println('You should now customize your ' +
+		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
+		term.blue('${path}${os.path_separator}${cst.topics_list_template_file}') + '.')
+
+	println('\nYou should also add to your profile file : \n' + 'export ' +
+		term.bright_yellow('${cst.blog_root}') + '=' + term.blue(os.getwd() + os.path_separator +
+		path))
 }
