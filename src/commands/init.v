@@ -26,3 +26,4 @@ fn Init.help() string {
 	The ${term.yellow('init')} command initializes a new blog.
 	It can span multiple lines.'
 }
+

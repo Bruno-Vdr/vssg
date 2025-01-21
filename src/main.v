@@ -51,6 +51,9 @@ fn main() {
 	}
 
 	// All basic checks are done, command is known, with a correct number of arguments.
+	match cm.name {
+
+	}
 
 
 }
