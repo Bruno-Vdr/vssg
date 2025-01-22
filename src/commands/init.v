@@ -15,10 +15,11 @@ struct Init implements Command {
 	exec    fn (s []string) ! @[required]
 }
 
+// new builds a Init Command.
 pub fn Init.new() Command {
 	return Init{
 		name:    'init'
-		desc:    'short desc'
+		desc:    'Initializes a new blog.'
 		help:    Init.help()
 		arg_min: 1
 		arg_max: 1
@@ -29,10 +30,13 @@ pub fn Init.new() Command {
 // help give a complete description of the command, including parameters.
 fn Init.help() string {
 	return '
-	Command: ${term.green('vssg')} ${term.yellow('init')} ${term.blue('blog_name')}
+Command: ${term.green('vssg')} ${term.yellow('init')} ${term.blue('blog_name')}
 
-	The init command initializes a new blog:
-	-It creates a directory with the given ${term.blue('blog_name')}
+The init command initializes a new blog:
+	-Creates a directory with the given ${term.blue('blog_name')}.
+	-Creates a ${cst.blog_file} config file inside this directory.
+	-Generates a default ${cst.style_file} to be used by local HTML.
+	-Generates a default ${cst.topics_list_template_file} topic list template file.
 '
 }
 
@@ -68,11 +72,11 @@ fn init(p []string) ! {
 		return error('creating topic list template file fails: ${err}. Command init, ${@FILE_LINE}')
 	}
 
-	println('You should now customize your ' +
+	println('You can now customize your ' +
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
 		term.blue('${path}${os.path_separator}${cst.topics_list_template_file}') + '.')
 
-	println('\nYou should also add to your profile file : \n' + 'export ' +
+	println('\nYou can also add to your profile file : \n' + 'export ' +
 		term.bright_yellow('${cst.blog_root}') + '=' + term.blue(os.getwd() + os.path_separator +
 		path))
 }
