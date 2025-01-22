@@ -21,7 +21,7 @@ struct Add implements Command {
 pub fn Add.new() Command {
 	return Add{
 		name:    'add'
-		desc:    'Creates a new topic (launch from inside the blog directory).'
+		desc:    'Creates a new topic (run from inside the blog directory).'
 		help:    Add.help()
 		arg_min: 1
 		arg_max: 1

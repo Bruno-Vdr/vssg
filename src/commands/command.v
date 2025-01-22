@@ -21,5 +21,7 @@ pub fn Command.get() map[string]Command {
 	a := Add.new()
 	c[a.name] = a
 
+	p := Post.new()
+	c[p.name] = p
 	return c
 }
