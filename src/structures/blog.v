@@ -196,7 +196,7 @@ pub fn (b &Blog) generate_topics_list_html() ! {
 			// Emit all links
 			for i, topic in b.topics {
 				dir := util.obfuscate(topic)
-				dyn.add('@url', '${dir}${os.path_separator}${cst.posts_list_filename}')
+				dyn.add('@url', '${dir}${os.path_separator}${cst.pushs_list_filename}')
 				dyn.add('@title', b.topics[i])
 				dyn.add('@date', util.to_blog_date(b.date[i]))
 

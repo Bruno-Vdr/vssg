@@ -41,9 +41,9 @@ The add command creates a new topic inside the blog:
     -Update/create ${cst.topic_file} file in hashed directory.
     -Update ${cst.blog_file} in blog\'s directory.
     -Create ${cst.style_file} in topic\'s directory.
-    -Create ${cst.posts_list_template_file} in topic\'s directory.
-    -Create ${cst.post_template_file} in topic\'s directory.
-    -Create ${cst.post_style_template_file} in topic\'s directory.
+    -Create ${cst.pushs_list_template_file} in topic\'s directory.
+    -Create ${cst.push_template_file} in topic\'s directory.
+    -Create ${cst.push_style_template_file} in topic\'s directory.
 '
 }
 
@@ -77,25 +77,25 @@ fn add(p []string) ! {
 	}
 
 	// Create default posts list into Topic directory. File is embedded in constant.v file.
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.posts_list_template_file}',
+	util.create_default_file('./', '${dir}${os.path_separator}${cst.pushs_list_template_file}',
 		cst.posts_list_template.to_string()) or {
-		return error('Creation of ${cst.posts_list_template_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@FILE_LINE}')
 	}
 
 	// Create post.template file
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.post_template_file}', cst.default_post_template.to_string()) or {
-		return error('Creation of ${cst.post_template_file} fails: ${err}. ${@FILE_LINE}')
+	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_template_file}', cst.default_post_template.to_string()) or {
+		return error('Creation of ${cst.push_template_file} fails: ${err}. ${@FILE_LINE}')
 	}
 
 	// Create post_style.css
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.post_style_template_file}',
+	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
 		cst.default_post_style_css.to_string()) or {
-		return error('Creation of ${cst.post_style_template_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@FILE_LINE}')
 	}
 
 	println('You should now customize your local style and post list template ' +
 	term.blue('${dir}${os.path_separator}${cst.style_file}') + ' and ' +
-	term.blue('${dir}${os.path_separator}${cst.posts_list_template_file}') + '.')
+	term.blue('${dir}${os.path_separator}${cst.pushs_list_template_file}') + '.')
 	blog.generate_topics_list_html()!
 
 	return

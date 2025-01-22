@@ -33,7 +33,7 @@ pub fn parse_post_values(label string, s string) ?(u64, string, i64, string) {
 		return if title.len == 0 {
 			none
 		} else {
-				return id, title, date.i64(), '.${os.path_separator}${cst.post_dir_prefix}${id}'
+				return id, title, date.i64(), '.${os.path_separator}${cst.push_dir_prefix}${id}'
 		}
 	}
 	return none

@@ -13,7 +13,7 @@ mut:
 // Create a  DynVars structure containing some common default values.
 pub fn DynVars.new() DynVars {
 	mut dynvar := DynVars{}
-	dynvar.var_map['@posts_list_filename'] = '${cst.posts_list_filename}'
+	dynvar.var_map['@posts_list_filename'] = '${cst.pushs_list_filename}'
 	dynvar.var_map['@topics_list_filename'] = '${cst.topics_list_filename}'
 
 	return dynvar

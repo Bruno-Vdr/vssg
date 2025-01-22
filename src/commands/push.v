@@ -31,14 +31,14 @@ pub fn Push.new() Command {
 // help give a complete description of the command, including parameters.
 fn Push.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('path_to_post_file')}
+Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('path_to_text_file')}
 
 The push command creates a new post in the current topic:
 
 '
 }
 
-// post command feature are implemented here. The parameters number has been checked before call.
+// push command feature are implemented here. The parameters number has been checked before call.
 fn push(p []string) ! {
 	post_file := p[0]
 
@@ -47,9 +47,22 @@ fn push(p []string) ! {
 		return error('Error loading "${post_file}" : The file does not exist. ${@FILE_LINE}.')
 	}
 
-	mut post := Post.load(post_file)!
 
-	// mut topics := Topic.load()!
-	// id := topics.get_next_post_id()
-	// post.set_id(id)
+	mut topics := Topic.load()!
+	id := topics.get_next_post_id()
+	mut post := Post.load(post_file)!
+	post.set_id(id)
+	path := cst.push_dir_prefix + id.str()
+
+	if os.exists('${path}') {
+		return error('failed creating ${path} : The directory already exists. [${@FILE_LINE}]')
+	}
+	os.mkdir('./${path}', os.MkdirParams{0o755}) or { return error('mkdir ${path} fails: ${err}. [${@FILE_LINE}]') }
+	println('Created push directory: ${term.blue(path)}')
+
+	// Create a sub dir for pictures
+	pic_dir := './${path}${os.path_separator}${cst.pushs_pic_dir}'
+	os.mkdir(pic_dir, os.MkdirParams{0o755}) or { return error('mkdir ${pic_dir} fails: ${err}') }
+	println('Created push images sub-directory :  ${term.blue(pic_dir)}')
+
 }

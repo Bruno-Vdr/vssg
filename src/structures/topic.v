@@ -37,7 +37,7 @@ pub fn Topic.new(title string) Topic {
 pub fn Topic.load() !Topic {
 	mut ret := []string{} // []string is array type, []string{} declares an empty array.
 	mut file := os.open(cst.topic_file) or {
-		return error('Error opening file ${cst.topic_file}: ${err}\n[Hint: are you in the topics\'s directory ?]')
+		return error('Failed opening file ${cst.topic_file}: ${err}. [${@FILE_LINE}]\n[Hint: are you in the topics\'s directory ?]')
 	}
 
 	defer {
@@ -60,18 +60,18 @@ pub fn Topic.load() !Topic {
 fn parse_topic_file(lines []string) !Topic {
 	mut posts := []PostSummary{}
 	if lines.len == 0 {
-		return error('Error: ${cst.topic_file} is empty.')
+		return error('${cst.topic_file} is empty. [${@FILE_LINE}]')
 	}
 
 	title := util.parse_name_value('topic=', lines[0]) or {
-		return error('Unable to extract "title" from ${cst.topic_file}')
+		return error('Unable to extract "title" from ${cst.topic_file}. [${@FILE_LINE}]')
 	}
 
 	directory := util.parse_name_value('directory=', lines[1]) or {
-		return error('Unable to extract "directory" from ${cst.topic_file}')
+		return error('Unable to extract "directory" from ${cst.topic_file}. [${@FILE_LINE}]')
 	}
 	for i in 2 .. lines.len {
-		id, t, date, dir := util.parse_post_values('post', lines[i]) or { return error('unable to parse ${lines[i]}') }
+		id, t, date, dir := util.parse_post_values('post', lines[i]) or { return error('unable to parse ${lines[i]}. [${@FILE_LINE}]') }
 		p :=PostSummary{id, t,date, dir}
 		posts << p
 	}
@@ -101,7 +101,7 @@ pub fn (t Topic) save(path string) ! {
 
 	// Now list the defined posts
 	for _, p in t.posts {
-		file.writeln('post = [id:${p.id}][title:${p.title}][date:${p.date}][dir:.${os.path_separator}${cst.post_dir_prefix}${p.id}]') or {
+		file.writeln('post = [id:${p.id}][title:${p.title}][date:${p.date}][dir:.${os.path_separator}${cst.push_dir_prefix}${p.id}]') or {
 			return error('Unable to write ${t.directory}${os.path_separator}${cst.topic_file}: ${err}, ${@FILE_LINE}')
 		}
 	}
@@ -126,8 +126,8 @@ pub fn (t Topic) get_next_post_id() u64 {
 // variable is met or a special tag is found, it inserts there, HTML code of links.
 fn (t Topic) generate_posts_list_html() ! {
 	// Open post template file.
-	mut t_lines := os.read_lines(cst.posts_list_template_file) or {
-		return error('Error opening ${cst.posts_list_template_file} : ${err}, ${@FILE_LINE}\n [Tip: are you in the Topic\'s directory ?]')
+	mut t_lines := os.read_lines(cst.pushs_list_template_file) or {
+		return error('Failed opening ${cst.pushs_list_template_file} : ${err}, ${@FILE_LINE}\n [Tip: are you in the Topic\'s directory ?]')
 	}
 
 	// Now extract [LinkModel]...[EndModel] section
@@ -145,11 +145,11 @@ fn (t Topic) generate_posts_list_html() ! {
 	}
 
 	if lmt == -1 || em == -1 {
-		return error('${cst.link_model_tag} or ${cst.end_model} tags not found in ${cst.posts_list_template_file} template file. ${@FILE_LINE}')
+		return error('${cst.link_model_tag} or ${cst.end_model} tags not found in ${cst.pushs_list_template_file} template file. ${@FILE_LINE}')
 	}
 
 	if lmt >= em {
-		return error('${cst.link_model_tag} or ${cst.end_model} order not respected in ${cst.posts_list_template_file} template file. ${@FILE_LINE}')
+		return error('${cst.link_model_tag} or ${cst.end_model} order not respected in ${cst.pushs_list_template_file} template file. ${@FILE_LINE}')
 	}
 
 	// Copy Link model for later use. +1 to skip [LinkModel] tag
@@ -160,8 +160,8 @@ fn (t Topic) generate_posts_list_html() ! {
 	t_lines.insert(lmt, cst.list_links_tag)
 
 	// Now create/overwrite output file
-	mut index := os.open_file('${cst.posts_list_filename}', 'w+', os.s_iwusr | os.s_irusr) or {
-		return error('Error opening ${cst.posts_list_filename} : ${err}, ${@FILE_LINE}\n [Tip: are you in the topics\'s directory ?]')
+	mut index := os.open_file('${cst.pushs_list_filename}', 'w+', os.s_iwusr | os.s_irusr) or {
+		return error('Error opening ${cst.pushs_list_filename} : ${err}, ${@FILE_LINE}\n [Tip: are you in the topics\'s directory ?]')
 	}
 
 	defer {
@@ -176,8 +176,8 @@ fn (t Topic) generate_posts_list_html() ! {
 		if s.contains(cst.list_links_tag) {
 			// Emit all links
 			for post in t.posts {
-				dir := cst.post_dir_prefix + post.id.str()
-				dyn.add('@url', '${dir}${os.path_separator}${cst.post_filename}')
+				dir := cst.push_dir_prefix + post.id.str()
+				dyn.add('@url', '${dir}${os.path_separator}${cst.push_filename}')
 				dyn.add('@title', post.title)
 				dyn.add('@date', util.to_blog_date(post.date))
 
@@ -185,12 +185,12 @@ fn (t Topic) generate_posts_list_html() ! {
 				for model_lines in link_model {
 					f := dyn.substitute(model_lines)!
 					index.writeln(f) or {
-						return error('Unable to write ${cst.posts_list_filename}: ${err}, ${@FILE_LINE}')
+						return error('Unable to write ${cst.pushs_list_filename}: ${err}, ${@FILE_LINE}')
 					}
 				}
 			}
 		} else {
-			index.writeln(s) or { return error('Unable to write ${cst.posts_list_filename}: ${err}, ${@FILE_LINE}') }
+			index.writeln(s) or { return error('Unable to write ${cst.pushs_list_filename}: ${err}, ${@FILE_LINE}') }
 		}
 	}
 }
