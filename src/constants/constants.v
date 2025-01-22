@@ -12,7 +12,8 @@ pub const list_links_tag = '[LIST_LINKS]'
 pub const topics_list_filename = 'index.htm'
 pub const post_filename = 'index.htm'
 pub const posts_list_filename = 'index.htm'
-
+pub const post_template_file = 'post.template'
+pub const post_style_template_file = 'post_style.template'
 pub const blog_date_format = 'DD/MM/YYYY kk:mm'
 pub const img_src_env = 'VSSG_IMG_POST_DIR' // Env var pointing to images used in posts.
 pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.

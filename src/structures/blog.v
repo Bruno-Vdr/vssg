@@ -143,7 +143,7 @@ fn parse_blog(lines []string) !Blog {
  * This method generates topics's index page. It reads a fixed template, and ouput it as it it. When/If the
  * special tag is found, it inserts there, HTML code of links.
  */
-fn (b &Blog) generate_topics_list_html() ! {
+pub fn (b &Blog) generate_topics_list_html() ! {
 	// Open and load all post template file.
 	mut t_lines := os.read_lines(cst.topics_list_template_file) or {
 		return error('Error opening ${cst.topics_list_template_file} : ${err}\n [Tip: are you in the blog\'s root directory ?]')
