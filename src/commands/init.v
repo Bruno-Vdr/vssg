@@ -6,6 +6,7 @@ import constants as cst
 import structures
 import util
 
+// Init structure, implementing Command interface.
 struct Init implements Command {
 	name    string
 	desc    string
@@ -40,7 +41,7 @@ The init command initializes a new blog:
 '
 }
 
-// init command feature are implemented here.
+// init command feature are implemented here. The parameters number has been checked before call.
 fn init(p []string) ! {
 	path := p[0]
 	println('Initialising blog ' + term.blue('${path}'))

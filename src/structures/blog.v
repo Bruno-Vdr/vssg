@@ -4,7 +4,6 @@ import io
 import os
 import time
 import term
-import hash.fnv1a
 import constants as cst
 import util
 
@@ -13,8 +12,9 @@ import util
  * with title (shown) and creation date (time since epoq).
  */
 pub struct Blog {
+pub:
 	name string
-mut:
+pub mut:
 	topics []string
 	date   []i64
 }
@@ -24,13 +24,8 @@ pub fn Blog.new(name string) Blog {
 	return Blog{name, []string{}, []i64{}}
 }
 
-// Static method that obfuscate a topic name
-pub fn Blog.obfuscate(title string) string {
-	return fnv1a.sum64_string(title).hex()
-}
-
 // Static method, loading blog file from current directory.
-fn Blog.load() !Blog {
+pub fn Blog.load() !Blog {
 	mut ret := []string{} // []string is array type, []string{} declares an empty array.
 	mut file := os.open(cst.blog_file) or {
 		return error('opening file : ${err}\n[Hint: are you in the blog\'s root directory ?] ${@FILE_LINE}')
@@ -97,7 +92,7 @@ fn emit_header(mut file os.File, b &Blog) ! {
 fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
 	for i, t in b.topics {
-		file.writeln('topic="${t}" [${b.date[i]}] # In directory ./${b.name}/' + Blog.obfuscate(t)) or {
+		file.writeln('topic="${t}" [${b.date[i]}] # In directory ./${b.name}/' + util.obfuscate(t)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}')
 		}
 	}
@@ -200,7 +195,7 @@ fn (b &Blog) generate_topics_list_html() ! {
 		if s.contains(cst.list_links_tag) {
 			// Emit all links
 			for i, topic in b.topics {
-				dir := Blog.obfuscate(topic)
+				dir := util.obfuscate(topic)
 				dyn.add('@url', '${dir}${os.path_separator}${cst.posts_list_filename}')
 				dyn.add('@title', b.topics[i])
 				dyn.add('@date', util.to_blog_date(b.date[i]))

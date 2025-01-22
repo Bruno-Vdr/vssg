@@ -4,6 +4,7 @@ import os
 import time
 import constants as cst
 import term
+import hash.fnv1a
 
 pub fn parse_topic_values(label string, s string) ?(string, i64) {
 	if s.starts_with(label) {
@@ -21,6 +22,20 @@ pub fn parse_name_value(label string, s string) ?string {
 		return if value.len == 0 { none } else { value }
 	}
 
+	return none
+}
+
+pub fn parse_post_values(label string, s string) ?(u64, string, i64, string) {
+	if s.starts_with(label) {
+		id := s.find_between('[id:', ']').u64()
+		title := s.find_between('[title:', ']')
+		date := s.find_between('[date:', ']')
+		return if title.len == 0 {
+			none
+		} else {
+				return id, title, date.i64(), '.${os.path_separator}${cst.post_dir_prefix}${id}'
+		}
+	}
 	return none
 }
 
@@ -51,4 +66,9 @@ pub fn get_remote_url() ?string {
 
 pub fn get_blog_root() ?string {
 	return os.getenv_opt(cst.blog_root)
+}
+
+// Static method that obfuscate a topic name
+pub fn obfuscate(title string) string {
+	return fnv1a.sum64_string(title).hex()
 }
