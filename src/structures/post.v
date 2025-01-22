@@ -5,18 +5,20 @@ import os
 import time
 import constants as cst
 
-struct Section {
+pub struct Section {
+pub:
 	name string
 	code []string
 }
 
 pub struct Post {
+pub:
 	title      string    // Post's title
 	poster     string    // Post's Poster (Thumbnail or full image)
 	link_label string    // Link's label toward the post.
 	sections   []Section // Post core
 	date       i64       // Creation date (Seconds since Epoq)
-	mut:
+pub mut:
 	id u64 // Uniq id in topics
 }
 
@@ -81,7 +83,7 @@ fn parse_post(lines []string) !Post {
 	if lines.len > index {
 		title = parse_line(lines[index], '[title:', ']')!
 		if title.len == 0 {
-			return error('Error, post title is empty. [${@FILE_LINE}]')
+			return error('Post title is empty. [${@FILE_LINE}]')
 		}
 		index++
 	}

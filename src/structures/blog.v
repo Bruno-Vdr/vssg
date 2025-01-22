@@ -132,7 +132,9 @@ fn parse_blog(lines []string) !Blog {
 	}
 
 	for i in 1 .. lines.len {
-		t, dte := util.parse_topic_values('topic', lines[i]) or { return error('Empty message. ${@FILE_LINE}') }
+		t, dte := util.parse_topic_values('topic', lines[i]) or {
+			return error('Empty message. ${@FILE_LINE}')
+		}
 		topics << t
 		dates << dte
 	}

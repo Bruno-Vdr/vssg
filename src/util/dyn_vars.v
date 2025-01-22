@@ -44,7 +44,7 @@ pub fn (d DynVars) substitute(src string) !string {
 		// [@ and ] found
 		var := ret.substr(start + 1, stop)
 		if var !in d.var_map {
-			return error('Unknown dynamic variable "${var} in "${src}"')
+			return error('Unknown dynamic variable "${var} in "${src}" . [${@FILE_LINE}]')
 		}
 
 		start = stop
