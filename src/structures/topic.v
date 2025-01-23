@@ -72,7 +72,7 @@ fn parse_topic_file(lines []string) !Topic {
 		return error('Unable to extract "directory" from ${cst.topic_file}. [${@FILE_LINE}]')
 	}
 	for i in 2 .. lines.len {
-		id, t, date, dir := util.parse_post_values('post', lines[i]) or {
+		id, t, date, dir := util.parse_push_values('push', lines[i]) or {
 			return error('unable to parse "${lines[i]}". [${@FILE_LINE}]')
 		}
 
@@ -108,7 +108,7 @@ pub fn (t Topic) save(path string) ! {
 
 	// Now list the defined posts
 	for _, p in t.posts {
-		file.writeln('post = [id:${p.id}][title:${p.title}][date:${p.date}][dir:.${os.path_separator}${cst.push_dir_prefix}${p.id}]') or {
+		file.writeln('push = [id:${p.id}][title:${p.title}][date:${p.date}][dir:.${os.path_separator}${cst.push_dir_prefix}${p.id}]') or {
 			return error('Unable to write ${t.directory}${os.path_separator}${cst.topic_file}: ${err}, ${@FILE_LINE}')
 		}
 	}
