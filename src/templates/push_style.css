@@ -1,8 +1,7 @@
 /**
  *  This file is embedded into the vssg executable, to be used as default
- *  css template for single post html page.
+ *   VSSG push_style.css template, to be customized.
  */
-
 .float{
 	position:fixed;
 	width:50px;

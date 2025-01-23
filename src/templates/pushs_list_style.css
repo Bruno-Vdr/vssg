@@ -1,6 +1,7 @@
 /**
  *  This file is embedded into the vssg executable, to be used as default
- * css template for posts list html page.
+ *  VSSG pushs_list_style.template, to be customized.
+ *  css template for posts list html page.
  */
 
 body {

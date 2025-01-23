@@ -33,7 +33,7 @@ fn Add.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('add')} ${term.blue('topic')}
 
-Warning: This command must be launched from within blog directory.
+Warning: ${term.magenta('This command must be launched from within blog directory')}.
 
 The add command creates a new topic inside the blog:
     -Create a directory based on hashed(${term.blue('topic')}).

@@ -31,14 +31,15 @@ pub fn Push.new() Command {
 // help give a complete description of the command, including parameters.
 fn Push.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('path_to_text_file')}
+Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('push_text_file')}
 
-The push command creates a new push/entry in the current topic directory:
+The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
 	-Create a directory named ${cst.push_dir_prefix}xx
 	-Create a pictures sub-directory named ${cst.push_dir_prefix}xx${os.path_separator}${cst.pushs_pic_dir}
 	-Update/Create the ${cst.topic_file} with new push.
-	-Create ${cst.style_file} in new directory ${cst.push_dir_prefix}xx
-
+	-Create ${cst.style_file} in new directory ${cst.push_dir_prefix}xx for local customization
+	-Generation of HTML push page ${cst.push_filename} based on template {${cst.push_template_file}}
+	-Pictures copy to ${cst.push_dir_prefix}xx/${cst.pushs_pic_dir} based on ${term.blue('push_text_file')}
 '
 }
 
@@ -79,7 +80,7 @@ fn push(p []string) ! {
 	// Save topic file. Post cmd is run from within Topic dir.
 	topics.save('./')!
 
-	// Generate style.css for this post -> cp  push_style.template ./post_1/style.css  For further post customization
+	// Generate style.css for this post -> cp  push_style.css ./post_1/style.css  For further post customization
 	os.cp(cst.push_style_template_file, '${path}${os.path_separator}${cst.style_file}') or {
 		return error('Unable to copy ${cst.push_style_template_file} in ${path}: ${err}. [${@FILE_LINE}]')
 	}
@@ -198,7 +199,7 @@ fn generate_post_html(path string, post &Post) ! {
 
 // search_for_image tries to parse and image tag in the given string. Returns it if any
 // Expected format: [img:IMG_NAME.GFX:"A brilliant optional comment"]
-// Comment less tag: [img:IMG_NAME.GFX]
+// Comment-less tag: [img:IMG_NAME.GFX]
 fn search_for_image(l string) ?(string, string) {
 	// Image is single statement in a line.
 	if !l.starts_with('[img:') || !l.ends_with(']') {
