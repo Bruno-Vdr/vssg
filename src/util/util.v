@@ -6,11 +6,27 @@ import constants as cst
 import term
 import hash.fnv1a
 
-pub fn parse_topic_values(label string, s string) ?(string, i64) {
+// parse_topic_values parses a single line of the following format:
+// A start label, a doubled quoted string and a int between []
+// topic = "topik" [1737634926] # In directory ./glob/520c837d69349ecc
+// Comment, starting at # are ignored.
+pub fn parse_topic_values(label string, line string) ?(string, i64) {
+	if line.len == 0 {
+		return none
+	}
+
+	pos := line.index('#') or {
+		line.len
+	}
+
+	s := line.substr_with_check( 0, pos) or {
+		line
+	}
+
 	if s.starts_with(label) {
 		value := s.find_between('"', '"')
 		dte := s.find_between('[', ']')
-		return if value.len == 0 { none } else { value, dte.i64() }
+		return if value.len == 0 || dte.len == 0{ none } else { value, dte.i64() }
 	}
 
 	return none
