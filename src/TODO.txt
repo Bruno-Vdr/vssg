@@ -1,0 +1,4 @@
+util.functions could be hardened.
+documentation could be extracted from Command.help method.
+Work on push.generate_push_html: split in more func or make util module member.
+

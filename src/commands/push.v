@@ -86,7 +86,7 @@ fn push(p []string) ! {
 	}
 
 	// Build HTML page of links to posts.
-	generate_post_html(path, &post)!
+	generate_push_html(path, &post)!
 
 	println('You can now customize your ' +
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
@@ -96,7 +96,7 @@ fn push(p []string) ! {
 	return topics.generate_posts_list_html()
 }
 
-fn generate_post_html(path string, post &Post) ! {
+fn generate_push_html(path string, post &Post) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
 		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
@@ -110,14 +110,14 @@ fn generate_post_html(path string, post &Post) ! {
 		println('${term.bright_yellow(cst.img_src_env)} set to "${term.bright_blue(img_dir)}"')
 	}
 
-	// Now create post's HTML file
-	mut index := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
+	// Now create push HTML file
+	mut push_htm := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
 		os.s_iwusr | os.s_irusr) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@FILE_LINE}]')
 	}
 
 	defer {
-		index.close()
+		push_htm.close()
 	}
 
 	// Copy poster's post into pictures.
@@ -164,13 +164,13 @@ fn generate_post_html(path string, post &Post) ! {
 					}
 
 					// Emit HTML <img> tag
-					index.writeln('<img src="${img_src_html}">') or {
+					push_htm.writeln('<img src="${img_src_html}">') or {
 						return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 					}
 
 					// Emit comment (if any)
 					if com.len > 0 {
-						index.writeln('<h6>${com}</h6>') or {
+						push_htm.writeln('<h6>${com}</h6>') or {
 							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 						}
 					}
@@ -179,7 +179,7 @@ fn generate_post_html(path string, post &Post) ! {
 					substitute := dyn.substitute(l) or {
 						return error('Failure in push file : ${err}. [${@FILE_LINE}]')
 					}
-					index.writeln(substitute) or {
+					push_htm.writeln(substitute) or {
 						return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 					}
 				}
@@ -190,7 +190,7 @@ fn generate_post_html(path string, post &Post) ! {
 			substitute := dyn.substitute(line) or {
 				return error('Wrong template ${cst.push_template} : ${err}. [${@FILE_LINE}]')
 			}
-			index.writeln(substitute) or {
+			push_htm.writeln(substitute) or {
 				return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 			}
 		}
