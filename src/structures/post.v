@@ -13,7 +13,7 @@ pub:
 
 pub struct Post {
 pub:
-	filename	string   // Source file.
+	filename   string    // Source file.
 	title      string    // Post's title
 	poster     string    // Post's Poster (Thumbnail or full image)
 	link_label string    // Link's label toward the post.

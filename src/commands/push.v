@@ -112,7 +112,8 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 	}
 
 	// Now create push HTML file
-	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',os.s_iwusr | os.s_irusr) or {
+	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
+		os.s_iwusr | os.s_irusr) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@FILE_LINE}]')
 	}
 
@@ -154,7 +155,6 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 			// Emit section core into the file
 			for l in section.code {
 				if im, com := parse_for_image(l) {
-
 					img_src := img_dir + os.path_separator + im
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
 
