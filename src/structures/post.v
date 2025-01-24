@@ -19,7 +19,7 @@ pub:
 	sections   []Section // Post core
 	date       i64       // Creation date (Seconds since Epoq)
 pub mut:
-	id u64 // Uniq id in topics
+	id u64 // Unique id in topics
 }
 
 // load allows to build Post structure from the given file.

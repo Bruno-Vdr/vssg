@@ -86,7 +86,7 @@ fn push(p []string) ! {
 	}
 
 	// Build HTML page of links to posts.
-	generate_push_html(path, &post)!
+	generate_push_html(path, &post, post_file)!
 
 	println('You can now customize your ' +
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
@@ -96,7 +96,8 @@ fn push(p []string) ! {
 	return topics.generate_posts_list_html()
 }
 
-fn generate_push_html(path string, post &Post) ! {
+// generate_push_html generate push HTML code. It also move pictures to push_xx/pictures.
+fn generate_push_html(path string, post &Post, push_filename string) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
 		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
@@ -111,13 +112,13 @@ fn generate_push_html(path string, post &Post) ! {
 	}
 
 	// Now create push HTML file
-	mut push_htm := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
+	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
 		os.s_iwusr | os.s_irusr) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@FILE_LINE}]')
 	}
 
 	defer {
-		push_htm.close()
+		push_file.close()
 	}
 
 	// Copy poster's post into pictures.
@@ -140,12 +141,16 @@ fn generate_push_html(path string, post &Post) ! {
 		m[section.name] = section
 	}
 
-	for line in tmpl_lines {
+	for i,li in tmpl_lines {
+		line := li.trim_space()
+
 		mut section_name := ''
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
 			section := m[section_name] or {
-				return error('Unknown section "${section_name}" in template file "${cst.push_template}". [${@FILE_LINE}]')
+				// return error('Unknown section "${section_name}" in template file "${cst.push_template}". [${@FILE_LINE}]')
+				println(term.red('Warning: Found section "${section_name}" line ${i+1} in template ${cst.push_template_file} this is not filled in ${push_filename}.'))
+				break
 			}
 
 			// Emit section core into the file
@@ -164,13 +169,13 @@ fn generate_push_html(path string, post &Post) ! {
 					}
 
 					// Emit HTML <img> tag
-					push_htm.writeln('<img src="${img_src_html}">') or {
+					push_file.writeln('<img src="${img_src_html}">') or {
 						return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 					}
 
 					// Emit comment (if any)
 					if com.len > 0 {
-						push_htm.writeln('<h6>${com}</h6>') or {
+						push_file.writeln('<h6>${com}</h6>') or {
 							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 						}
 					}
@@ -179,18 +184,17 @@ fn generate_push_html(path string, post &Post) ! {
 					substitute := dyn.substitute(l) or {
 						return error('Failure in push file : ${err}. [${@FILE_LINE}]')
 					}
-					push_htm.writeln(substitute) or {
+					push_file.writeln(substitute) or {
 						return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 					}
 				}
 			}
 		} else {
-			// check_image(line)
 			// Not a special section, emit line as is after substituting dynamic vars (if any).
 			substitute := dyn.substitute(line) or {
 				return error('Wrong template ${cst.push_template} : ${err}. [${@FILE_LINE}]')
 			}
-			push_htm.writeln(substitute) or {
+			push_file.writeln(substitute) or {
 				return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 			}
 		}
