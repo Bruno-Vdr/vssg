@@ -103,15 +103,12 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
 	}
 
-	// Check if environment variable provides image sources. If not, post must provide abs name for images.
-	img_dir := util.get_img_post_dir() or { '' }
-	if img_dir.len == 0 {
-		println('${term.bright_yellow(cst.img_src_env)} ${term.red('is not set !')}')
+	img_dir := util.get_img_post_dir() or {
+		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
 	}
 
 	// Now create push HTML file
-	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
-		os.s_iwusr | os.s_irusr) or {
+	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',os.s_iwusr | os.s_irusr) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@FILE_LINE}]')
 	}
 
@@ -152,7 +149,7 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 
 			// Emit section core into the file
 			for l in section.code {
-				if im, com := search_for_image(l) {
+				if im, com := parse_for_image(l) {
 					// We parsed an image tag. Emit it !
 					img_src := img_dir + os.path_separator + im
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
@@ -192,10 +189,10 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 	}
 }
 
-// search_for_image tries to parse and image tag in the given string. Returns it if any
+// parse_for_image tries to parse and image tag in the given string. Returns it if any
 // Expected format: [img:IMG_NAME.GFX:"A brilliant optional comment"]
 // Comment-less tag: [img:IMG_NAME.GFX]
-fn search_for_image(l string) ?(string, string) {
+fn parse_for_image(l string) ?(string, string) {
 	// Image is single statement in a line.
 	if !l.starts_with('[img:') || !l.ends_with(']') {
 		return none
@@ -213,11 +210,16 @@ fn search_for_image(l string) ?(string, string) {
 	return l.find_between('[img:', ']'), ''
 }
 
+// copy_push_picture performs copy of picture from 'lab' to push/picture directory.
+// Not finding an image is not a major error that stops the push. It emit a message on
+// error stream.
+// Returns a boolean with respect to success.
 pub fn copy_push_picture(src string, dst string) bool {
 	os.cp(src, dst) or {
 		// Just signal copy error, do not interrupt HTML generation.
 		eprintln(term.bright_red('Unable to copy image ${src} : ${err}. [${@FILE_LINE}]'))
 		eprintln('[Hint: did you set your environment variable ${term.bright_yellow(cst.img_src_env)} ?]')
+		eprintln('[Hint: run ${term.green('vssg ')} ${term.bright_yellow('env')} to display environment variables.]')
 		return false
 	}
 	return true
