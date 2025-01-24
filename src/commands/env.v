@@ -4,7 +4,7 @@ import term
 import util
 import constants as cst
 
-// Init structure, implementing Command interface.
+// Env structure, implementing Command interface.
 struct Env implements Command {
 	name    string
 	desc    string
@@ -14,11 +14,11 @@ struct Env implements Command {
 	exec    fn (s []string) ! @[required]
 }
 
-// new builds a Init Command.
+// new builds a Env Command.
 pub fn Env.new() Command {
-	return Init{
+	return Env{
 		name:    'env'
-		desc:    'Display environment variables used by vssg.'
+		desc:    'Displays environment variables used by vssg.'
 		help:    Env.help()
 		arg_min: 0
 		arg_max: 0
@@ -39,7 +39,7 @@ The env command displays the environment variables used by vssg:
 '
 }
 
-// init command feature are implemented here. The parameters number has been checked before call.
+// env command feature are implemented here. The parameters number has been checked before call.
 fn env(p []string) ! {
 	println("vssg's environement variables:\n")
 	print(term.bright_yellow(cst.img_src_env) + '=')

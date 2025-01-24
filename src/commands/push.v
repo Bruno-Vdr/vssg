@@ -20,7 +20,7 @@ struct Push implements Command {
 pub fn Push.new() Command {
 	return Push{
 		name:    'push'
-		desc:    'Push a new article into topic (run from inside the topic directory).'
+		desc:    'Pushes a new article into topic (run from inside the topic directory).'
 		help:    Push.help()
 		arg_min: 1
 		arg_max: 1

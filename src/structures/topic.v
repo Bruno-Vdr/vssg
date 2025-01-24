@@ -17,8 +17,8 @@ pub:
 }
 
 pub struct Topic {
-	title string // Topic title
 pub:
+	title     string // Topic title
 	directory string // Dir. containing posts.
 pub mut:
 	posts []PostSummary
