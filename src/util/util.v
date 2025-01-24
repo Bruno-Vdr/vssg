@@ -46,18 +46,21 @@ pub fn parse_name_value(label string, s string) ?string {
 // The function returns an Option rather than a Result.
 pub fn parse_push_values(label string, s string) ?(u64, string, i64, string) {
 	if s.starts_with(label) {
-
 		id_str := s.find_between('[id:', ']')
-		id := strconv.parse_uint(id_str, 10, 64) or {return none}
+		id := strconv.parse_uint(id_str, 10, 64) or { return none }
 
 		title := s.find_between('[title:', ']')
-		if title.len==0 {return none}
+		if title.len == 0 {
+			return none
+		}
 
 		date_str := s.find_between('[date:', ']')
-		date := strconv.parse_int(date_str, 10, 64) or {return none}
+		date := strconv.parse_int(date_str, 10, 64) or { return none }
 
 		dir := s.find_between('[dir:', ']')
-		if dir.len==0 {return none}
+		if dir.len == 0 {
+			return none
+		}
 
 		return if title.len == 0 {
 			none

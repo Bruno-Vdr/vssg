@@ -107,8 +107,6 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 	img_dir := util.get_img_post_dir() or { '' }
 	if img_dir.len == 0 {
 		println('${term.bright_yellow(cst.img_src_env)} ${term.red('is not set !')}')
-	} else {
-		println('${term.bright_yellow(cst.img_src_env)} set to "${term.bright_blue(img_dir)}"')
 	}
 
 	// Now create push HTML file
@@ -141,15 +139,14 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 		m[section.name] = section
 	}
 
-	for i,li in tmpl_lines {
+	for i, li in tmpl_lines {
 		line := li.trim_space()
 
 		mut section_name := ''
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
 			section := m[section_name] or {
-				// return error('Unknown section "${section_name}" in template file "${cst.push_template}". [${@FILE_LINE}]')
-				println(term.red('Warning: Found section "${section_name}" line ${i+1} in template ${cst.push_template_file} this is not filled in ${push_filename}.'))
+				println(term.red('Warning: Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} this is not filled in ${push_filename}. [${@FILE_LINE}]'))
 				break
 			}
 
@@ -159,24 +156,18 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 					// We parsed an image tag. Emit it !
 					img_src := img_dir + os.path_separator + im
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
-					img_src_html := cst.pushs_pic_dir + os.path_separator + im
 
-					// Copy image source to post's pictures destination.
-					os.cp(img_src, img_dst) or {
-						// Just signal copy error, do not interrupt HTML generation.
-						eprintln(term.bright_red('Unable to copy image ${img_src} : ${err}. [${@FILE_LINE}]'))
-						eprintln('[Hint: did you set your environment variable ${term.bright_yellow(cst.img_src_env)} ?]')
-					}
-
-					// Emit HTML <img> tag
-					push_file.writeln('<img src="${img_src_html}">') or {
-						return error('Failed writing file. ${err}. [${@FILE_LINE}]')
-					}
-
-					// Emit comment (if any)
-					if com.len > 0 {
-						push_file.writeln('<h6>${com}</h6>') or {
+					if copy_push_picture(img_src, img_dst) {
+						// Emit HTML <img> tag
+						push_file.writeln('<img src="${cst.pushs_pic_dir + os.path_separator + im}">') or {
 							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
+						}
+
+						// Emit comment (if any)
+						if com.len > 0 {
+							push_file.writeln('<h6>${com}</h6>') or {
+								return error('Failed writing file. ${err}. [${@FILE_LINE}]')
+							}
 						}
 					}
 				} else {
@@ -220,4 +211,14 @@ fn search_for_image(l string) ?(string, string) {
 	}
 
 	return l.find_between('[img:', ']'), ''
+}
+
+pub fn copy_push_picture(src string, dst string) bool {
+	os.cp(src, dst) or {
+		// Just signal copy error, do not interrupt HTML generation.
+		eprintln(term.bright_red('Unable to copy image ${src} : ${err}. [${@FILE_LINE}]'))
+		eprintln('[Hint: did you set your environment variable ${term.bright_yellow(cst.img_src_env)} ?]')
+		return false
+	}
+	return true
 }
