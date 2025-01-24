@@ -23,5 +23,9 @@ pub fn Command.get() map[string]Command {
 
 	p := Push.new()
 	c[p.name] = p
+
+	e := Env.new()
+	c[e.name] = e
+
 	return c
 }
