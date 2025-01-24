@@ -13,11 +13,12 @@ pub:
 
 pub struct Post {
 pub:
+	filename	string   // Source file.
 	title      string    // Post's title
 	poster     string    // Post's Poster (Thumbnail or full image)
 	link_label string    // Link's label toward the post.
 	sections   []Section // Post core
-	date       i64       // Creation date (Seconds since Epoq)
+	date       i64       // Creation date (Seconds since Epoque)
 pub mut:
 	id u64 // Unique id in topics
 }
@@ -26,7 +27,7 @@ pub mut:
 // The given file must follow the expected format.
 pub fn Post.load(filename string) !Post {
 	lines := load_all(filename)!
-	return parse_post(lines)!
+	return parse_post(lines, filename)!
 }
 
 // Fix unique id (in this topic) of the post.
@@ -71,7 +72,7 @@ fn load_all(filename string) ![]string {
 // start of post tag.
 // [section:...]
 // ...
-fn parse_post(lines []string) !Post {
+fn parse_post(lines []string, source_file string) !Post {
 	mut index := 0
 	mut title := ''
 	mut poster := ''
@@ -150,6 +151,7 @@ fn parse_post(lines []string) !Post {
 	// println('Parsed post, find ${sections.len} sections:\n ${sections}')
 
 	return Post{
+		filename:   source_file
 		title:      title
 		poster:     poster
 		link_label: link_label

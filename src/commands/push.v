@@ -52,6 +52,11 @@ fn push(p []string) ! {
 		return error('Failed loading "${post_file}" : The file does not exist. ${@FILE_LINE}.')
 	}
 
+	// Environment var for Image dir is mandatory.
+	img_dir := util.get_img_post_dir() or {
+		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
+	}
+
 	mut post := Post.load(post_file)!
 	mut topics := Topic.load()!
 	id := topics.get_next_post_id()
@@ -86,7 +91,7 @@ fn push(p []string) ! {
 	}
 
 	// Build HTML page of links to posts.
-	generate_push_html(path, &post, post_file)!
+	generate_push_html(path, &post, img_dir)!
 
 	println('You can now customize your ' +
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
@@ -97,14 +102,13 @@ fn push(p []string) ! {
 }
 
 // generate_push_html generate push HTML code. It also move pictures to push_xx/pictures.
-fn generate_push_html(path string, post &Post, push_filename string) ! {
+// path: relative path of current push. File will be generated inside.
+// post:
+// img_dir: core of env. variable from where pictures are taken.
+fn generate_push_html(path string, post &Post, img_dir string) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
 		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
-	}
-
-	img_dir := util.get_img_post_dir() or {
-		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
 	}
 
 	// Now create push HTML file
@@ -143,14 +147,14 @@ fn generate_push_html(path string, post &Post, push_filename string) ! {
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
 			section := m[section_name] or {
-				println(term.red('Warning: Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} this is not filled in ${push_filename}. [${@FILE_LINE}]'))
+				println('${term.red('Warning:')} Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
 				break
 			}
 
 			// Emit section core into the file
 			for l in section.code {
 				if im, com := parse_for_image(l) {
-					// We parsed an image tag. Emit it !
+
 					img_src := img_dir + os.path_separator + im
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
 
@@ -204,6 +208,7 @@ fn parse_for_image(l string) ?(string, string) {
 	if c_sta != -1 && c_sto != -1 && c_sta < c_sto {
 		com := l.find_between(':"', '"]')
 		im := l.find_between('[img:', ':"')
+
 		return im, com
 	}
 
