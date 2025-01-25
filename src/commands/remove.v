@@ -2,8 +2,10 @@ module commands
 
 import term
 import util
-	import structures {Topic}
+import structures { Topic }
 import constants as cst
+import strconv
+import os
 
 // Remove structure, implementing Command interface.
 struct Remove implements Command {
@@ -39,13 +41,36 @@ The remove command deletes a push from a topic:
 	-Regenerates ${cst.pushs_list_filename} with links to push.
 	-Print out command to delete remaining directories.
 
-Note: the remove commands only remove push from ${cst.topic_file}. Directory ${cst.push_dir_prefix}xx is
-      not delete neither its contained files, subdirectory and images.
+Note: the remove commands only remove push from ${cst.topic_file}. Directory ${cst.push_dir_prefix} is
+      not delete neither its contained files, subdirectory and images, its suffixed with ${cst.push_dir_removed_suffix}.
 '
 }
 
 // remove command feature are implemented here. The parameters number has been checked before call.
-fn remove(p []string) ! {
+fn remove(param []string) ! {
+	id := strconv.parse_uint(param[0], 10, 64) or {
+		return error('Cannot convert "${param[0]}" to unsigned ID.')
+	} // int
+
 	// Load .topic
 	mut topics := Topic.load()!
+	if v := topics.posts[id] {
+		println('Deleting push ${id} "${v.title}."')
+		dir := v.dir
+		topics.posts.delete(id)
+		topics.save('./')!
+
+		// Move push directory to __directory
+		os.mv(dir, '${dir}${cst.push_dir_removed_suffix}') or {
+			return error('Unable to mv ${dir} to ${dir}${cst.push_dir_removed_suffix} !')
+		}
+		println('renaming push directory ${term.blue('${dir}')} to ${term.blue('${dir}${cst.push_dir_removed_suffix}')}')
+		println('You can remove all attached push data by doing "rm -rf ${dir}${cst.push_dir_removed_suffix}"}')
+
+		// Rebuilt HTML topic list
+		topics.generate_pushes_list_html()!
+		println('Re-generated pushes links in (${cst.pushs_list_filename}).')
+	} else {
+		return error('Push with id=${id} was not found. Entry NOT deleted.')
+	}
 }

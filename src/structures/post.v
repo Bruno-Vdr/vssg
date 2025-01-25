@@ -13,12 +13,12 @@ pub:
 
 pub struct Post {
 pub:
-	filename   string    // Source file.
-	title      string    // Post's title
-	poster     string    // Post's Poster (Thumbnail or full image)
-	link_label string    // Link's label toward the post.
-	sections   []Section // Post core
-	date       i64       // Creation date (Seconds since Epoque)
+	filename   string             // Source file.
+	title      string             // Post's title
+	poster     string             // Post's Poster (Thumbnail or full image)
+	link_label string             // Link's label toward the post.
+	sections   map[string]Section // Post core
+	date       i64                // Creation date (Seconds since Epoque)
 pub mut:
 	id u64 // Unique id in topics
 }
@@ -78,7 +78,7 @@ fn parse_post(lines []string, source_file string) !Post {
 	mut poster := ''
 	mut link_label := ''
 	mut unix_date := i64(0)
-	mut sections := []Section{}
+	mut sections := map[string]Section{}
 
 	// Parse first line: [title: Here is my Title !]
 	if lines.len > index {
@@ -139,10 +139,12 @@ fn parse_post(lines []string, source_file string) !Post {
 			code << lines[index]
 			index++
 		}
+
 		// All lines are parsed
-		sections << Section{
-			name: name
-			code: code
+		if name !in sections {
+			sections[name] = Section{name, code}
+		} else {
+			return error('duplicate section "${name}". Sections must be unique in push file.')
 		}
 
 		index++

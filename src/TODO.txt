@@ -1,14 +1,7 @@
-util.functions could be hardened.
-documentation could be extracted from Command.help method.
-Rename VSSG_IMG_POST_DIR to VSSG_IMG_PUSH_DIR or whatever.
-
-Replace :
-Post
-  	sections   []Section // Post core
-By section map[string]Section
-This would avoid doing it in Push generate_push_html (l 141)
-
-Harden topic generate_pushes_list_html
-
-Factorize : pub fn (t Topic) generate_pushes_list_html() !
+-util.functions could be hardened.
+-documentation could be extracted from Command.help method.
+-Rename VSSG_IMG_POST_DIR to VSSG_IMG_PUSH_DIR or whatever.
+-Implement DICE coefficient command suggestion.
+-Harden topic generate_pushes_list_html
+-Factorize : pub fn (t Topic) generate_pushes_list_html() !
             pub fn (b &Blog) generate_topics_list_html() !

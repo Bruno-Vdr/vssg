@@ -64,7 +64,7 @@ fn show(param []string) ! {
 	if topic := Topic.load() {
 		println('Topic "' + term.blue('${topic.title}') +
 			'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
-		for _,p in topic.posts {
+		for _, p in topic.posts {
 			println('    Push id: ${p.id} ${term.bright_yellow('"' + p.title + '"')} [${util.to_blog_date(p.date)}] ${term.bright_blue(p.dir)}')
 		}
 		return

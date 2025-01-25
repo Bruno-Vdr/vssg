@@ -4,7 +4,7 @@ import util
 import term
 import os
 import constants as cst
-import structures { Post, PostSummary, Section, Topic }
+import structures { Post, PostSummary, Topic }
 
 // Init structure, implementing Command interface.
 struct Push implements Command {
@@ -137,19 +137,13 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 	dyn.add('@poster', cst.pushs_pic_dir + os.path_separator + post.poster)
 	dyn.add('@date', util.to_blog_date(post.date))
 
-	// Build map to easily retrieve section by name
-	mut m := map[string]Section{}
-	for section in post.sections {
-		m[section.name] = section
-	}
-
 	for i, li in tmpl_lines {
 		line := li.trim_space()
 
 		mut section_name := ''
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
-			section := m[section_name] or {
+			section := post.sections[section_name] or {
 				println('${term.red('Warning:')} Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
 				break
 			}

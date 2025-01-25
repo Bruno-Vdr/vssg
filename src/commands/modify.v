@@ -50,8 +50,10 @@ Modify is used to modify text, date, title or images of an already existing push
 // param[0] =  ID as ASCII string
 // param[1] = push file
 fn modify(param []string) ! {
-	sid := strconv.atoi(param[0]) or { return error('Cannot convert "${param[0]}" to ID.') }
-	id := u64(sid)
+	id := strconv.parse_uint(param[0], 10, 64) or {
+		return error('Cannot convert "${param[0]}" to unsigned ID.')
+	} // int
+
 	post_filename := param[1]
 
 	// Check post_filename, existing, loadable
@@ -62,7 +64,6 @@ fn modify(param []string) ! {
 
 	// Verify in map that post exists in post list of topic by ID
 	if p := topics.posts[id] {
-
 		lnk := if post.link_label.len == 0 {
 			post.title
 		} else {
@@ -83,7 +84,7 @@ fn modify(param []string) ! {
 
 		topics.save('./')!
 
-		// Build HTML
+		// Build HTML topic list
 		topics.generate_pushes_list_html()!
 		println('Re-generated pushes links (${cst.pushs_list_filename}).')
 

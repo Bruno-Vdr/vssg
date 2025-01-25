@@ -121,7 +121,7 @@ pub fn (t Topic) get_next_post_id() u64 {
 	}
 
 	mut next_id := u64(0)
-	for _,v in t.posts {
+	for _, v in t.posts {
 		if v.id > next_id {
 			next_id = v.id
 		}
