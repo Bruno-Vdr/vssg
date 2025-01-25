@@ -21,14 +21,14 @@ pub:
 	title     string // Topic title
 	directory string // Dir. containing posts.
 pub mut:
-	posts []PostSummary
+	posts map[u64]PostSummary
 }
 
 /**
  * Create a new empty topic, with no posts.
  */
 pub fn Topic.new(title string) Topic {
-	return Topic{title, util.obfuscate(title), []PostSummary{}}
+	return Topic{title, util.obfuscate(title), map[u64]PostSummary{}}
 }
 
 /**
@@ -59,7 +59,7 @@ pub fn Topic.load() !Topic {
 }
 
 fn parse_topic_file(lines []string) !Topic {
-	mut posts := []PostSummary{}
+	mut posts := map[u64]PostSummary{}
 	if lines.len == 0 {
 		return error('${cst.topic_file} is empty. [${@FILE_LINE}]')
 	}
@@ -77,7 +77,7 @@ fn parse_topic_file(lines []string) !Topic {
 		}
 
 		p := PostSummary{id, t, date, dir}
-		posts << p
+		posts[p.id] = p
 	}
 
 	return Topic{title, directory, posts}
@@ -121,9 +121,9 @@ pub fn (t Topic) get_next_post_id() u64 {
 	}
 
 	mut next_id := u64(0)
-	for p in t.posts {
-		if p.id > next_id {
-			next_id = p.id
+	for _,v in t.posts {
+		if v.id > next_id {
+			next_id = v.id
 		}
 	}
 	return next_id + 1
@@ -182,7 +182,7 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 
 		if s.contains(cst.list_links_tag) {
 			// Emit all links
-			for post in t.posts {
+			for _, post in t.posts {
 				dir := cst.push_dir_prefix + post.id.str()
 				dyn.add('@url', '${dir}${os.path_separator}${cst.push_filename}')
 				dyn.add('@title', post.title)

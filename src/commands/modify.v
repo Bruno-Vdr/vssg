@@ -6,6 +6,7 @@ import structures { Post, PostSummary, Topic }
 import util
 import constants as cst
 import os
+import toml
 
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
@@ -49,7 +50,8 @@ Modify is used to modify text, date, title or images of an already existing push
 // param[0] =  ID as ASCII string
 // param[1] = push file
 fn modify(param []string) ! {
-	id := strconv.atoi(param[0]) or { return error('Cannot convert "${param[0]}" to ID.') }
+	sid := strconv.atoi(param[0]) or { return error('Cannot convert "${param[0]}" to ID.') }
+	id := u64(sid)
 	post_filename := param[1]
 
 	// Check post_filename, existing, loadable
@@ -58,13 +60,9 @@ fn modify(param []string) ! {
 	// Load .topic
 	mut topics := Topic.load()!
 
-	// Verify that post exists in post list of topic by ID
-	for mut p in topics.posts {
-		if p.id != u64(id) {
-			continue
-		}
+	// Verify in map that post exists in post list of topic by ID
+	if p := topics.posts[id] {
 
-		// Topic has been found.
 		lnk := if post.link_label.len == 0 {
 			post.title
 		} else {
@@ -81,7 +79,7 @@ fn modify(param []string) ! {
 		post.set_id(p.id)
 
 		// Replace new PostSummary by updated one.
-		p = ps
+		topics.posts[ps.id] = ps
 
 		topics.save('./')!
 
@@ -99,5 +97,6 @@ fn modify(param []string) ! {
 		return
 	}
 
+	// Topic has not been found.
 	return error('push with id ${id} not found.')
 }

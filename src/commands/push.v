@@ -82,7 +82,7 @@ fn push(p []string) ! {
 
 	// Add post to our structure.
 	ps := PostSummary{post.id, post.link_label, post.date, '.${os.path_separator}${cst.push_dir_prefix}${post.id}'}
-	topics.posts << ps
+	topics.posts[ps.id] = ps
 
 	// Save topic file. Post cmd is run from within Topic dir.
 	topics.save('./')!
