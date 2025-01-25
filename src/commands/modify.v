@@ -37,13 +37,11 @@ Command: ${term.green('vssg')} ${term.yellow('modify')} ${term.magenta('id')} ${
 ${term.red('Warning:')} This command must be launched from within topic directory.
 
 The modify command modifies the push, identified by ${term.magenta('id')} with the given push file.
+To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
 Modify is used to modify text, date, title or images of an already existing push.
-
-To get the ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
     -The .topic file is updated accordingly to ${term.blue('push_text_file')}
     -The push HTML code is rebuilt.
     -The HTML topic page with link to pushes is also rebuilt.
-
 '
 }
 

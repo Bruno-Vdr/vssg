@@ -9,3 +9,6 @@ By section map[string]Section
 This would avoid doing it in Push generate_push_html (l 141)
 
 Harden topic generate_pushes_list_html
+
+Factorize : pub fn (t Topic) generate_pushes_list_html() !
+            pub fn (b &Blog) generate_topics_list_html() !
