@@ -67,7 +67,7 @@ fn load_all(filename string) ![]string {
 // [title: My title]	Cannot be empty
 // [poster: Image.png] Can be empty
 // [link label: The link] Can be empty, filled with title then
-// [date:DD/MM/YYYY kk:mm]
+// [date: DD/MM/YYYY kk:mm]
 // [section:Name]
 // start of post tag.
 // [section:...]

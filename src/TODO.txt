@@ -8,4 +8,4 @@ Post
 By section map[string]Section
 This would avoid doing it in Push generate_push_html (l 141)
 
-Harden Post.Load code.
+Harden topic generate_pushes_list_html

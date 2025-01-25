@@ -33,6 +33,8 @@ fn Push.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('push_text_file')}
 
+${term.red('Warning:')} This command must be launched from within topic directory.
+
 The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
 	-Create a directory named ${cst.push_dir_prefix}xx
 	-Create a pictures sub-directory named ${cst.push_dir_prefix}xx${os.path_separator}${cst.pushs_pic_dir}
@@ -98,7 +100,7 @@ fn push(p []string) ! {
 		term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
 
 	// Now update topics's page containing links to posts.
-	return topics.generate_posts_list_html()
+	return topics.generate_pushes_list_html()
 }
 
 // generate_push_html generate push HTML code. It also move pictures to push_xx/pictures.

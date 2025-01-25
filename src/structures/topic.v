@@ -129,9 +129,9 @@ pub fn (t Topic) get_next_post_id() u64 {
 	return next_id + 1
 }
 
-// This method generates posts index page. It reads a fixed template, and output it unchanged unless a dynamic
+// This method generates pushs index page. It reads a fixed template, and output it unchanged unless a dynamic
 // variable is met or a special tag is found, it inserts there, HTML code of links.
-pub fn (t Topic) generate_posts_list_html() ! {
+pub fn (t Topic) generate_pushes_list_html() ! {
 	// Open post template file.
 	mut t_lines := os.read_lines(cst.pushs_list_template_file) or {
 		return error('Failed opening ${cst.pushs_list_template_file} : ${err}, ${@FILE_LINE}\n [Tip: are you in the Topic\'s directory ?]')

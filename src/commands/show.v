@@ -39,7 +39,6 @@ The show command displays information depending current working directory:
 
     In a topic directory (containing ${cst.topic_file} it displays:
     -push list.
-
 '
 }
 
