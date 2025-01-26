@@ -36,5 +36,8 @@ pub fn Command.get() map[string]Command {
 	r := Remove.new()
 	c[r.name] = r
 
+	u:=Update.new()
+	c[u.name] = u
+
 	return c
 }

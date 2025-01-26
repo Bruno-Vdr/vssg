@@ -108,7 +108,6 @@ pub fn obfuscate(title string) string {
 // extract_link_model receives a full template file that will contain a list of links.
 // e.g. : topic list, or pushes list template. Link models are between twe links tag.
 pub fn extract_link_model(t_lines []string) !([]string, int, int) {
-
 	// Now extract [LinkModel]...[EndModel] section
 	mut lmt := -1
 	mut em := -1
@@ -135,4 +134,30 @@ pub fn extract_link_model(t_lines []string) !([]string, int, int) {
 	link_model := t_lines[lmt + 1..em].clone()
 
 	return link_model, lmt, em
+}
+
+pub enum Location {
+	blog_dir
+	topic_dir
+	outside
+}
+
+pub fn where_am_i() Location {
+	blog := os.exists(cst.blog_file)
+	topic := os.exists(cst.topic_file)
+
+	if (blog || topic) == false {
+		return .outside
+	}
+
+	if (blog && topic) == true {
+		eprintln(term.red('Error: Found both ${cst.blog_file} and ${cst.topic_file} in the same directory. This is completely abnormal situation!'))
+		panic('Exiting program. ${@FILE_LINE}')
+	}
+
+	if blog {
+		return .blog_dir
+	} else {
+		return .topic_dir
+	}
 }
