@@ -44,32 +44,34 @@ The show command displays information depending current working directory:
 
 // show command feature are implemented here. The parameters number has been checked before call.
 fn show(param []string) ! {
-	if blog := Blog.load() {
-		println('Blog "' + term.blue('${blog.name}') + '"\n' +
-			'Contains ${blog.topics.len} ${term.bright_green('topic(s)')}:')
-		for i in 0 .. blog.topics.len {
-			topic, date := blog.get_topic(i) or {
-				return error('Unable to perform blob.get_topic() !')
+	match util.where_am_i() {
+		.blog_dir {
+			blog := Blog.load()!
+			println('Blog "' + term.blue('${blog.name}') + '"\n' +
+				'Contains ${blog.topics.len} ${term.bright_green('topic(s)')}:')
+			for i in 0 .. blog.topics.len {
+				topic, date := blog.get_topic(i) or {
+					return error('Unable to perform blob.get_topic() !')
+				}
+
+				// Date is stored as milliseconds since epoq
+				str_date := util.to_blog_date(date)
+				println('    Topic ${i}: ' + term.bright_yellow('"${topic}"') +
+					' [${str_date}] in sub-dir. -> ' +
+					term.bright_blue('.${os.path_separator}${util.obfuscate(topic)}'))
 			}
-
-			// Date is stored as milliseconds since epoq
-			str_date := util.to_blog_date(date)
-			println('    Topic ${i}: ' + term.bright_yellow('"${topic}"') +
-				' [${str_date}] in sub-dir. -> ' +
-				term.bright_blue('.${os.path_separator}${util.obfuscate(topic)}'))
 		}
-		return
-	}
-
-	if topic := Topic.load() {
-		println('Topic "' + term.blue('${topic.title}') +
-			'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
-		for _, p in topic.posts {
-			println('    Push id: ${p.id} ${term.bright_yellow('"' + p.title + '"')} [${util.to_blog_date(p.date)}] ${term.bright_blue(p.dir)}')
+		.topic_dir {
+			topic := Topic.load()!
+			println('Topic "' + term.blue('${topic.title}') +
+				'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
+			for _, p in topic.posts {
+				println('    Push id: ${p.id} ${term.bright_yellow('"' + p.title + '"')} [${util.to_blog_date(p.date)}] ${term.bright_blue(p.dir)}')
+			}
 		}
-		return
+		.outside {
+			// We didn't  find topic_file or conf_file.
+			println('Not in Blog or Topic directory. Nothing to be shown.')
+		}
 	}
-
-	// We didn't  find topic_file or conf_file.
-	return error('Error, unable to load ${cst.blog_file} or ${cst.topic_file}. Are you in blog or topic directory ?')
 }

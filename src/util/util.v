@@ -142,6 +142,7 @@ pub enum Location {
 	outside
 }
 
+// where_am_i indicates if current working directory is Blog's root, Topic'dir or somewhere else.
 pub fn where_am_i() Location {
 	blog := os.exists(cst.blog_file)
 	topic := os.exists(cst.topic_file)

@@ -2,7 +2,7 @@ module commands
 
 import term
 import util
-	import structures {Blog, Topic}
+import structures { Blog, Topic }
 import constants as cst
 
 // Update structure, implementing Command interface.
@@ -46,13 +46,13 @@ fn update(p []string) ! {
 	r := util.where_am_i()
 	match r {
 		.blog_dir {
-			b :=Blog.load() !
+			b := Blog.load()!
 			println('Blog root, rebuilding topic list file: "${term.blue(cst.topics_list_filename)}".')
 			b.generate_topics_list_html()!
 			println('Rebuilding of topic list was successful.')
 		}
 		.topic_dir {
-			t :=Topic.load() !
+			t := Topic.load()!
 			println('Topic directory, rebuilding push list file: "${term.blue(cst.pushs_list_filename)}".')
 			t.generate_pushes_list_html()!
 			println('Rebuilding of push list was successful.')
