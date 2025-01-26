@@ -104,3 +104,35 @@ pub fn get_blog_root() ?string {
 pub fn obfuscate(title string) string {
 	return fnv1a.sum64_string(title).hex()
 }
+
+// extract_link_model receives a full template file that will contain a list of links.
+// e.g. : topic list, or pushes list template. Link models are between twe links tag.
+pub fn extract_link_model(t_lines []string) !([]string, int, int) {
+
+	// Now extract [LinkModel]...[EndModel] section
+	mut lmt := -1
+	mut em := -1
+
+	// Locate index of model tag start and stop.
+	for i, l in t_lines {
+		if l.contains(cst.link_model_tag) {
+			lmt = i
+		}
+		if l.contains(cst.end_model) {
+			em = i
+		}
+	}
+
+	if lmt == -1 || em == -1 {
+		return error('${cst.link_model_tag} or ${cst.end_model} tags not found in template file. ${@FILE_LINE}')
+	}
+
+	if lmt >= em {
+		return error('${cst.link_model_tag} or ${cst.end_model} order not respected in template file. ${@FILE_LINE}')
+	}
+
+	// Copy Link model for later use. +1 to skip [LinkModel] tag
+	link_model := t_lines[lmt + 1..em].clone()
+
+	return link_model, lmt, em
+}

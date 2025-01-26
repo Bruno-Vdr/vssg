@@ -137,30 +137,8 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 		return error('Failed opening ${cst.pushs_list_template_file} : ${err}, ${@FILE_LINE}\n [Tip: are you in the Topic\'s directory ?]')
 	}
 
-	// Now extract [LinkModel]...[EndModel] section
-	mut lmt := -1
-	mut em := -1
-
-	// Locate index of model tag start and stop.
-	for i, l in t_lines {
-		if l.contains(cst.link_model_tag) {
-			lmt = i
-		}
-		if l.contains(cst.end_model) {
-			em = i
-		}
-	}
-
-	if lmt == -1 || em == -1 {
-		return error('${cst.link_model_tag} or ${cst.end_model} tags not found in ${cst.pushs_list_template_file} template file. ${@FILE_LINE}')
-	}
-
-	if lmt >= em {
-		return error('${cst.link_model_tag} or ${cst.end_model} order not respected in ${cst.pushs_list_template_file} template file. ${@FILE_LINE}')
-	}
-
 	// Copy Link model for later use. +1 to skip [LinkModel] tag
-	link_model := t_lines[lmt + 1..em].clone()
+	link_model, lmt, em := util.extract_link_model(t_lines)!
 
 	// Replace lines from [linkModel] to [EndModel] with Link tag: NOT OPTIMAL, IMPLIES MANY COPY
 	t_lines.delete_many(lmt, em - lmt + 1)
