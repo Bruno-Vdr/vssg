@@ -17,7 +17,7 @@ pub const pushs_list_filename = 'index.htm'
 pub const push_template_file = 'push.tmpl'
 pub const push_style_template_file = 'push_style.tmpl'
 pub const blog_date_format = 'DD/MM/YYYY kk:mm'
-pub const img_src_env = 'VSSG_IMG_POST_DIR' // Env var pointing to images used in push.
+pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
 pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 
