@@ -39,5 +39,8 @@ pub fn Command.get() map[string]Command {
 	u := Update.new()
 	c[u.name] = u
 
+	ren := Rename.new()
+	c[ren.name] = ren
+
 	return c
 }
