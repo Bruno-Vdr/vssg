@@ -51,20 +51,30 @@ fn rename(p []string) ! {
 	}
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}') }
 
-	if title !in blog.topics {
+	mut found := false
+	for item in blog.topics {
+		if item.title == title {
+			found = true
+			break
+		}
+	}
+
+	if found == false {
 		return error('Unable to rename ${title}, it does not exist.')
 	}
 
-	if new_title in blog.topics {
-		return error('Error: Cannot rename ${title} to ${new_title} because ${new_title} already exists.')
+	for item in blog.topics {
+		if item.title == new_title {
+			return error('Error: Cannot rename ${title} to ${new_title} because ${new_title} already exists.')
+		}
 	}
 
 	for mut topic in blog.topics {
-		if title != topic {
+		if title != topic.title {
 			continue
 		}
 
-		topic = new_title
+		topic.title = new_title
 		blog.save() or { return error('Unable to save updated ${cst.blog_file}') }
 
 		// Now rename old old directory to new (obfuscated) directory.

@@ -11,17 +11,36 @@ import util
  * Blog contains arbitrary topic (subject/category/sub-section). This structure store the list of topics,
  * with title (shown) and creation date (time since epoq).
  */
+// pub struct Blog {
+// pub:
+// 	name string
+// pub mut:
+// topics []struct {
+// 		string title
+// 		date i64
+// 	}
+//
+// //	topics []string
+// //	date   []i64
+// }
+
+pub struct TopicItem {
+pub mut:
+	title string
+	date  i64
+}
+
 pub struct Blog {
 pub:
 	name string
 pub mut:
-	topics []string
-	date   []i64
+	topics []TopicItem
 }
 
 // Static method to build empty Blog struct
 pub fn Blog.new(name string) Blog {
-	return Blog{name, []string{}, []i64{}}
+	// return Blog{name, []string{}, []i64{}}
+	return Blog{name, []TopicItem{}}
 }
 
 // Static method, loading blog file from current directory.
@@ -49,14 +68,13 @@ pub fn Blog.load() !Blog {
 	return parse_blog(ret)
 }
 
-pub fn (mut b Blog) add_topic(topic string) {
-	b.topics << topic
-	b.date << time.ticks() / 1000 // Unix epoque in seconds !
+pub fn (mut b Blog) add_topic(name string) {
+	b.topics << TopicItem{name, time.ticks() / 1000}
 }
 
-pub fn (b Blog) get_topic(i int) ?(string, i64) {
+pub fn (b Blog) get_topic(i int) ?TopicItem {
 	if i < b.topics.len {
-		return b.topics[i], b.date[i]
+		return b.topics[i]
 	}
 	return none
 }
@@ -92,7 +110,8 @@ fn emit_header(mut file os.File, b &Blog) ! {
 fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
 	for i, t in b.topics {
-		file.writeln('topic="${t}" [${b.date[i]}] # In directory ./${b.name}/' + util.obfuscate(t)) or {
+		file.writeln('topic="${t.title}" [${t.date}] # In directory ./${b.name}/' +
+			util.obfuscate(b.name)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}. ${@FILE_LINE}')
 		}
 	}
@@ -120,8 +139,7 @@ pub fn (b Blog) create() ! {
 }
 
 fn parse_blog(lines []string) !Blog {
-	mut topics := []string{}
-	mut dates := []i64{}
+	mut topics := []TopicItem{}
 
 	if lines.len < 1 {
 		return error('${cst.blog_file} is empty or incomplete. ${@FILE_LINE}')
@@ -135,10 +153,9 @@ fn parse_blog(lines []string) !Blog {
 		t, dte := util.parse_topic_values('topic', lines[i]) or {
 			return error('Empty message. ${@FILE_LINE}')
 		}
-		topics << t
-		dates << dte
+		topics << TopicItem{t, dte}
 	}
-	return Blog{name, topics, dates}
+	return Blog{name, topics}
 }
 
 /**
@@ -175,10 +192,10 @@ pub fn (b &Blog) generate_topics_list_html() ! {
 		if s.contains(cst.list_links_tag) {
 			// Emit all links
 			for i, topic in b.topics {
-				dir := util.obfuscate(topic)
+				dir := util.obfuscate(topic.title)
 				dyn.add('@url', '${dir}${os.path_separator}${cst.pushs_list_filename}')
-				dyn.add('@title', b.topics[i])
-				dyn.add('@date', util.to_blog_date(b.date[i]))
+				dyn.add('@title', topic.title)
+				dyn.add('@date', util.to_blog_date(topic.date))
 
 				// Emit full link model lines.
 				for model_lines in link_model {

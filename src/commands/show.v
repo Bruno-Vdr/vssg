@@ -50,15 +50,15 @@ fn show(param []string) ! {
 			println('Blog "' + term.blue('${blog.name}') + '"\n' +
 				'Contains ${blog.topics.len} ${term.bright_green('topic(s)')}:')
 			for i in 0 .. blog.topics.len {
-				topic, date := blog.get_topic(i) or {
+				topic_item := blog.get_topic(i) or {
 					return error('Unable to perform blob.get_topic() !')
 				}
 
 				// Date is stored as milliseconds since epoq
-				str_date := util.to_blog_date(date)
-				println('    Topic ${i}: ' + term.bright_yellow('"${topic}"') +
+				str_date := util.to_blog_date(topic_item.date)
+				println('    Topic ${i}: ' + term.bright_yellow('"${topic_item.title}"') +
 					' [${str_date}] in sub-dir. -> ' +
-					term.bright_blue('.${os.path_separator}${util.obfuscate(topic)}'))
+					term.bright_blue('.${os.path_separator}${util.obfuscate(topic_item.title)}'))
 			}
 		}
 		.topic_dir {

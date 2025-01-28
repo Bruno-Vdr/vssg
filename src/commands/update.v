@@ -36,8 +36,8 @@ Command: ${term.green('vssg')} ${term.yellow('update')}
     on the current directory. This command is usefull when modifying local template_list
     model.
 
-    In the blog root directory (containing ${cst.blog_file} it rebuilds topic list.
-    In a topic directory (containing ${cst.topic_file} it rebuilds push list.
+    In the blog root directory (containing ${cst.blog_file}) it rebuilds topic list.
+    In a topic directory (containing ${cst.topic_file}) it rebuilds push list.
 '
 }
 

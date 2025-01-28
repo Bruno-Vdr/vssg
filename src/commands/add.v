@@ -51,8 +51,10 @@ fn add(p []string) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}, ${@FILE_LINE}') }
 
-	if title in blog.topics {
-		return error(' The topic already exists in ${cst.blog_file} file. ${@FILE_LINE}')
+	for item in blog.topics {
+		if item.title == title {
+			return error(' The topic "${title}" already exists in ${cst.blog_file} file. ${@FILE_LINE}')
+		}
 	}
 
 	dir := util.obfuscate(title)

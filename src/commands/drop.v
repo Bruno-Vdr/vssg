@@ -48,11 +48,7 @@ fn drop(p []string) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}') }
 
-	if title !in blog.topics {
-		return error('Unable to drop topic  "${title}", it does not exist in ${cst.blog_file}.')
-	}
-
-
-
-
+	// if title !in blog.topics {
+	// 	return error('Unable to drop topic  "${title}", it does not exist in ${cst.blog_file}.')
+	// }
 }
