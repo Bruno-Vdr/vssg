@@ -21,22 +21,6 @@ fn main() {
 		return
 	}
 
-	if os.args[Param.command] == 'help' {
-		if os.args.len == 3 {
-			cm := cmds[os.args[Param.param1]] or {
-				eprintln('${term.red('Error')}: Unknown command "${os.args[Param.param1]}".')
-				return
-			}
-
-			help(cm) // Show help of the given command
-			return
-		} else {
-			// Wrong parameter number for help command
-			eprintln('${term.red('Error')}: help command expects 1 parameter (${os.args.len - 2} provided).')
-			return
-		}
-	}
-
 	cm := cmds[os.args[1]] or {
 		eprintln('${term.red('Error')}: Unknown command "${os.args[Param.command]}".')
 		return
@@ -64,9 +48,6 @@ fn usage(cmds map[string]Command) {
 	for _, c in cmds {
 		println('    ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}')
 	}
-}
 
-// help output full given command description.
-fn help(cmd Command) {
-	println('${cmd.help}')
+	println('\nRun  "vssg help ${term.yellow('command')}" to get more detailled help on command.')
 }

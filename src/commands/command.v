@@ -6,7 +6,7 @@ pub interface Command {
 	help    string // Detailed and formated description
 	arg_min int    // Minimal argument number expected
 	arg_max int    // Maximal argument number expected
-	exec    fn (s []string) !
+	exec    fn (s []string) ! Command callback.
 }
 
 // get is the main command access. It returns a complete list of all available commands
@@ -41,6 +41,9 @@ pub fn Command.get() map[string]Command {
 
 	ren := Rename.new()
 	c[ren.name] = ren
+
+	h := Help.new()
+	c[h.name] = h
 
 	return c
 }
