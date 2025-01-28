@@ -35,7 +35,7 @@ Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title
 
 ${term.red('Warning:')} This command must be launched from within blog directory.
 
-The drop command deletes a complete topic will all of its pushes, if any.
+The drop command deletes a complete topic with all of its pushes, if any.
 	-It also updates ${cst.blog_file} accordingly.
 	-Rebuilt the HTML links to topic page, "${cst.topics_list_filename}".
 
@@ -50,5 +50,30 @@ fn drop(p []string) ! {
 
 	// if title !in blog.topics {
 	// 	return error('Unable to drop topic  "${title}", it does not exist in ${cst.blog_file}.')
-	// }
+
+	mut index := -1
+	for i,t in blog.topics {
+		if t.title == title {
+			index = i
+			break
+		}
+	}
+
+	if index == -1 {
+		return error('Topic named "${title}" was not found.')
+	} else {
+		blog.topics.delete(index)
+		println('Found Topic named "${title}" at index ${index}')
+		blog.save()!
+
+		dir := util.obfuscate(title)
+		if os.exists(dir) {
+			os.rmdir_all(dir) or {
+				return error('Could not remove directory "${dir}": ${err}')
+			}
+			println('Associated directory "${dir}" was deleted.')
+		} else {
+			println('Associated directory "${dir}" was not found.')
+		}
+	}
 }
