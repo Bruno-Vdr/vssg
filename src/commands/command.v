@@ -45,5 +45,8 @@ pub fn Command.get() map[string]Command {
 	h := Help.new()
 	c[h.name] = h
 
+	d:=Drop.new()
+	c[d.name] = d
+
 	return c
 }
