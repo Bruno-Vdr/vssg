@@ -20,7 +20,7 @@ struct Rename implements Command {
 pub fn Rename.new() Command {
 	return Rename{
 		name:    'rename'
-		desc:    'Rename (change title) of an existing topic.'
+		desc:    'Renames (change title) of an existing topic.'
 		help:    Rename.help()
 		arg_min: 2
 		arg_max: 2

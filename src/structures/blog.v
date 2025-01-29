@@ -109,7 +109,7 @@ fn emit_header(mut file os.File, b &Blog) ! {
 // emit_topics writes topics only into blog_file.
 fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
-	for i, t in b.topics {
+	for t in b.topics {
 		file.writeln('topic="${t.title}" [${t.date}] # In directory ./${b.name}/' +
 			util.obfuscate(b.name)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}. ${@FILE_LINE}')
@@ -191,7 +191,7 @@ pub fn (b &Blog) generate_topics_list_html() ! {
 
 		if s.contains(cst.list_links_tag) {
 			// Emit all links
-			for i, topic in b.topics {
+			for topic in b.topics {
 				dir := util.obfuscate(topic.title)
 				dyn.add('@url', '${dir}${os.path_separator}${cst.pushs_list_filename}')
 				dyn.add('@title', topic.title)

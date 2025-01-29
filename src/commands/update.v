@@ -19,7 +19,7 @@ struct Update implements Command {
 pub fn Update.new() Command {
 	return Update{
 		name:    'update'
-		desc:    'Update HTML link page of Topic or Push.'
+		desc:    'Updates HTML link page of Topic or Push.'
 		help:    Update.help()
 		arg_min: 0
 		arg_max: 0

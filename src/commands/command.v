@@ -6,7 +6,7 @@ pub interface Command {
 	help    string // Detailed and formated description
 	arg_min int    // Minimal argument number expected
 	arg_max int    // Maximal argument number expected
-	exec    fn (s []string) ! // Command callback.
+	exec    fn (s []string) ! //Command callback.
 }
 
 // get is the main command access. It returns a complete list of all available commands

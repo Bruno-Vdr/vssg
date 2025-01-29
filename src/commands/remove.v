@@ -21,7 +21,7 @@ struct Remove implements Command {
 pub fn Remove.new() Command {
 	return Remove{
 		name:    'remove'
-		desc:    'Remove an entry/push from a topic.'
+		desc:    'Removes an entry/push from a topic.'
 		help:    Remove.help()
 		arg_min: 1
 		arg_max: 2
@@ -42,7 +42,7 @@ The remove command deletes a push from a topic:
 	-Print out command to delete remaining directories.
 
 Note: the remove commands only remove push from ${cst.topic_file}. Directory ${cst.push_dir_prefix} is
-      not delete neither its contained files, subdirectory and images, its suffixed with ${cst.push_dir_removed_suffix}
+      not delete neither its contained files, subdirectory and images, its suffixed with ${cst.dir_removed_suffix}
       UNLESS ${term.red('-f')} is passed on the command line.
 '
 }
@@ -75,11 +75,11 @@ fn remove(param []string) ! {
 			println('Removed ${term.blue(dir)} directory.')
 		} else {
 			// Move push directory to __directory
-			os.mv(dir, '${dir}${cst.push_dir_removed_suffix}') or {
-				return error('Unable to mv ${dir} to ${dir}${cst.push_dir_removed_suffix}. ${err}. ${@FILE_LINE}.')
+			os.mv(dir, '${dir}${cst.dir_removed_suffix}') or {
+				return error('Unable to mv ${dir} to ${dir}${cst.dir_removed_suffix}. ${err}. ${@FILE_LINE}.')
 			}
-			println('renaming push directory ${term.blue('${dir}')} to ${term.blue('${dir}${cst.push_dir_removed_suffix}')}')
-			println('You can remove all attached push data by doing "rm -rf ${dir}${cst.push_dir_removed_suffix}"}')
+			println('renaming push directory ${term.blue('${dir}')} to ${term.blue('${dir}${cst.dir_removed_suffix}')}')
+			println('You can remove all attached push data by doing "rm -rf ${dir}${cst.dir_removed_suffix}"}')
 		}
 
 		// Rebuilt HTML topic list

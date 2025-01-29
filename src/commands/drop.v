@@ -20,10 +20,10 @@ struct Drop implements Command {
 pub fn Drop.new() Command {
 	return Drop{
 		name:    'drop'
-		desc:    'Drop a complete topic with its pushes (if any).'
+		desc:    'Drops a complete topic with its pushes (if any).'
 		help:    Drop.help()
 		arg_min: 1
-		arg_max: 1
+		arg_max: 2
 		exec:    drop
 	}
 }
@@ -31,11 +31,14 @@ pub fn Drop.new() Command {
 // drop give a complete description of the command, including parameters.
 fn Drop.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title
+Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title [-f]
 
 ${term.red('Warning:')} This command must be launched from within blog directory.
 
-The drop command deletes a complete topic with all of its pushes, if any.
+The drop command deletes a complete topic with all of its pushes, if any. By default the commands appends the
+${cst.dir_removed_suffix} suffix to the directory. By adding the ${term.red('-f')} the
+directory will be definitely removed.
+
 	-It also updates ${cst.blog_file} accordingly.
 	-Rebuilt the HTML links to topic page, "${cst.topics_list_filename}".
 
@@ -45,14 +48,21 @@ To get a list of topics, run "vssg show" from blog\'s root directory."
 
 // drop command feature are implemented here. The parameters number has been checked before call.
 fn drop(p []string) ! {
+	mut force_delete := false
 	title := p[0]
+
+	if p.len == 2 {
+		if p[1] == '-f' {
+			force_delete = true
+		} else {
+			return error('Unknown parameter "${p[1]}". ${@FILE_LINE}')
+		}
+	}
+
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}') }
 
-	// if title !in blog.topics {
-	// 	return error('Unable to drop topic  "${title}", it does not exist in ${cst.blog_file}.')
-
 	mut index := -1
-	for i,t in blog.topics {
+	for i, t in blog.topics {
 		if t.title == title {
 			index = i
 			break
@@ -63,15 +73,23 @@ fn drop(p []string) ! {
 		return error('Topic named "${title}" was not found.')
 	} else {
 		blog.topics.delete(index)
-		println('Found Topic named "${title}" at index ${index}')
+		println('Found Topic named "${title}".')
 		blog.save()!
 
 		dir := util.obfuscate(title)
 		if os.exists(dir) {
-			os.rmdir_all(dir) or {
-				return error('Could not remove directory "${dir}": ${err}')
+			if force_delete {
+				os.rmdir_all(dir) or { return error('Could not remove directory "${dir}": ${err}') }
+				println('Associated directory "${dir}" was deleted.')
+			} else {
+				os.mv(dir, dir + cst.dir_removed_suffix) or {
+					return error('Could not remove directory "${dir}": ${err}')
+				}
+				println('Associated directory "${dir}" was renamed ${dir}${cst.dir_removed_suffix}.')
 			}
-			println('Associated directory "${dir}" was deleted.')
+
+			// Now Rebuild topic list HTML page
+			blog.generate_topics_list_html()!
 		} else {
 			println('Associated directory "${dir}" was not found.')
 		}

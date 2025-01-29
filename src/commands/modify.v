@@ -22,7 +22,7 @@ struct Modify implements Command {
 pub fn Modify.new() Command {
 	return Modify{
 		name:    'modify'
-		desc:    'Modify an existing push.'
+		desc:    'Modifies an existing push.'
 		help:    Modify.help()
 		arg_min: 2
 		arg_max: 2
