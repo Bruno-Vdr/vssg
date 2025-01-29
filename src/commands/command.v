@@ -48,5 +48,8 @@ pub fn Command.get() map[string]Command {
 	d := Drop.new()
 	c[d.name] = d
 
+	syn := Sync.new()
+	c[syn.name] = syn
+
 	return c
 }

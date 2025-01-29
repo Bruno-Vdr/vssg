@@ -3,6 +3,8 @@ module main
 import term
 import commands { Command }
 import os
+import maps
+import strings
 
 enum Param {
 	exe
@@ -23,6 +25,25 @@ fn main() {
 
 	cm := cmds[os.args[1]] or {
 		eprintln('${term.red('Error')}: Unknown command "${os.args[Param.command]}".')
+
+		mut cmds_names := []string{}
+		for k, _ in cmds {
+			cmds_names << k
+		}
+
+		mut dice := f32(0)
+		mut suggestion := ''
+		for s in cmds_names {
+			d := strings.dice_coefficient(os.args[1], s)
+			if d > dice {
+				dice = d
+				suggestion = s
+			}
+		}
+
+		if dice > 0 {
+			println('Did you mean ' + term.yellow(suggestion) + ' ?')
+		}
 		return
 	}
 
