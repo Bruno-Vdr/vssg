@@ -26,10 +26,9 @@ fn main() {
 	cm := cmds[os.args[1]] or {
 		eprintln('${term.red('Error')}: Unknown command "${os.args[Param.command]}".')
 
-		mut cmds_names := []string{}
-		for k, _ in cmds {
-			cmds_names << k
-		}
+		cmds_names := maps.to_array(cmds, fn (key string, val Command) string {
+			return key
+		})
 
 		mut dice := f32(0)
 		mut suggestion := ''
