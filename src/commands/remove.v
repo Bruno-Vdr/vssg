@@ -1,7 +1,6 @@
 module commands
 
 import term
-import util
 import structures { Topic }
 import constants as cst
 import strconv

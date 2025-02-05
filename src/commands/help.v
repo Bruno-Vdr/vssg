@@ -1,9 +1,6 @@
 module commands
 
 import term
-import util
-import constants as cst
-import os
 
 // Help structure, implementing Command interface.
 struct Help implements Command {

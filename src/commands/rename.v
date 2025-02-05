@@ -2,7 +2,7 @@ module commands
 
 import term
 import util
-import structures { Blog }
+import structures { Blog, Topic }
 import constants as cst
 import os
 
@@ -38,6 +38,7 @@ ${term.red('Warning:')} This command must be launched from within blog directory
 The rename command changes the title and directory of an already existing TOPIC:
 	-Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.
 	-Rename original topic directory with hash("new_title").
+	-Update topic\'s ${cst.topic_file} with new name and directory, keeping posts untouched.
 	-Rebuild HTML topic list page "${cst.topics_list_filename}".
 '
 }
@@ -88,6 +89,26 @@ fn rename(p []string) ! {
 			return error('failed (re)generate_topic_index : ${err}')
 		}
 		println('Rebuilt topic list HTML page ${cst.topics_list_filename}.')
+
+
+		// Now update .topic file name/directory section.
+		os.chdir(util.obfuscate(new_title)) or {
+			return error('Cannot change current working directory to "${new_title}": ${err}')
+		}
+
+		tf:= Topic.load() or {
+			return error('Cannot load ${cst.topic_file}: ${err}')
+		}
+
+		// Create new Topic struct with new name and directory, with the SAME posts.
+		nt := Topic {title: new_title, directory: util.obfuscate(new_title),posts: tf.posts}
+		nt.save('./') or {
+			return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}')
+		}
+
+		os.chdir("..") or {
+			return error('Cannot change current working directory to "${new_title}": ${err}')
+		}
 		return
 	}
 }

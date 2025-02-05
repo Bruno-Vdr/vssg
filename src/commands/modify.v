@@ -6,7 +6,7 @@ import structures { Post, PostSummary, Topic }
 import util
 import constants as cst
 import os
-import toml
+
 
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
