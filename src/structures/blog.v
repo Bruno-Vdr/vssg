@@ -11,19 +11,6 @@ import util
  * Blog contains arbitrary topic (subject/category/sub-section). This structure store the list of topics,
  * with title (shown) and creation date (time since epoq).
  */
-// pub struct Blog {
-// pub:
-// 	name string
-// pub mut:
-// topics []struct {
-// 		string title
-// 		date i64
-// 	}
-//
-// //	topics []string
-// //	date   []i64
-// }
-
 pub struct TopicItem {
 pub mut:
 	title string
@@ -111,7 +98,7 @@ fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
 	for t in b.topics {
 		file.writeln('topic="${t.title}" [${t.date}] # In directory ./${b.name}/' +
-			util.obfuscate(b.name)) or {
+			util.obfuscate(t.title)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}. ${@FILE_LINE}')
 		}
 	}

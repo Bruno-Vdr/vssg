@@ -1,6 +1,5 @@
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
--Implement DICE coefficient command suggestion.
 -Harden topic generate_pushes_list_html
 
 * Rename : Update .topic name/directory for concerned topic !

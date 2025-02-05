@@ -36,7 +36,8 @@ Command: ${term.green('vssg')} ${term.yellow('rename')} title new_title
 ${term.red('Warning:')} This command must be launched from within blog directory.
 
 The rename command changes the title and directory of an already existing TOPIC:
-	-Patch the topic title into ${cst.blog_file} fiole, containing topic(s) list.
+	-Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.
+	-Rename original topic directory with hash("new_title").
 	-Rebuild HTML topic list page "${cst.topics_list_filename}".
 '
 }
