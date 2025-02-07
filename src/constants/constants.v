@@ -11,7 +11,7 @@ pub const pushs_list_template_file = 'pushs_list.tmpl'
 pub const link_model_tag = '[LinkModel]'
 pub const end_model = '[EndModel]'
 pub const list_links_tag = '[LIST_LINKS]'
-pub const topics_list_filename = 'index.htm'
+pub const topics_list_filename = 'base.htm'
 pub const push_filename = 'index.htm'
 pub const pushs_list_filename = 'index.htm'
 pub const push_template_file = 'push.tmpl'
@@ -21,6 +21,8 @@ pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used i
 pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const rsync_cmd_opt = 'rsync -avzhu'
+
+
 
 // Templates file are embeded into vssg executable.
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)

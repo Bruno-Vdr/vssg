@@ -43,6 +43,7 @@ The add command creates a new topic inside the blog:
     -Create ${cst.pushs_list_template_file} in topic\'s directory.
     -Create ${cst.push_template_file} in topic\'s directory.
     -Create ${cst.push_style_template_file} in topic\'s directory.
+    -Generate ${cst.topics_list_filename} HTML file, with links to differents topics.
 '
 }
 
