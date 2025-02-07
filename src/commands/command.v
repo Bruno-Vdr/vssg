@@ -51,5 +51,8 @@ pub fn Command.get() map[string]Command {
 	syn := Sync.new()
 	c[syn.name] = syn
 
+	b := Bend.new()
+	c[b.name] = b
+
 	return c
 }
