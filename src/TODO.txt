@@ -1,5 +1,5 @@
+-Uniformize error message in : Rename, Sync and other (if any).
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html
 
-* Rename : Update .topic name/directory for concerned topic !
