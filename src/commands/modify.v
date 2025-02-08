@@ -7,7 +7,6 @@ import util
 import constants as cst
 import os
 
-
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
 	name    string

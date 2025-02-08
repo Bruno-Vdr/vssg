@@ -69,18 +69,18 @@ fn bend(p []string) ! {
 
 	f = f + os.path_separator + cst.blog_entry_filename
 
-	if !force  {
+	if !force {
 		// Check that target exists
 		match util.where_am_i() {
 			.blog_dir {
 				if !os.exists(url) {
-					return error('The target file (URL) doesn\'t exist. Use -f option to force.')
+					return error("The target file (URL) doesn't exist. Use -f option to force.")
 				}
 			}
 			.topic_dir {
 				// Here, file must contains it's path relative to blog.
 				if !os.exists(url) {
-					return error('The target file (URL) doesn\'t exist. Use -f option to force.')
+					return error("The target file (URL) doesn't exist. Use -f option to force.")
 				}
 				cwd := os.getwd()
 				mut brd := util.get_blog_root() or {
@@ -90,10 +90,9 @@ fn bend(p []string) ! {
 				brd = brd + os.path_separator
 				url = cwd.replace(brd, '') + os.path_separator + url
 				println('URL prefixed with topic directory: ${url}')
-
 			}
 			.outside {
-				return error('This command cannot be executed from outside blog\'s directory. Use -f option to force bend without check.')
+				return error("This command cannot be executed from outside blog's directory. Use -f option to force bend without check.")
 			}
 		}
 	}

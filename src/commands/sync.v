@@ -43,7 +43,6 @@ rsync command is used for this: ${cst.rsync_cmd_opt}${term.gray('[option]')} SRC
 Options are appended to the command line:
 ${term.green('vssg')} ${term.yellow('sync')} abc with append abc to the default list of command.
 ${term.green('vssg')} ${term.yellow('sync')} " --delete --Xxxxx" will add detached options.
-
 '
 }
 
@@ -55,10 +54,10 @@ fn sync(p []string) ! {
 		''
 	}
 	url := util.get_remote_url() or {
-		return error('${cst.remote_url} environment variable not set.')
+		return error('${cst.remote_url} environment variable not set. ${@FILE_LINE}')
 	}
 	abs_path := util.get_blog_root() or {
-		return error('${cst.blog_root} environment variable not set.')
+		return error('${cst.blog_root} environment variable not set. ${@FILE_LINE}')
 	}
 	cwd := os.getwd() // get current working directory.
 
@@ -86,7 +85,7 @@ fn sync(p []string) ! {
 		return error('${ret.output} : error code =  ${ret.exit_code}')
 	} else {
 		if ret.exit_code == 127 {
-			return error('rsync command not found. Is rsync installed and in your \$PATH ?')
+			return error('rsync command not found. Is rsync installed and in your \$PATH ? ${@FILE_LINE}')
 		} else {
 			if ret.exit_code == 0 {
 				println('rsync command successful.')
@@ -94,7 +93,7 @@ fn sync(p []string) ! {
 			} else {
 				// An error occurs´
 				return error('rsync returns ${ret.exit_code} -> ' + ret.output +
-					'\nCheck rsync return code for more information.')
+					'\nCheck rsync return code for more information. ${@FILE_LINE}')
 			}
 		}
 	}

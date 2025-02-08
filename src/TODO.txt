@@ -1,4 +1,5 @@
--Uniformize error message in : Rename, Sync and other (if any).
+-Uniformize error message in : Rename and other (if any).
+-In Sync command, use util.where_am_i
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html

@@ -90,23 +90,24 @@ fn rename(p []string) ! {
 		}
 		println('Rebuilt topic list HTML page ${cst.topics_list_filename}.')
 
-
 		// Now update .topic file name/directory section.
 		os.chdir(util.obfuscate(new_title)) or {
 			return error('Cannot change current working directory to "${new_title}": ${err}')
 		}
 
-		tf:= Topic.load() or {
-			return error('Cannot load ${cst.topic_file}: ${err}')
-		}
+		tf := Topic.load() or { return error('Cannot load ${cst.topic_file}: ${err}') }
 
 		// Create new Topic struct with new name and directory, with the SAME posts.
-		nt := Topic {title: new_title, directory: util.obfuscate(new_title),posts: tf.posts}
+		nt := Topic{
+			title:     new_title
+			directory: util.obfuscate(new_title)
+			posts:     tf.posts
+		}
 		nt.save('./') or {
 			return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}')
 		}
 
-		os.chdir("..") or {
+		os.chdir('..') or {
 			return error('Cannot change current working directory to "${new_title}": ${err}')
 		}
 		return
