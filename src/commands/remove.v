@@ -50,14 +50,14 @@ Note: the remove commands only remove push from ${cst.topic_file}. Directory ${c
 fn remove(param []string) ! {
 	mut force_delete := false
 	id := strconv.parse_uint(param[0], 10, 64) or {
-		return error('Cannot convert "${param[0]}" to unsigned ID. ${@FILE_LINE}')
+		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int
 
 	if param.len == 2 {
 		if param[1] == '-f' {
 			force_delete = true
 		} else {
-			return error('Unknown parameter "${param[1]}". ${@FILE_LINE}')
+			return error('Unknown parameter "${param[1]}".')
 		}
 	}
 
@@ -70,12 +70,12 @@ fn remove(param []string) ! {
 		topics.save('./')!
 
 		if force_delete {
-			os.rmdir_all(dir) or { return error('Unable to rmdir ${dir}. ${err}. ${@FILE_LINE}.') }
+			os.rmdir_all(dir) or { return error('Unable to rmdir ${dir}. ${err}. ${@LOCATION}.') }
 			println('Removed ${term.blue(dir)} directory.')
 		} else {
 			// Move push directory to __directory
 			os.mv(dir, '${dir}${cst.dir_removed_suffix}') or {
-				return error('Unable to mv ${dir} to ${dir}${cst.dir_removed_suffix}. ${err}. ${@FILE_LINE}.')
+				return error('Unable to mv ${dir} to ${dir}${cst.dir_removed_suffix}. ${err}. ${@LOCATION}.')
 			}
 			println('renaming push directory ${term.blue('${dir}')} to ${term.blue('${dir}${cst.dir_removed_suffix}')}')
 			println('You can remove all attached push data by doing "rm -rf ${dir}${cst.dir_removed_suffix}"}')

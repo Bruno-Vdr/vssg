@@ -1,4 +1,7 @@
--Uniformize error message in : Rename and other (if any).
+Errors Rules:
+    -Indicates FILE_LINE only at the source of error. Else, transmit err, with @LOCATION.
+    -No details for logical error e.g. missing option, or invalid parameter.
+
 -In Sync command, use util.where_am_i
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.

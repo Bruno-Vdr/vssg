@@ -51,12 +51,12 @@ fn push(p []string) ! {
 
 	// First, check post_file.
 	if !os.exists('${post_file}') {
-		return error('Failed loading "${post_file}" : The file does not exist. ${@FILE_LINE}.')
+		return error('Failed loading "${post_file}" : The file does not exist.')
 	}
 
 	// Environment var for Image dir is mandatory.
 	img_dir := util.get_img_post_dir() or {
-		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
+		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}= ...')
 	}
 
 	mut post := Post.load(post_file)!
@@ -66,17 +66,17 @@ fn push(p []string) ! {
 	path := cst.push_dir_prefix + id.str()
 
 	if os.exists('${path}') {
-		return error('failed creating ${path} : The directory already exists. [${@FILE_LINE}]')
+		return error('failed creating ${path} : The directory already exists.')
 	}
 	os.mkdir('./${path}', os.MkdirParams{0o755}) or {
-		return error('mkdir ${path} fails: ${err}. [${@FILE_LINE}]')
+		return error('mkdir ${path} fails: ${err}. [${@LOCATION}]')
 	}
 	println('Created push directory: ${term.blue(path)}')
 
 	// Create a sub dir for pictures
 	pic_dir := './${path}${os.path_separator}${cst.pushs_pic_dir}'
 	os.mkdir(pic_dir, os.MkdirParams{0o755}) or {
-		return error('mkdir ${pic_dir} fails: ${err}. [${@FILE_LINE}]')
+		return error('mkdir ${pic_dir} fails: ${err}. [${@LOCATION}]')
 	}
 	println('Created push images sub-directory :  ${term.blue(pic_dir)}')
 
@@ -89,7 +89,7 @@ fn push(p []string) ! {
 
 	// Generate style.css for this post -> cp  push_style.css ./post_1/style.css  For further post customization
 	os.cp(cst.push_style_template_file, '${path}${os.path_separator}${cst.style_file}') or {
-		return error('Unable to copy ${cst.push_style_template_file} in ${path}: ${err}. [${@FILE_LINE}]')
+		return error('Unable to copy ${cst.push_style_template_file} in ${path}: ${err}. [${@LOCATION}]')
 	}
 
 	// Build HTML page of links to posts.
@@ -110,13 +110,13 @@ fn push(p []string) ! {
 fn generate_push_html(path string, post &Post, img_dir string) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
-		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
+		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@LOCATION}]')
 	}
 
 	// Now create push HTML file
 	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
 		os.s_iwusr | os.s_irusr) or {
-		return error('Failed opening ${cst.push_filename} : ${err}. [${@FILE_LINE}]')
+		return error('Failed opening ${cst.push_filename} : ${err}. [${@LOCATION}]')
 	}
 
 	defer {

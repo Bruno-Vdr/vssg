@@ -51,7 +51,7 @@ fn show(param []string) ! {
 				'Contains ${blog.topics.len} ${term.bright_green('topic(s)')}:')
 			for i in 0 .. blog.topics.len {
 				topic_item := blog.get_topic(i) or {
-					return error('Unable to perform blob.get_topic() !')
+					return error('Unable to perform blob.get_topic(). ${err}. ${@LOCATION}')
 				}
 
 				// Date is stored as milliseconds since epoq

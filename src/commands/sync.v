@@ -54,10 +54,10 @@ fn sync(p []string) ! {
 		''
 	}
 	url := util.get_remote_url() or {
-		return error('${cst.remote_url} environment variable not set. ${@FILE_LINE}')
+		return error('${cst.remote_url} environment variable not set.')
 	}
 	abs_path := util.get_blog_root() or {
-		return error('${cst.blog_root} environment variable not set. ${@FILE_LINE}')
+		return error('${cst.blog_root} environment variable not set.')
 	}
 	cwd := os.getwd() // get current working directory.
 
@@ -82,7 +82,7 @@ fn sync(p []string) ! {
 	ret := os.execute(cmd)
 	// now check that rsync is installed on the system.
 	if ret.exit_code < 0 {
-		return error('${ret.output} : error code =  ${ret.exit_code}')
+		return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
 	} else {
 		if ret.exit_code == 127 {
 			return error('rsync command not found. Is rsync installed and in your \$PATH ? ${@FILE_LINE}')

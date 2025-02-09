@@ -50,11 +50,11 @@ The add command creates a new topic inside the blog:
 // add command feature are implemented here. The parameters number has been checked before call.
 fn add(p []string) ! {
 	title := p[0]
-	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}, ${@FILE_LINE}') }
+	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 
 	for item in blog.topics {
 		if item.title == title {
-			return error(' The topic "${title}" already exists in ${cst.blog_file} file. ${@FILE_LINE}')
+			return error(' The topic "${title}" already exists in ${cst.blog_file} file.')
 		}
 	}
 
@@ -63,10 +63,10 @@ fn add(p []string) ! {
 
 	// Create destination directory.
 	if os.exists('${dir}') {
-		return error('unable to create ${dir} : The directory already exists.  ${@FILE_LINE}')
+		return error('unable to create ${dir} : The directory already exists.')
 	}
 	os.mkdir('./${dir}', os.MkdirParams{0o755}) or {
-		return error('mkdir ${dir} failed: ${err},  ${@FILE_LINE}')
+		return error('mkdir ${dir} failed: ${err},  ${@LOCATION}')
 	}
 
 	blog.add_topic(title)
@@ -76,25 +76,25 @@ fn add(p []string) ! {
 
 	// Create style into Topic directory. File is embedded in constant.v file.
 	util.create_default_file('./', '${dir}${os.path_separator}${cst.style_file}', cst.pushs_list_style_css.to_string()) or {
-		return error('Creation of ${cst.style_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.style_file} fails: ${err}. ${@LOCATION}')
 	}
 
 	// Create default posts list into Topic directory. File is embedded in constant.v file.
 	util.create_default_file('./', '${dir}${os.path_separator}${cst.pushs_list_template_file}',
 		cst.pushs_list_template.to_string()) or {
-		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@LOCATION}')
 	}
 
 	// Create post.template file
 	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_template_file}',
 		cst.push_template.to_string()) or {
-		return error('Creation of ${cst.push_template_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.push_template_file} fails: ${err}. ${@LOCATION}')
 	}
 
 	// Create post_style.css
 	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
 		cst.push_style_css.to_string()) or {
-		return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@FILE_LINE}')
+		return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@LOCATION}')
 	}
 
 	println('You should now customize your local style and post list template ' +

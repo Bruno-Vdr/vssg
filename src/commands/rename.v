@@ -51,7 +51,7 @@ fn rename(p []string) ! {
 	if title == new_title {
 		return error('Title and new title are identical. Nothing to do.')
 	}
-	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}') }
+	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 
 	mut found := false
 	for item in blog.topics {
@@ -77,25 +77,29 @@ fn rename(p []string) ! {
 		}
 
 		topic.title = new_title
-		blog.save() or { return error('Unable to save updated ${cst.blog_file}') }
+		blog.save() or {
+			return error('Unable to save updated ${cst.blog_file}. ${err}. ${@LOCATION}')
+		}
 
 		// Now rename old old directory to new (obfuscated) directory.
 		os.rename_dir(util.obfuscate(title), util.obfuscate(new_title)) or {
-			return error('failed to rename ${util.obfuscate(title)} to ${util.obfuscate(new_title)} : ${err}')
+			return error('failed to rename ${util.obfuscate(title)} to ${util.obfuscate(new_title)} : ${err}. ${@LOCATION}')
 		}
 		println('Successfully renamed directory ${util.obfuscate(title)} to ${util.obfuscate(new_title)}')
 
 		blog.generate_topics_list_html() or {
-			return error('failed (re)generate_topic_index : ${err}')
+			return error('failed (re)generate_topic_index : ${err}. ${@LOCATION}')
 		}
 		println('Rebuilt topic list HTML page ${cst.topics_list_filename}.')
 
 		// Now update .topic file name/directory section.
 		os.chdir(util.obfuscate(new_title)) or {
-			return error('Cannot change current working directory to "${new_title}": ${err}')
+			return error('Cannot change current working directory to "${new_title}": ${err}. ${@LOCATION}')
 		}
 
-		tf := Topic.load() or { return error('Cannot load ${cst.topic_file}: ${err}') }
+		tf := Topic.load() or {
+			return error('Cannot load ${cst.topic_file}: ${err}. ${@LOCATION}')
+		}
 
 		// Create new Topic struct with new name and directory, with the SAME posts.
 		nt := Topic{
@@ -104,11 +108,11 @@ fn rename(p []string) ! {
 			posts:     tf.posts
 		}
 		nt.save('./') or {
-			return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}')
+			return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}. ${@LOCATION}')
 		}
 
 		os.chdir('..') or {
-			return error('Cannot change current working directory to "${new_title}": ${err}')
+			return error('Cannot change current working directory to "${new_title}": ${err}. ${@LOCATION}')
 		}
 		return
 	}

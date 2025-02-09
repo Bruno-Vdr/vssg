@@ -55,11 +55,11 @@ fn drop(p []string) ! {
 		if p[1] == '-f' {
 			force_delete = true
 		} else {
-			return error('Unknown parameter "${p[1]}". ${@FILE_LINE}')
+			return error('Unknown parameter "${p[1]}".')
 		}
 	}
 
-	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}') }
+	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 
 	mut index := -1
 	for i, t in blog.topics {
@@ -79,11 +79,13 @@ fn drop(p []string) ! {
 		dir := util.obfuscate(title)
 		if os.exists(dir) {
 			if force_delete {
-				os.rmdir_all(dir) or { return error('Could not remove directory "${dir}": ${err}') }
+				os.rmdir_all(dir) or {
+					return error('Could not remove directory "${dir}": ${err}. ${@LOCATION}')
+				}
 				println('Associated directory "${dir}" was deleted.')
 			} else {
 				os.mv(dir, dir + cst.dir_removed_suffix) or {
-					return error('Could not remove directory "${dir}": ${err}')
+					return error('Could not remove directory "${dir}": ${err} ${@LOCATION}')
 				}
 				println('Associated directory "${dir}" was renamed ${dir}${cst.dir_removed_suffix}.')
 			}

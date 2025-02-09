@@ -64,7 +64,7 @@ fn bend(p []string) ! {
 	}
 
 	mut f := util.get_blog_root() or {
-		return error('Cannot bend blog to URL, ${term.bright_yellow(cst.blog_root)} is not set. ${err}.${@FILE_LINE}')
+		return error('Cannot bend blog to URL, ${term.bright_yellow(cst.blog_root)} is not set. ${err}. ${@LOCATION}')
 	}
 
 	f = f + os.path_separator + cst.blog_entry_filename
@@ -84,7 +84,7 @@ fn bend(p []string) ! {
 				}
 				cwd := os.getwd()
 				mut brd := util.get_blog_root() or {
-					return error('Unable to get Blog root env.${err}. ${@FILE_LINE}')
+					return error('Unable to get Blog root env.${err}. ${@LOCATION}')
 				}
 
 				brd = brd + os.path_separator
@@ -107,6 +107,6 @@ fn bend(p []string) ! {
     </body>
 </html>'
 
-	os.write_file(f, html) or { return error('Cannot write "${f}" file : ${err}. ${@FILE_LINE}') }
+	os.write_file(f, html) or { return error('Cannot write "${f}" file : ${err}. ${@LOCATION}') }
 	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
 }

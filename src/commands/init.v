@@ -47,11 +47,11 @@ fn init(p []string) ! {
 	println('Initialising blog ' + term.blue('${path}'))
 
 	if os.exists('${path}') {
-		return error('creating ${path} : The directory already "${path}" exists. Command init, ${@FILE_LINE}')
+		return error('creating ${path} : The directory already "${path}" exists.')
 	}
 
 	os.mkdir('./${path}', os.MkdirParams{0o755}) or {
-		return error('mkdir fails: ${err}. Command init, ${@FILE_LINE}')
+		return error('mkdir fails: ${err}. ${@LOCATION}')
 	}
 
 	if os.exists('${path}${os.path_separator}${cst.blog_file}') {
@@ -64,13 +64,13 @@ fn init(p []string) ! {
 	// Generate a style file that will be used to generate topic lists index.htm page.
 	// This template file is embedded in constants.v file.
 	util.create_default_file(path, cst.style_file, cst.topics_list_style_css.to_string()) or {
-		return error('creating topic list style css file fails: ${err}. Command init, ${@FILE_LINE}')
+		return error('creating topic list style css file fails: ${err}. Command init, ${@LOCATION}')
 	}
 
 	// Generate a template file that will be used to generate topic lists index.htm page.
 	// This template file is embedded in constants.v file.
 	util.create_default_file(path, cst.topics_list_template_file, cst.topics_list_template.to_string()) or {
-		return error('creating topic list template file fails: ${err}. Command init, ${@FILE_LINE}')
+		return error('creating topic list template file fails: ${err}. Command init, ${@LOCATION}')
 	}
 
 	println('You can now customize your ' +
