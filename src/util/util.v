@@ -100,6 +100,10 @@ pub fn get_blog_root() ?string {
 	return os.getenv_opt(cst.blog_root)
 }
 
+pub fn get_sync_opt() ?string {
+	return os.getenv_opt(cst.rsync_permanent_option)
+}
+
 // obfuscate obfuscate/mangle a topic name
 pub fn obfuscate(title string) string {
 	return fnv1a.sum64_string(title).hex()

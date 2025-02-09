@@ -43,6 +43,9 @@ rsync command is used for this: ${cst.rsync_cmd_opt}${term.gray('[option]')} SRC
 Options are appended to the command line:
 ${term.green('vssg')} ${term.yellow('sync')} abc with append abc to the default list of command.
 ${term.green('vssg')} ${term.yellow('sync')} " --delete --Xxxxx" will add detached options.
+
+Permanent option can be set using environment variable ${term.yellow(cst.rsync_permanent_option)} e.g.  "-e \'ssh -p 2223\'" to specify
+a different SSH port with rsync under sync command.
 '
 }
 
@@ -74,8 +77,10 @@ fn sync(p []string) ! {
 		''
 	}
 
+	perm_opt := util.get_sync_opt() or {''}
+
 	// add n for dry run. Source trailing '/' is required to sync the whole directory.
-	cmd_opt := cst.rsync_cmd_opt + options //+ 'n'
+	cmd_opt := cst.rsync_cmd_opt + options + " " + perm_opt
 	cmd := '${cmd_opt} ${cwd}${os.path_separator} ${url}${to_sync}' //
 	println(term.bright_yellow('${cmd}'))
 

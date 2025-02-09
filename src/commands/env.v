@@ -36,31 +36,40 @@ The env command displays the environment variables used by vssg:
     ${term.bright_yellow(cst.img_src_env)} : Path to grab pushed images from.
     ${term.bright_yellow(cst.remote_url)} : Remote blog\'s URL (used by sync command).
     ${term.bright_yellow(cst.blog_root)} : Local blog\' location (used by sync command).
+    ${term.bright_yellow(cst.rsync_permanent_option)} : Permanent customizable rsync option e.g. "-e \'ssh -p 2223\'".
 '
 }
 
 // env command feature are implemented here. The parameters number has been checked before call.
 fn env(p []string) ! {
 	println("vssg's environement variables:\n")
-	print(term.bright_yellow(cst.img_src_env) + '=')
+	print(term.bright_yellow(cst.img_src_env) + ' = ')
 	if img_post := util.get_img_post_dir() {
-		println(img_post)
+		println('"' + img_post + '"')
 	} else {
 		println(term.red('Not set'))
 	}
 
-	print(term.bright_yellow(cst.remote_url) + '=')
+	print(term.bright_yellow(cst.remote_url) +  ' = ')
 	if url := util.get_remote_url() {
-		println(url)
+		println('"' +url+ '"')
 	} else {
 		println(term.red('Not set'))
 	}
 
-	print(term.bright_yellow(cst.blog_root) + '=')
+	print(term.bright_yellow(cst.blog_root) + ' = ')
 	if url := util.get_blog_root() {
-		println(url)
+		println('"' + url +'"')
 	} else {
 		println(term.red('Not set'))
 	}
+
+	print(term.bright_yellow(cst.rsync_permanent_option) + ' = ')
+	if url := util.get_sync_opt() {
+		println('"'+ url + '"')
+	} else {
+		println(term.red('Not set'))
+	}
+
 	println('')
 }
