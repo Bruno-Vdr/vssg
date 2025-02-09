@@ -79,6 +79,7 @@ fn sync(p []string) ! {
 	cmd := '${cmd_opt} ${cwd}${os.path_separator} ${url}${to_sync}' //
 	println(term.bright_yellow('${cmd}'))
 
+
 	ret := os.execute(cmd)
 	// now check that rsync is installed on the system.
 	if ret.exit_code < 0 {
