@@ -6,4 +6,3 @@ Errors Rules:
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html
-

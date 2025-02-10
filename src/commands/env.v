@@ -50,23 +50,23 @@ fn env(p []string) ! {
 		println(term.red('Not set'))
 	}
 
-	print(term.bright_yellow(cst.remote_url) +  ' = ')
+	print(term.bright_yellow(cst.remote_url) + ' = ')
 	if url := util.get_remote_url() {
-		println('"' +url+ '"')
+		println('"' + url + '"')
 	} else {
 		println(term.red('Not set'))
 	}
 
 	print(term.bright_yellow(cst.blog_root) + ' = ')
 	if url := util.get_blog_root() {
-		println('"' + url +'"')
+		println('"' + url + '"')
 	} else {
 		println(term.red('Not set'))
 	}
 
 	print(term.bright_yellow(cst.rsync_permanent_option) + ' = ')
 	if url := util.get_sync_opt() {
-		println('"'+ url + '"')
+		println('"' + url + '"')
 	} else {
 		println(term.red('Not set'))
 	}

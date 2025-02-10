@@ -102,6 +102,6 @@ fn add(p []string) ! {
 		term.blue('${dir}${os.path_separator}${cst.pushs_list_template_file}') + '.')
 	blog.generate_topics_list_html()!
 
-	println('Don\'t forget to perform ${term.yellow('vssg sync')} before sending an article. If a topic is not sent, pushes inside are not visibles.' )
+	println('Don\'t forget to perform ${term.yellow('vssg sync')} before sending an article. If a topic is not sent, pushes inside are not visibles.')
 	return
 }

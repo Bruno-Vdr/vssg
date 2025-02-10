@@ -55,7 +55,8 @@ a different SSH port with rsync under sync command.
 fn sync(p []string) ! {
 	options := if p.len == 1 {
 		if p[0].starts_with('-') {
-		' ' + p[0] } else {
+			' ' + p[0]
+		} else {
 			return error('Malformed option "${term.gray(p[0])}". Additional sync option must start with   "-". ')
 		}
 	} else {
