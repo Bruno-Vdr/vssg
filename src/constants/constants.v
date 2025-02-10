@@ -22,7 +22,7 @@ pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used i
 pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const rsync_permanent_option = "VSSG_SYNC_OPT"
-pub const rsync_cmd_opt = 'rsync -avzhrc'
+pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 
 // Templates file are embeded into vssg executable.
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)
