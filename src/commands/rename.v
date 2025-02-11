@@ -33,7 +33,7 @@ fn Rename.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('rename')} title new_title
 
-${term.red('Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,165,0,'Warning:')} This command must be launched from within blog directory.
 
 The rename command changes the title and directory of an already existing TOPIC:
 	-Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.

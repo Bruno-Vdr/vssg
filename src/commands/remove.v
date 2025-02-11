@@ -33,7 +33,7 @@ fn Remove.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('remove')} ${term.magenta('id')} [-f]
 
-${term.red('Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,165,0,'Warning:')} This command must be launched from within topic directory.
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
 The remove command deletes a push from a topic:
 	-Removes push description from ${cst.topic_file}

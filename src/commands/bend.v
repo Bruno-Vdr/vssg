@@ -32,7 +32,7 @@ fn Bend.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('bend')} ${term.blue('URL')} [-f]
 
-${term.red('Warning:')} This URL parameter must be relative to Blog\'s root directory.
+${term.rgb(255,165,0,'Warning:')} This URL parameter must be relative to Blog\'s root directory.
 
 Adding the ${term.red('-f')} option, completely discards destination check. Use this to
 redirect on exterior URL.
