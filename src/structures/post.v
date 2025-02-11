@@ -15,7 +15,6 @@ pub struct Post {
 pub:
 	filename   string             // Source file.
 	title      string             // Post's title
-	poster     string             // Post's Poster (Thumbnail or full image)
 	link_label string             // Link's label toward the post.
 	sections   map[string]Section // Post core
 	date       i64                // Creation date (Seconds since Epoque)
@@ -75,7 +74,6 @@ fn load_all(filename string) ![]string {
 fn parse_post(lines []string, source_file string) !Post {
 	mut index := 0
 	mut title := ''
-	mut poster := ''
 	mut link_label := ''
 	mut unix_date := i64(0)
 	mut sections := map[string]Section{}
@@ -86,12 +84,6 @@ fn parse_post(lines []string, source_file string) !Post {
 		if title.len == 0 {
 			return error('Post title is empty. [${@FILE_LINE}]')
 		}
-		index++
-	}
-
-	// Parse next line: [poster:Poster.png]
-	if lines.len > index {
-		poster = parse_line(lines[index], '[poster:', ']')! // Section must exist, but can be empty
 		index++
 	}
 
@@ -155,7 +147,6 @@ fn parse_post(lines []string, source_file string) !Post {
 	return Post{
 		filename:   source_file
 		title:      title
-		poster:     poster
 		link_label: link_label
 		sections:   sections
 		date:       unix_date

@@ -33,7 +33,7 @@ fn Push.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('push_text_file')}
 
-${term.red('Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,165,0,'Warning:')} This command must be launched from within topic directory.
 
 The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
 	-Create a directory named ${cst.push_dir_prefix}xx
@@ -124,17 +124,16 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 	}
 
 	// Copy poster's post into pictures.
-	pic_dir := './${path}${os.path_separator}${cst.pushs_pic_dir}'
-	mut src := img_dir + os.path_separator + post.poster
-	dst := pic_dir + os.path_separator + post.poster
-	os.cp(src, dst) or {
-		return error('Unable to copy poster ${src} in ${dst}: ${err}. [${@FILE_LINE}]\n[Hint: is your ${cst.img_src_env} environment variable set ?]')
-	}
+	// pic_dir := './${path}${os.path_separator}${cst.pushs_pic_dir}'
+	// mut src := img_dir + os.path_separator + post.poster
+	// dst := pic_dir + os.path_separator + post.poster
+	// os.cp(src, dst) or {
+	// 	return error('Unable to copy poster ${src} in ${dst}: ${err}. [${@FILE_LINE}]\n[Hint: is your ${cst.img_src_env} environment variable set ?]')
+	// }
 
 	// Initialize dynamic vars.
 	mut dyn := util.DynVars.new()
 	dyn.add('@title', post.title)
-	dyn.add('@poster', cst.pushs_pic_dir + os.path_separator + post.poster)
 	dyn.add('@date', util.to_blog_date(post.date))
 
 	for i, li in tmpl_lines {
@@ -144,7 +143,7 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
 			section := post.sections[section_name] or {
-				println('${term.red('Warning:')} Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
+				println('${term.rgb(255,165,0,'Warning:')} Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
 				break
 			}
 
