@@ -109,4 +109,5 @@ fn bend(p []string) ! {
 
 	os.write_file(f, html) or { return error('Cannot write "${f}" file : ${err}. ${@LOCATION}') }
 	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
+	println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from blog\'s root directory to publish.')
 }

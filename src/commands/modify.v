@@ -94,6 +94,7 @@ fn modify(param []string) ! {
 		// Build HTML page of the post.
 		generate_push_html(p.dir, &post, img_dir)!
 		println('Re-generated push file in ${p.dir}${os.path_separator}${cst.push_filename}.')
+		println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 		return
 	}
 

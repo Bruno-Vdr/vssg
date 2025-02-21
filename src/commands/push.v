@@ -99,6 +99,7 @@ fn push(p []string) ! {
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
 		term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
 
+	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 	// Now update topics's page containing links to posts.
 	return topics.generate_pushes_list_html()
 }
