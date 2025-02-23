@@ -22,7 +22,7 @@ pub fn Bend.new() Command {
 		desc:    'redirects blog to given URL, usually on last push.'
 		help:    Bend.help()
 		arg_min: 1
-		arg_max: 2
+		arg_max: 3 // File [-f] [-u]
 		exec:    bend
 	}
 }
@@ -30,12 +30,15 @@ pub fn Bend.new() Command {
 // help give a complete description of the command, including parameters.
 fn Bend.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('bend')} ${term.blue('URL')} [-f]
+Command: ${term.green('vssg')} ${term.yellow('bend')} ${term.blue('URL')} [-f] [-u]
 
-${term.rgb(255,165,0,'Warning:')} This URL parameter must be relative to Blog\'s root directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This URL parameter must be relative to Blog\'s root directory.
 
-Adding the ${term.red('-f')} option, completely discards destination check. Use this to
+Adding the ${term.gray('-f')} option, completely discards destination check. Use this to
 redirect on exterior URL.
+
+Adding the ${term.gray('-u')} option will publish the redirection file to the remote blog.
 
 The bend command creates an ${cst.blog_entry_filename} file on the blog\'s root, containing HTML redirection
 to the provided ${term.blue('URL')}. It\'s usually done to bend blog\'s entry to the last push. It can be used to redirect
@@ -47,21 +50,27 @@ to any other ${term.blue('URL')}, in case of unavailability for example.
 
 // bend command feature are implemented here. The parameters number has been checked before call.
 fn bend(p []string) ! {
-	if p.len == 1 && p[0] == '-f' {
-		return error('Missing URL parameter.')
-	}
-
-	mut url := p[0]
 	mut force := false
+	mut sync := false
+	mut args := []string{}
 
-	if p.len == 2 {
-		if '-f' in p {
+	for param in p {
+		if param == '-f' {
 			force = true
-			url = if p[0] == '-f' { p[1] } else { p[0] }
 		} else {
-			return error('Unknown option "${p[1]}"')
+			if param == '-u' {
+				sync = true
+			} else {
+				args << param
+			}
 		}
 	}
+
+	if args.len != 1 {
+		return error('Too many parameters or unknown options in "${args}"')
+	}
+
+	mut url := args[0]
 
 	mut f := util.get_blog_root() or {
 		return error('Cannot bend blog to URL, ${term.bright_yellow(cst.blog_root)} is not set. ${err}. ${@LOCATION}')
@@ -97,7 +106,7 @@ fn bend(p []string) ! {
 		}
 	}
 
-	html := '
+	redirect_html := '
 <!DOCTYPE html>
 <html>
     <head>
@@ -107,7 +116,23 @@ fn bend(p []string) ! {
     </body>
 </html>'
 
-	os.write_file(f, html) or { return error('Cannot write "${f}" file : ${err}. ${@LOCATION}') }
+	os.write_file(f, redirect_html) or { return error('Cannot write "${f}" file : ${err}. ${@LOCATION}') }
 	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
-	println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from blog\'s root directory to publish.')
+	if sync == true {
+		// perform rsync on the redirect_html file
+
+		dst := util.get_remote_url() or {
+			return error('${cst.remote_url} environment variable not set, redirection file not synced.')
+		}
+
+        mut src := util.get_blog_root() or {
+			return error('${cst.blog_root} environment variable not set, redirection file not synced.')
+		}
+
+		println(term.yellow('updating redirection file.'))
+		src = src + os.path_separator + cst.blog_entry_filename
+		sync_file(src, dst)!
+	} else {
+		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from blog\'s root directory to publish.')
+	}
 }

@@ -81,12 +81,24 @@ fn sync(p []string) ! {
 	}
 	println('${msg}')
 
-	perm_opt := util.get_sync_opt() or { '' }
+	permanent_opt := util.get_sync_opt() or { '' }
 
 	// add n for dry run. On source, trailing '/' is required to sync the whole directory.
-	cmd := '${cst.rsync_cmd_opt} ${options} ${perm_opt} ${cwd}${os.path_separator} ${url}${sub_dir}' //
-	println('${term.bright_yellow(cst.rsync_cmd_opt)} ${term.gray(options)} ${term.blue(perm_opt)} ${cwd}${os.path_separator} ${url}${sub_dir}')
+	cmd := '${cst.rsync_cmd_opt} ${options} ${permanent_opt} ${cwd}${os.path_separator} ${url}${sub_dir}' //
+	println('${term.bright_yellow(cst.rsync_cmd_opt)} ${term.gray(options)} ${term.blue(permanent_opt)} ${cwd}${os.path_separator} ${url}${sub_dir}')
 
+	run_sync_cmd(cmd)!
+}
+
+fn sync_file(src string, dst string) ! {
+	permanent_opt := util.get_sync_opt() or { '' }
+	cmd := cst.rsync_single_file + ' ${permanent_opt} ${src} ${dst}'
+	println('${cmd}')
+	return run_sync_cmd(cmd)
+}
+
+// run_sync_cmd Launch the rsync command
+fn run_sync_cmd(cmd string) ! {
 	ret := os.execute(cmd)
 	// now check that rsync is installed on the system.
 	if ret.exit_code < 0 {
