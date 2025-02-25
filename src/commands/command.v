@@ -54,5 +54,8 @@ pub fn Command.get() map[string]Command {
 	b := Bend.new()
 	c[b.name] = b
 
+	o := Obfuscate.new()
+	c[o.name] = o
+
 	return c
 }
