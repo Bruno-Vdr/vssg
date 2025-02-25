@@ -89,9 +89,11 @@ fn do_pull(dst string, forced bool) ! {
 
 	// Permanent option is env variable.
 	permanent_opt := util.get_sync_opt() or { '' }
-	cmd := '${cst.rsync_pull_opt} ${permanent_opt} ${url} ${dst}'
+	cmd := '${cst.rsync_pull_opt} ${permanent_opt} ${url}/ ${dst}'
 	println('rsync command: ${cmd}')
 
 	// Call sync.v run_sync_cmd
 	run_sync_cmd(cmd)!
+	println('Don\'t forget to update your ${term.yellow(cst.blog_root)} environment variable if you intend to use')
+	println('this pulled directory as new blog\'s root. You should also adapt field "name" from ${term.blue('${dst}${os.path_separator}${cst.blog_file}')}')
 }
