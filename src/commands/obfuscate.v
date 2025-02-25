@@ -2,10 +2,10 @@ module commands
 
 import term
 import util
-import constants as cst
 
 // Obfuscate structure, implementing Command interface.
 struct Obfuscate implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -17,6 +17,7 @@ struct Obfuscate implements Command {
 // new builds a Obfuscate Command.
 pub fn Obfuscate.new() Command {
 	return Obfuscate{
+		kind:    .helper
 		name:    'obfuscate'
 		desc:    'Obfuscate (hash) the given string.'
 		help:    Obfuscate.help()
@@ -41,4 +42,3 @@ e.g. ${term.green('vssg')} ${term.yellow('obfuscate')} vssg will return "${util.
 fn obfuscate(p []string) ! {
 	println('Obfuscated "${term.yellow(p[0])}"  is "${term.bright_blue(util.obfuscate(p[0]))}".')
 }
-

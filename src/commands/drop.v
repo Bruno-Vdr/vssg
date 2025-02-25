@@ -8,6 +8,7 @@ import os
 
 // Drop structure, implementing Command interface.
 struct Drop implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Drop implements Command {
 // new builds a Drop Command.
 pub fn Drop.new() Command {
 	return Drop{
+		kind:    .command
 		name:    'drop'
 		desc:    'Drops a complete topic with its pushes (if any).'
 		help:    Drop.help()
@@ -33,7 +35,8 @@ fn Drop.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title [-f]
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The drop command deletes a complete topic with all of its pushes, if any. By default the commands appends the
 ${cst.dir_removed_suffix} suffix to the directory. By adding the ${term.red('-f')} the

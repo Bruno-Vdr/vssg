@@ -7,6 +7,7 @@ import os
 
 // Bend structure, implementing Command interface.
 struct Bend implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -18,6 +19,7 @@ struct Bend implements Command {
 // new builds a Bend Command.
 pub fn Bend.new() Command {
 	return Bend{
+		kind:    .command
 		name:    'bend'
 		desc:    'redirects blog to given URL, usually on last push.'
 		help:    Bend.help()
@@ -116,7 +118,9 @@ fn bend(p []string) ! {
     </body>
 </html>'
 
-	os.write_file(f, redirect_html) or { return error('Cannot write "${f}" file : ${err}. ${@LOCATION}') }
+	os.write_file(f, redirect_html) or {
+		return error('Cannot write "${f}" file : ${err}. ${@LOCATION}')
+	}
 	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
 	if sync == true {
 		// perform rsync on the redirect_html file
@@ -125,7 +129,7 @@ fn bend(p []string) ! {
 			return error('${cst.remote_url} environment variable not set, redirection file not synced.')
 		}
 
-        mut src := util.get_blog_root() or {
+		mut src := util.get_blog_root() or {
 			return error('${cst.blog_root} environment variable not set, redirection file not synced.')
 		}
 

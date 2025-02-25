@@ -1,6 +1,12 @@
 module commands
 
+pub enum CommandType {
+	command
+	helper
+}
+
 pub interface Command {
+	kind    CommandType       // Command type
 	name    string            // Command name as used on CLI
 	desc    string            // Single line description
 	help    string            // Detailed and formated description

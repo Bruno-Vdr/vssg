@@ -8,6 +8,7 @@ import os
 
 // Rename structure, implementing Command interface.
 struct Rename implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Rename implements Command {
 // new builds a Rename Command.
 pub fn Rename.new() Command {
 	return Rename{
+		kind:    .command
 		name:    'rename'
 		desc:    'Renames (change title) of an existing topic.'
 		help:    Rename.help()
@@ -33,7 +35,8 @@ fn Rename.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('rename')} title new_title
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The rename command changes the title and directory of an already existing TOPIC:
 	-Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.

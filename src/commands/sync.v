@@ -7,6 +7,7 @@ import os
 
 // Sync structure, implementing Command interface.
 struct Sync implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -18,6 +19,7 @@ struct Sync implements Command {
 // new builds a Sync Command.
 pub fn Sync.new() Command {
 	return Sync{
+		kind:    .command
 		name:    'sync'
 		desc:    'Synchronizes the local blog with the remote blog. It means publish the blog.'
 		help:    Sync.help()

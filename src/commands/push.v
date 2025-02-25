@@ -8,6 +8,7 @@ import structures { Post, PostSummary, Topic }
 
 // Init structure, implementing Command interface.
 struct Push implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Push implements Command {
 // new builds a Init Command.
 pub fn Push.new() Command {
 	return Push{
+		kind:    .command
 		name:    'push'
 		desc:    'Pushes a new article into topic (run from inside the topic directory).'
 		help:    Push.help()
@@ -33,7 +35,8 @@ fn Push.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('push_text_file')}
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within topic directory.
 
 The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
 	-Create a directory named ${cst.push_dir_prefix}xx
@@ -144,7 +147,8 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 		if line.starts_with('[section:') && line.ends_with(']') {
 			section_name = line.find_between('[section:', ']')
 			section := post.sections[section_name] or {
-				println('${term.rgb(255,165,0,'Warning:')} Found section "${section_name}" line ${i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
+				println('${term.rgb(255, 165, 0, 'Warning:')} Found section "${section_name}" line ${
+					i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
 				break
 			}
 

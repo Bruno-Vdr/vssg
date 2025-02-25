@@ -8,6 +8,7 @@ import os
 
 // Show structure, implementing Command interface.
 struct Show implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Show implements Command {
 // new builds a Show Command.
 pub fn Show.new() Command {
 	return Show{
+		kind:    .command
 		name:    'show'
 		desc:    'Shows entries of blog or topic.'
 		help:    Show.help()

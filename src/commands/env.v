@@ -6,6 +6,7 @@ import constants as cst
 
 // Env structure, implementing Command interface.
 struct Env implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -17,6 +18,7 @@ struct Env implements Command {
 // new builds a Env Command.
 pub fn Env.new() Command {
 	return Env{
+		kind:    .command
 		name:    'env'
 		desc:    'Displays environment variables used by vssg.'
 		help:    Env.help()

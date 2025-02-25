@@ -8,6 +8,7 @@ import os
 
 // Remove structure, implementing Command interface.
 struct Remove implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Remove implements Command {
 // new builds a Remove Command.
 pub fn Remove.new() Command {
 	return Remove{
+		kind:    .command
 		name:    'remove'
 		desc:    'Removes an entry/push from a topic.'
 		help:    Remove.help()
@@ -33,7 +35,8 @@ fn Remove.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('remove')} ${term.magenta('id')} [-f]
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within topic directory.
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
 The remove command deletes a push from a topic:
 	-Removes push description from ${cst.topic_file}

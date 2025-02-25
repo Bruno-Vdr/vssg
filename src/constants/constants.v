@@ -25,7 +25,6 @@ pub const rsync_permanent_option = 'VSSG_SYNC_OPT'
 pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 pub const rsync_single_file = 'rsync -avzhc'
 
-
 // Templates file are embeded into vssg executable.
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)
 pub const topics_list_style_css = $embed_file('../templates/topics_list_style.css', .zlib)

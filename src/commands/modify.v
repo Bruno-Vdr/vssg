@@ -9,6 +9,7 @@ import os
 
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Modify implements Command {
 // new builds a Modify Command.
 pub fn Modify.new() Command {
 	return Modify{
+		kind:    .command
 		name:    'modify'
 		desc:    'Modifies an existing push.'
 		help:    Modify.help()
@@ -34,7 +36,8 @@ fn Modify.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('modify')} ${term.magenta('id')} ${term.blue('push_text_file')}
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within topic directory.
 
 The modify command modifies the push, identified by ${term.magenta('id')} with the given push file.
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"

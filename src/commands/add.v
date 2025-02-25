@@ -8,6 +8,7 @@ import os
 
 // Add structure, implementing Command interface.
 struct Add implements Command {
+	kind    CommandType
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Add implements Command {
 // new builds a Init Command.
 pub fn Add.new() Command {
 	return Add{
+		kind:    .command
 		name:    'add'
 		desc:    'Creates a new topic (run from inside the blog directory).'
 		help:    Add.help()
@@ -33,7 +35,8 @@ fn Add.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('add')} ${term.blue('topic')}
 
-${term.rgb(255,165,0,'Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The add command creates a new topic inside the blog:
     -Create a directory based on hashed(${term.blue('topic')}).
