@@ -70,8 +70,6 @@ fn usage(cmds map[string]Command) {
 			.command {println('    ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}')}
 			.helper {println('    ${term.gray('[helper]')} ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}')}
 		}
-
 	}
-
 	println('\nRun  "vssg help ${term.yellow('command')}" to get more detailled help on command.')
 }

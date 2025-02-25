@@ -24,6 +24,7 @@ pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const rsync_permanent_option = 'VSSG_SYNC_OPT'
 pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 pub const rsync_single_file = 'rsync -avzhc'
+pub const rsync_pull_opt = 'rsync -chavzP'
 
 // Templates file are embeded into vssg executable.
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)

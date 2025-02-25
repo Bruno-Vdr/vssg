@@ -35,8 +35,7 @@ fn Drop.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title [-f]
 
-${term.rgb(255,
-		165, 0, 'Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The drop command deletes a complete topic with all of its pushes, if any. By default the commands appends the
 ${cst.dir_removed_suffix} suffix to the directory. By adding the ${term.red('-f')} the

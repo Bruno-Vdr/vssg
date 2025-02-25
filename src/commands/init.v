@@ -49,7 +49,7 @@ fn init(p []string) ! {
 	println('Initialising blog ' + term.blue('${path}'))
 
 	if os.exists('${path}') {
-		return error('creating ${path} : The directory already "${path}" exists.')
+		return error('creating ${path} : The directory "${path}" already exists.')
 	}
 
 	os.mkdir('./${path}', os.MkdirParams{0o755}) or {

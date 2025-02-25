@@ -21,47 +21,50 @@ pub interface Command {
 pub fn Command.get() map[string]Command {
 	mut c := map[string]Command{}
 
-	i := Init.new()
-	c[i.name] = i
+	init := Init.new()
+	c[init.name] = init
 
-	a := Add.new()
-	c[a.name] = a
+	add := Add.new()
+	c[add.name] = add
 
-	p := Push.new()
-	c[p.name] = p
+	push := Push.new()
+	c[push.name] = push
 
-	e := Env.new()
-	c[e.name] = e
+	env := Env.new()
+	c[env.name] = env
 
-	s := Show.new()
-	c[s.name] = s
+	show := Show.new()
+	c[show.name] = show
 
-	m := Modify.new()
-	c[m.name] = m
+	modify := Modify.new()
+	c[modify.name] = modify
 
-	r := Remove.new()
-	c[r.name] = r
+	remove := Remove.new()
+	c[remove.name] = remove
 
-	u := Update.new()
-	c[u.name] = u
+	update := Update.new()
+	c[update.name] = update
 
-	ren := Rename.new()
-	c[ren.name] = ren
+	rename := Rename.new()
+	c[rename.name] = rename
 
-	h := Help.new()
-	c[h.name] = h
+	help := Help.new()
+	c[help.name] = help
 
-	d := Drop.new()
-	c[d.name] = d
+	drop := Drop.new()
+	c[drop.name] = drop
 
-	syn := Sync.new()
-	c[syn.name] = syn
+	sync := Sync.new()
+	c[sync.name] = sync
 
-	b := Bend.new()
-	c[b.name] = b
+	bend := Bend.new()
+	c[bend.name] = bend
 
-	o := Obfuscate.new()
-	c[o.name] = o
+	pull := Pull.new()
+	c[pull.name] = pull
+
+	obfuscate := Obfuscate.new()
+	c[obfuscate.name] = obfuscate
 
 	return c
 }
