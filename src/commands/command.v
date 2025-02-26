@@ -66,5 +66,8 @@ pub fn Command.get() map[string]Command {
 	obfuscate := Obfuscate.new()
 	c[obfuscate.name] = obfuscate
 
+	base64 := Base64.new()
+	c[base64.name] = base64
+
 	return c
 }
