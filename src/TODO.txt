@@ -1,5 +1,3 @@
--Integrate Base64 image converter.
--Check possibility of defer use.
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html

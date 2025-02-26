@@ -52,7 +52,7 @@ Modify is used to modify text, date, title or images of an already existing push
 // param[0] =  ID as ASCII string
 // param[1] = push file
 fn modify(param []string) ! {
-	id := strconv.parse_uint(param[0], 10, 64) or {
+	id := strconv.atou64(param[0]) or {
 		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int
 

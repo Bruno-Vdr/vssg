@@ -52,7 +52,7 @@ Note: the remove commands only remove push from ${cst.topic_file}. Directory ${c
 // remove command feature are implemented here. The parameters number has been checked before call.
 fn remove(param []string) ! {
 	mut force_delete := false
-	id := strconv.parse_uint(param[0], 10, 64) or {
+	id := strconv.atou64(param[0]) or {
 		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int
 
