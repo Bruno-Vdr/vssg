@@ -51,14 +51,15 @@ To get a list of topics, run "vssg show" from blog\'s root directory."
 // drop command feature are implemented here. The parameters number has been checked before call.
 fn drop(p []string) ! {
 	mut force_delete := false
-	title := p[0]
+	mut title := p[0]
 
 	if p.len == 2 {
-		if p[1] == '-f' {
+		if '-f' in p {
 			force_delete = true
 		} else {
 			return error('Unknown parameter "${p[1]}".')
 		}
+		title = if p[0] == '-f' {p[1]} else {p[0]}
 	}
 
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }

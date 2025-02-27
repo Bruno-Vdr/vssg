@@ -21,7 +21,7 @@ pub fn Bend.new() Command {
 	return Bend{
 		kind:    .command
 		name:    'bend'
-		desc:    'redirects blog to given URL, usually on last push.'
+		desc:    "Redirects blog's root page to given URL (usually on last push)."
 		help:    Bend.help()
 		arg_min: 1
 		arg_max: 3 // File [-f] [-u]
