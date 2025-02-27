@@ -4,7 +4,7 @@ import term
 import os
 import constants as cst
 import structures
-import util
+
 
 // Init structure, implementing Command interface.
 struct Init implements Command {
@@ -63,17 +63,7 @@ fn init(p []string) ! {
 	blog := structures.Blog.new(path)
 	blog.create()!
 
-	// Generate a style file that will be used to generate topic lists index.htm page.
-	// This template file is embedded in constants.v file.
-	util.create_default_file(path, cst.style_file, cst.topics_list_style_css.to_string()) or {
-		return error('creating topic list style css file fails: ${err}. Command init, ${@LOCATION}')
-	}
-
-	// Generate a template file that will be used to generate topic lists index.htm page.
-	// This template file is embedded in constants.v file.
-	util.create_default_file(path, cst.topics_list_template_file, cst.topics_list_template.to_string()) or {
-		return error('creating topic list template file fails: ${err}. Command init, ${@LOCATION}')
-	}
+	deploy_blog_templates(path)! // in deploy.v
 
 	println('You can now customize your ' +
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +

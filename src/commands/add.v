@@ -77,28 +77,7 @@ fn add(p []string) ! {
 	topic.save(topic.directory)! // Add command is launched from Blog directory, but topic is saved inside topic dir.
 	blog.save()!
 
-	// Create style into Topic directory. File is embedded in constant.v file.
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.style_file}', cst.pushs_list_style_css.to_string()) or {
-		return error('Creation of ${cst.style_file} fails: ${err}. ${@LOCATION}')
-	}
-
-	// Create default posts list into Topic directory. File is embedded in constant.v file.
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.pushs_list_template_file}',
-		cst.pushs_list_template.to_string()) or {
-		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@LOCATION}')
-	}
-
-	// Create post.template file
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_template_file}',
-		cst.push_template.to_string()) or {
-		return error('Creation of ${cst.push_template_file} fails: ${err}. ${@LOCATION}')
-	}
-
-	// Create post_style.css
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
-		cst.push_style_css.to_string()) or {
-		return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@LOCATION}')
-	}
+	deploy_topics_templates(dir)! // in deploy.v
 
 	println('You should now customize your local style and post list template ' +
 		term.blue('${dir}${os.path_separator}${cst.style_file}') + ' and ' +

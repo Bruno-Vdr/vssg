@@ -69,5 +69,8 @@ pub fn Command.get() map[string]Command {
 	base64 := Base64.new()
 	c[base64.name] = base64
 
+	deploy := Deploy.new()
+	c[deploy.name] = deploy
+
 	return c
 }
