@@ -127,14 +127,6 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 		push_file.close()
 	}
 
-	// Copy poster's post into pictures.
-	// pic_dir := './${path}${os.path_separator}${cst.pushs_pic_dir}'
-	// mut src := img_dir + os.path_separator + post.poster
-	// dst := pic_dir + os.path_separator + post.poster
-	// os.cp(src, dst) or {
-	// 	return error('Unable to copy poster ${src} in ${dst}: ${err}. [${@FILE_LINE}]\n[Hint: is your ${cst.img_src_env} environment variable set ?]')
-	// }
-
 	// Initialize dynamic vars.
 	mut dyn := util.DynVars.new()
 	dyn.add('@title', post.title)
@@ -149,7 +141,7 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 			section := post.sections[section_name] or {
 				println('${term.rgb(255, 165, 0, 'Warning:')} Found section "${section_name}" line ${
 					i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
-				break
+				continue
 			}
 
 			// Emit section core into the file
