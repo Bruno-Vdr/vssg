@@ -67,8 +67,8 @@ fn usage(cmds map[string]Command) {
 	println('vssg usage: ${term.green('vssg')} ${term.yellow('command')} [parameters]')
 	for _, c in cmds {
 		match c.kind {
-			.command {println('    ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}')}
-			.helper {println('    ${term.gray('[helper]')} ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}')}
+			.command { println('    ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}') }
+			.helper { println('    ${term.gray('[helper]')} ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}') }
 		}
 	}
 	println('\nRun  "vssg help ${term.yellow('command')}" to get more detailled help on command.')

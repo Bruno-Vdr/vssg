@@ -18,10 +18,20 @@ pub const blog_entry_filename = 'index.htm'
 pub const push_template_file = 'push.tmpl'
 pub const push_style_template_file = 'push_style.tmpl'
 pub const blog_date_format = 'DD/MM/YYYY kk:mm'
+
+// Custom tags, used for chain command.
+pub const lnk_next_tag = '<vssg-lnk-next>'
+pub const next_tag_close = '<vssg-lnk-next>'
+pub const lnk_prev_tag = '<vssg-lnk-prev>'
+pub const prev_tag_close = '<vssg-lnk-prev>'
+
+// VSSG environment variables.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
 pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const rsync_permanent_option = 'VSSG_SYNC_OPT'
+
+// Rsync command related options.
 pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 pub const rsync_single_file = 'rsync -avzhc'
 pub const rsync_pull_opt = 'rsync -chavzP'

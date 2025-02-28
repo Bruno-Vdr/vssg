@@ -35,7 +35,8 @@ fn Drop.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('drop')} topic_title [-f]
 
-${term.rgb(255,165, 0, 'Warning:')} This command must be launched from within blog directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The drop command deletes a complete topic with all of its pushes, if any. By default the commands appends the
 ${cst.dir_removed_suffix} suffix to the directory. By adding the ${term.red('-f')} the
@@ -59,7 +60,7 @@ fn drop(p []string) ! {
 		} else {
 			return error('Unknown parameter "${p[1]}".')
 		}
-		title = if p[0] == '-f' {p[1]} else {p[0]}
+		title = if p[0] == '-f' { p[1] } else { p[0] }
 	}
 
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }

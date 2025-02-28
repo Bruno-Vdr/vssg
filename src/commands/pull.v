@@ -40,7 +40,7 @@ ${term.rgb(255,
 The ${term.gray('-f')} option, allows to continue if destination directory already exists. It\'s
 useful to resume interrupted earlier pull command.
 
-The pull command download the full remote blog to local the directory. This is useful
+The pull command downloads the full remote blog to local the directory. This is useful
 if the local blog is lost. This command is potentially dangerous, and must be run from
 outside blog directory.
 '

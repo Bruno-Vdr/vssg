@@ -32,7 +32,7 @@ fn Obfuscate.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('obfuscate')} string
 
-The obfuscate applies obfuscation function (hash) over the given string. It allows
+The obfuscate command applies obfuscation function (hash) over the given string. It allows
 to retrieve topics mangled named.
 e.g. ${term.green('vssg')} ${term.yellow('obfuscate')} vssg will return "${util.obfuscate('vssg')}"
 '

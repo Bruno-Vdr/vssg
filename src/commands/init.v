@@ -5,7 +5,6 @@ import os
 import constants as cst
 import structures
 
-
 // Init structure, implementing Command interface.
 struct Init implements Command {
 	kind    CommandType

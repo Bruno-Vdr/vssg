@@ -38,6 +38,7 @@ Command: ${term.green('vssg')} ${term.yellow('remove')} ${term.magenta('id')} [-
 ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within topic directory.
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
+
 The remove command deletes a push from a topic:
 	-Removes push description from ${cst.topic_file}
 	-Regenerates ${cst.pushs_list_filename} with links to push.

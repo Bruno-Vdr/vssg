@@ -63,6 +63,9 @@ pub fn Command.get() map[string]Command {
 	pull := Pull.new()
 	c[pull.name] = pull
 
+	chain := Chain.new()
+	c[chain.name] = chain
+
 	obfuscate := Obfuscate.new()
 	c[obfuscate.name] = obfuscate
 

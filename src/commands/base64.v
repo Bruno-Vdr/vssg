@@ -4,7 +4,6 @@ import term
 import os
 import encoding.base64 as stdbase64
 
-
 // Base64 structure, implementing Command interface.
 struct Base64 implements Command {
 	kind    CommandType
@@ -42,13 +41,12 @@ page, without needed additional file.
 // base64 command feature are implemented here. The parameters number has been checked before call.
 fn base64(p []string) ! {
 	filename := p[0]
-	if !os.exists(filename)  {
+	if !os.exists(filename) {
 		return error('The file "${term.blue(filename)}" does not exists.')
 	}
 
 	dot_pos := filename.last_index('.') or {
 		return error('Cannot find filename extension in filename "${filename}"')
-
 	}
 
 	if filename.len - dot_pos <= 1 {
