@@ -21,9 +21,9 @@ pub const blog_date_format = 'DD/MM/YYYY kk:mm'
 
 // Custom tags, used for chain command.
 pub const lnk_next_tag = '<vssg-lnk-next>'
-pub const next_tag_close = '<vssg-lnk-next>'
+pub const next_tag_close = '</vssg-lnk-next>'
 pub const lnk_prev_tag = '<vssg-lnk-prev>'
-pub const prev_tag_close = '<vssg-lnk-prev>'
+pub const prev_tag_close = '</vssg-lnk-prev>'
 
 // VSSG environment variables.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.

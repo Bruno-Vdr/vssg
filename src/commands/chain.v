@@ -44,6 +44,11 @@ Order is given by order of push in .topic file.
 '
 }
 
+enum LnkType {
+	next
+	previous
+}
+
 // chain command feature are implemented here. The parameters number has been checked before call.
 fn chain(params []string) ! {
 	if util.where_am_i() in [.blog_dir, .outside] {
@@ -59,38 +64,47 @@ fn chain(params []string) ! {
 
 	lst := topics.posts.values()
 	for id, ps in lst {
-
-		prev := if id == 0 {?int(none)} else {int(lst[id - 1].id)}
-		next := if id == lst.len -1 {?int(none)} else  {int(lst[id + 1].id)}
+		prev := if id == 0 { ?int(none) } else { int(lst[id - 1].id) }
+		next := if id == lst.len - 1 { ?int(none) } else { int(lst[id + 1].id) }
 
 		prev_lnk := generate_link(prev, .previous)
 		next_lnk := generate_link(next, .next)
 
-		println(ps.title)
-		println('Prev link= ${prev_lnk}')
-		println('Next link= ${next_lnk}')
+		filename := '${cst.push_dir_prefix}${ps.id}${os.path_separator}${cst.push_filename}'
+		// println('Updating ${filename} - ${ps.title}')
+		 println('Prev link= ${prev_lnk}')
+		 println('Next link= ${next_lnk}')
+
+		mut lines := util.load_text_file(filename, none)!
+		p,n := update_lnk(mut lines, prev_lnk, next_lnk)
+		if n == false {
+			println('${term.rgb(255, 165, 0, 'Warning:')} ${cst.lnk_next_tag} was not found in ${filename}.')
+		}
+		if p == false {
+			println('${term.rgb(255, 165, 0, 'Warning:')} ${cst.lnk_prev_tag} was not found in ${filename}.')
+		}
+
+		util.write_all(filename, lines)!
+		println('${term.blue(filename)} successfully chained.')
 	}
 }
-enum LnkType {
-	next
-	previous
-}
 
+// generate_link builds a HTML link to previous or next push, returned as string.
 fn generate_link(to ?int, kind LnkType) string {
-
-	// Style is used as HTML On/Off button to show and hide the link.
+	// href style is used as HTML On/Off button to show and hide the link.
+	//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev> ON
+	//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>  OFF
 	href := if to != none {
-		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}">Previous</a>'
+		label := if kind == .previous {'Previous'} else {'Next'}
+		style :=if kind == .previous {'style="float : left" '} else {'style="float : right"'}
+		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}>${label}</a>'
 	} else {
 		'<a style="display: none;"></a>'
 	}
 
-	mut ln :=''
+	mut ln := ''
 	match kind {
 		.next {
-
-//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev>
-//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>
 			ln = cst.lnk_next_tag + href + cst.next_tag_close
 		}
 		.previous {
@@ -98,4 +112,23 @@ fn generate_link(to ?int, kind LnkType) string {
 		}
 	}
 	return ln
+}
+
+//  update_lnk replaces previous/next links in given lines.
+fn update_lnk(mut lines []string, prev string, next string) (bool, bool) {
+	mut found_prev := false
+	mut found_next := false
+
+	for mut l in lines {
+		if l.contains(cst.lnk_next_tag) && l.contains(cst.next_tag_close) {
+			found_next = true
+			l = next // replace the whole line with next link.
+		}
+		if l.contains(cst.lnk_prev_tag) && l.contains(cst.prev_tag_close) {
+			found_prev = true
+			l = prev // replace the whole line with prev link.
+		}
+	}
+
+	return found_prev, found_next
 }

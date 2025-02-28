@@ -32,7 +32,7 @@ pub fn Topic.new(title string) Topic {
 }
 
 /**
- * Load a topic file, removing comments and spaces at begining of lines.
+ * Load a topic file, removing comments and spaces at beginning of lines.
  * Note: No parsing is done here, only strings loading.
  */
 pub fn Topic.load() !Topic {

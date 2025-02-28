@@ -6,6 +6,7 @@ import constants as cst
 import term
 import hash.fnv1a
 import strconv
+import io
 
 // parse_topic_values parses a single line of the following format:
 // A start label, a doubled quoted string and a int between []
@@ -164,5 +165,53 @@ pub fn where_am_i() Location {
 		return .blog_dir
 	} else {
 		return .topic_dir
+	}
+}
+
+// load_text_file loads all line from given text file, and apply func to each
+// of them.
+type Op = fn(string) ?string
+pub fn  load_text_file(f string, func ?Op) ![]string {
+	mut ret := []string{} // []string is array type, []string{} declares an empty array.
+	mut file := os.open(f) or {
+		return error('opening file : ${err} ${@FILE_LINE}')
+	}
+
+	defer {
+		file.close()
+	}
+
+	mut b_reader := io.new_buffered_reader(reader: file)
+	for {
+		mut s := b_reader.read_line() or { break }
+		mut after_func := ?string(none)
+
+		// Apply func feature on line if any.
+		if func != none {
+			after_func = func(s)
+			if after_func != none {
+				ret << after_func
+			}
+		} else {
+			ret << s
+		}
+	}
+	return ret
+}
+
+// write_all write in f file, lines strings
+pub fn write_all(f string, lines []string) ! {
+	mut file := os.open_file(f, 'w+', os.s_iwusr | os.s_irusr) or {
+		return error('Unable to write $${f}: ${err}, ${@FILE_LINE}')
+	}
+
+	defer {
+		file.close()
+	}
+
+	for l in lines {
+		file.writeln(l) or {
+			return error('Unable to write ${f}: ${err}, ${@FILE_LINE}')
+		}
 	}
 }
