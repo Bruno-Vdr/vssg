@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html>
-[section:Ghost]
 <!--
     VSSG push.htm, to be customized.
-    The [section:label]  MUST be present in given post file to be filled by the HTML generator.
+    [section:label]  are replaced with push file text by the HTML generator.
 -->
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
@@ -18,7 +17,7 @@
 </a>
 
 <div>
-    <!-- POST HEADER -->
+    <!-- PUSH HEADER -->
     <h1>
         <center>[@title]</center>
     </h1>
@@ -30,8 +29,12 @@
 </div>
 <div>
     [section:PrevNext]
-    Mon truc devrait etre ici !
      <a href="../push_0/index.html">First</a>
+     <a href="../push_0/index.html" style="display: none;">Hidden</a>
+    <vssg-next><a href="../push_0/index.html">Perso1</a></vssg-next>
+    <vssg-next><a href="../push_1/index.html" style="display: none;">Perso2</a></vssg-next>
+    <vssg-prev><a href="../push_2/index.html">Perso3</a></vssg-prev>
+
 </div>
 <!-- Footer -->
 <h6>[-- Generated with vssg --]</h6>
