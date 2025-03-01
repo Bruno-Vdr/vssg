@@ -58,7 +58,7 @@ fn drop(p []string) ! {
 		if '-f' in p {
 			force_delete = true
 		} else {
-			return error('Unknown parameter "${p[1]}".')
+			return error('Unknown parameter in "${p[0]}" or "${p[1]}".')
 		}
 		title = if p[0] == '-f' { p[1] } else { p[0] }
 	}
