@@ -64,8 +64,8 @@ fn chain(params []string) ! {
 
 	lst := topics.posts.values()
 	for id, ps in lst {
-		prev := if id == 0 { ?int(none) } else { int(lst[id - 1].id) }
-		next := if id == lst.len - 1 { ?int(none) } else { int(lst[id + 1].id) }
+		prev := if id == 0 { none } else { int(lst[id - 1].id)}
+		next := if id == lst.len - 1 { none} else { int(lst[id + 1].id) }
 
 		prev_lnk := generate_link(prev, .previous)
 		next_lnk := generate_link(next, .next)
