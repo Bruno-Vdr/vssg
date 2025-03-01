@@ -117,6 +117,8 @@ fn rename(p []string) ! {
 		os.chdir('..') or {
 			return error('Cannot change current working directory to "${new_title}": ${err}. ${@LOCATION}')
 		}
-		return
+		break // Work done, no need to continue.
 	}
+	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
+
 }

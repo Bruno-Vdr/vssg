@@ -63,4 +63,5 @@ fn update(p []string) ! {
 			println('Not in Blog or Topic directory. Nothing to be updated.')
 		}
 	}
+	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 }

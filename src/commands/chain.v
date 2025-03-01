@@ -72,8 +72,8 @@ fn chain(params []string) ! {
 
 		filename := '${cst.push_dir_prefix}${ps.id}${os.path_separator}${cst.push_filename}'
 		// println('Updating ${filename} - ${ps.title}')
-		 println('Prev link= ${prev_lnk}')
-		 println('Next link= ${next_lnk}')
+		// println('Prev link= ${prev_lnk}')
+		//println('Next link= ${next_lnk}')
 
 		mut lines := util.load_text_file(filename, none)!
 		p,n := update_lnk(mut lines, prev_lnk, next_lnk)
@@ -84,9 +84,15 @@ fn chain(params []string) ! {
 			println('${term.rgb(255, 165, 0, 'Warning:')} ${cst.lnk_prev_tag} was not found in ${filename}.')
 		}
 
-		util.write_all(filename, lines)!
-		println('${term.blue(filename)} successfully chained.')
+		if p || n {
+			util.write_all(filename, lines)!
+			println('${term.blue(filename)} successfully chained.')
+		} else {
+			println('${term.blue(filename)} skipped as previous/next links marker were not found.')
+		}
 	}
+
+	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 }
 
 // generate_link builds a HTML link to previous or next push, returned as string.
@@ -102,16 +108,14 @@ fn generate_link(to ?int, kind LnkType) string {
 		'<a style="display: none;"></a>'
 	}
 
-	mut ln := ''
-	match kind {
+	return match kind {
 		.next {
-			ln = cst.lnk_next_tag + href + cst.next_tag_close
+			 cst.lnk_next_tag + href + cst.next_tag_close
 		}
 		.previous {
-			ln = cst.lnk_prev_tag + href + cst.prev_tag_close
+			 cst.lnk_prev_tag + href + cst.prev_tag_close
 		}
 	}
-	return ln
 }
 
 //  update_lnk replaces previous/next links in given lines.

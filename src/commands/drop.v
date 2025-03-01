@@ -100,4 +100,5 @@ fn drop(p []string) ! {
 			println('Associated directory "${dir}" was not found.')
 		}
 	}
+	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 }

@@ -88,6 +88,7 @@ fn remove(param []string) ! {
 		// Rebuilt HTML topic list
 		topics.generate_pushes_list_html()!
 		println('Re-generated pushes links in (${cst.pushs_list_filename}).')
+		println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
 	} else {
 		return error('Push with id=${id} was not found. Entry NOT deleted.')
 	}
