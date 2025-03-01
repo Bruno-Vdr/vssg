@@ -53,17 +53,20 @@ Note: the remove commands only remove push from ${cst.topic_file}. Directory ${c
 // remove command feature are implemented here. The parameters number has been checked before call.
 fn remove(param []string) ! {
 	mut force_delete := false
-	id := strconv.atou64(param[0]) or {
-		return error('Cannot convert "${param[0]}" to unsigned ID.')
-	} // int
+	mut id_str := ''
 
 	if param.len == 2 {
-		if param[1] == '-f' {
+		if '-f' in param {
 			force_delete = true
 		} else {
-			return error('Unknown parameter "${param[1]}".')
+			return error('Unknown parameter "${param[0]}" or "${param[1]}".')
 		}
+		id_str = if param[0] == '-f' { param[1] } else { param[0] }
+	} else { // param.len is 2
+		id_str = param[0]
 	}
+
+	id := strconv.atou64(id_str) or { return error('Cannot convert "${id_str}" to unsigned ID.') }
 
 	// Load .topic
 	mut topics := Topic.load()!

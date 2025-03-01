@@ -1,4 +1,3 @@
--The command remove should accept -f as first or second arg.
 -The command show should show the number of pushes in topics.
 -Use util.load_text_file in Topic.load, Blog.load
 -util.functions could be hardened.
