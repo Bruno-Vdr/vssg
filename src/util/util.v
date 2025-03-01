@@ -170,12 +170,11 @@ pub fn where_am_i() Location {
 
 // load_text_file loads all line from given text file, and apply func to each
 // of them.
-type Op = fn(string) ?string
-pub fn  load_text_file(f string, func ?Op) ![]string {
+type Op = fn (string) ?string
+
+pub fn load_text_file(f string, func ?Op) ![]string {
 	mut ret := []string{} // []string is array type, []string{} declares an empty array.
-	mut file := os.open(f) or {
-		return error('opening file : ${err} ${@FILE_LINE}')
-	}
+	mut file := os.open(f) or { return error('opening file : ${err} ${@FILE_LINE}') }
 
 	defer {
 		file.close()
@@ -210,8 +209,6 @@ pub fn write_all(f string, lines []string) ! {
 	}
 
 	for l in lines {
-		file.writeln(l) or {
-			return error('Unable to write ${f}: ${err}, ${@FILE_LINE}')
-		}
+		file.writeln(l) or { return error('Unable to write ${f}: ${err}, ${@FILE_LINE}') }
 	}
 }

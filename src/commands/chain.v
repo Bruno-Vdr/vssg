@@ -64,8 +64,8 @@ fn chain(params []string) ! {
 
 	lst := topics.posts.values()
 	for id, ps in lst {
-		prev := if id == 0 { none } else { int(lst[id - 1].id)}
-		next := if id == lst.len - 1 { none} else { int(lst[id + 1].id) }
+		prev := if id == 0 { none } else { int(lst[id - 1].id) }
+		next := if id == lst.len - 1 { none } else { int(lst[id + 1].id) }
 
 		prev_lnk := generate_link(prev, .previous)
 		next_lnk := generate_link(next, .next)
@@ -73,10 +73,10 @@ fn chain(params []string) ! {
 		filename := '${cst.push_dir_prefix}${ps.id}${os.path_separator}${cst.push_filename}'
 		// println('Updating ${filename} - ${ps.title}')
 		// println('Prev link= ${prev_lnk}')
-		//println('Next link= ${next_lnk}')
+		// println('Next link= ${next_lnk}')
 
 		mut lines := util.load_text_file(filename, none)!
-		p,n := update_lnk(mut lines, prev_lnk, next_lnk)
+		p, n := update_lnk(mut lines, prev_lnk, next_lnk)
 		if n == false {
 			println('${term.rgb(255, 165, 0, 'Warning:')} ${cst.lnk_next_tag} was not found in ${filename}.')
 		}
@@ -101,8 +101,8 @@ fn generate_link(to ?int, kind LnkType) string {
 	//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev> ON
 	//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>  OFF
 	href := if to != none {
-		label := if kind == .previous {'Previous'} else {'Next'}
-		style :=if kind == .previous {'style="float : left" '} else {'style="float : right"'}
+		label := if kind == .previous { 'Previous' } else { 'Next' }
+		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
 		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}>${label}</a>'
 	} else {
 		'<a style="display: none;"></a>'
@@ -110,10 +110,10 @@ fn generate_link(to ?int, kind LnkType) string {
 
 	return match kind {
 		.next {
-			 cst.lnk_next_tag + href + cst.next_tag_close
+			cst.lnk_next_tag + href + cst.next_tag_close
 		}
 		.previous {
-			 cst.lnk_prev_tag + href + cst.prev_tag_close
+			cst.lnk_prev_tag + href + cst.prev_tag_close
 		}
 	}
 }

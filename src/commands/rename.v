@@ -120,5 +120,4 @@ fn rename(p []string) ! {
 		break // Work done, no need to continue.
 	}
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
-
 }
