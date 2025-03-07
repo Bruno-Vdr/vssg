@@ -75,7 +75,7 @@ fn chain(params []string) ! {
 		// println('Prev link= ${prev_lnk}')
 		// println('Next link= ${next_lnk}')
 
-		mut lines := util.load_text_file(filename, none)!
+		mut lines := util.load_transform_text_file(filename, none)!
 		p, n := update_lnk(mut lines, prev_lnk, next_lnk)
 		if n == false {
 			println('${term.rgb(255, 165, 0, 'Warning:')} ${cst.lnk_next_tag} was not found in ${filename}.')

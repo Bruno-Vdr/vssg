@@ -1,5 +1,5 @@
 -The command show should show the number of pushes in topics.
--Use util.load_text_file in Topic.load, Blog.load
+-Use util.load_transform_text_file in Topic.load.
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html

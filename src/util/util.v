@@ -168,11 +168,14 @@ pub fn where_am_i() Location {
 	}
 }
 
-// load_text_file loads all line from given text file, and apply func to each
-// of them.
-type Op = fn (string) ?string
 
-pub fn load_text_file(f string, func ?Op) ![]string {
+// Type alias used with load_transform_text_file function. The filtering function can transform, reject or
+// keep untouched parameter string.
+pub type Op = fn (string) ?string
+
+// load_transform_text_file loads all lines from given text file, and apply func to each
+// of them. Rejection, transformation are done in the func closure
+pub fn load_transform_text_file(f string, func ?Op) ![]string {
 	mut ret := []string{} // []string is array type, []string{} declares an empty array.
 	mut file := os.open(f) or { return error('opening file : ${err} ${@FILE_LINE}') }
 
@@ -183,12 +186,10 @@ pub fn load_text_file(f string, func ?Op) ![]string {
 	mut b_reader := io.new_buffered_reader(reader: file)
 	for {
 		mut s := b_reader.read_line() or { break }
-		mut after_func := ?string(none)
 
 		// Apply func feature on line if any.
 		if func != none {
-			after_func = func(s)
-			if after_func != none {
+			if after_func := func(s) {
 				ret << after_func
 			}
 		} else {
