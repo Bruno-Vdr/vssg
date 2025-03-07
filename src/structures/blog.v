@@ -30,6 +30,9 @@ pub fn Blog.new(name string) Blog {
 
 // Static method, loading blog file from current directory.
 pub fn Blog.load() !Blog {
+	if util.where_am_i() != .blog_dir {
+		return error('Unable to load ${cst.blog_file}.\n[Hint: Are you in the Blog root\'s directory ?]')
+	}
 	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
 		mut s := str.trim_left(' ')
 		if p := s.index('#') {

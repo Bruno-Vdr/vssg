@@ -1,7 +1,6 @@
 module structures
 
 import os
-import io
 import term
 import time
 import util
@@ -36,25 +35,18 @@ pub fn Topic.new(title string) Topic {
  * Note: No parsing is done here, only strings loading.
  */
 pub fn Topic.load() !Topic {
-	mut ret := []string{} // []string is array type, []string{} declares an empty array.
-	mut file := os.open(cst.topic_file) or {
-		return error('Failed opening file ${cst.topic_file}: ${err}. [${@FILE_LINE}]\n[Hint: are you in the topics\'s directory ?]')
+	if util.where_am_i() != .topic_dir {
+		return error('Unable to load ${cst.topic_file}.\n[Hint: Are you in a Topic\'s directory ?]')
 	}
-
-	defer {
-		file.close()
-	}
-
-	mut b_reader := io.new_buffered_reader(reader: file)
-	for {
-		mut s := b_reader.read_line() or { break }
-
-		// Remove empty lines and comments # blabla
-		s = s.trim_left(' ')
-		if !s.starts_with('#') && s.len > 0 {
-			ret << s
+	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
+		mut s := str.trim_left(' ')
+		if p := s.index('#') {
+			s = s.substr(0,p) // remove all after comment
 		}
+		return if s.len == 0 { none } else { s }
 	}
+
+	mut ret := util.load_transform_text_file(cst.topic_file, f)!
 	return parse_topic_file(ret)!
 }
 
