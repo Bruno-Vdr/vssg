@@ -41,7 +41,7 @@ pub fn Topic.load() !Topic {
 	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
 		mut s := str.trim_left(' ')
 		if p := s.index('#') {
-			s = s.substr(0,p) // remove all after comment
+			s = s.substr(0, p) // remove all after comment
 		}
 		return if s.len == 0 { none } else { s }
 	}

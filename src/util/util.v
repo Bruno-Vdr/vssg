@@ -168,7 +168,6 @@ pub fn where_am_i() Location {
 	}
 }
 
-
 // Type alias used with load_transform_text_file function. The filtering function can transform, reject or
 // keep untouched parameter string.
 pub type Op = fn (string) ?string
