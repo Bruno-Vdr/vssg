@@ -32,14 +32,8 @@ pub fn (d DynVars) substitute(src string) !string {
 	mut start := 0
 	mut stop := 0
 	for {
-		start = ret.index_after('[@', start)
-		if start == -1 {
-			break
-		}
-		stop = ret.index_after(']', start)
-		if stop == -1 {
-			break
-		}
+		start = ret.index_after('[@', start) or { break }
+		stop = ret.index_after(']', start) or { break }
 
 		// [@ and ] found
 		var := ret.substr(start + 1, stop)
