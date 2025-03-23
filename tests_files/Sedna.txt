@@ -1,0 +1,9 @@
+[title:Sedna]
+[link label:]
+[date:]
+[section:main]
+(90377) Sedna est un objet transneptunien du Système solaire d'un diamètre d'environ 1 000 kilomètres, ce qui en fait un candidat au statut de planète naine. En novembre 2013, sa distance au Soleil était d’environ 86,4 unités astronomiques (~12,9 milliards de kilomètres), près de trois fois celle de Neptune. Cette position, cependant, est près de son périhélie ; son aphélie de 960 au (144 milliards de kilomètres) fait de Sedna, pendant la plus grande partie de son orbite, un des objets connus du Système solaire les plus lointains après les comètes à longue période.
+[img:Sedna1.png:"L'orbite de Sedna en rouge avec sa localisation en 2021. Les autres orbites sont celles de Jupiter (orange), Saturne (jaune), Uranus (vert), Neptune (bleu) et Pluton (violet)."]
+
+Sedna fut découverte par Michael E. Brown, Chadwick Trujillo et David L. Rabinowitz le 14 novembre 2003. Cependant, il est difficile de déterminer sa forme en raison de sa distance. Des mesures spectroscopiques ont montré que la composition de sa surface est similaire à celle d'autres objets transneptuniens : elle est majoritairement composée d'un mélange de glaces d'eau, de méthane et d'azote avec du tholin. Sa surface est l'une des plus rouges du Système solaire.
+[img:Sedna2.png]

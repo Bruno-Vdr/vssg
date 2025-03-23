@@ -1,0 +1,22 @@
+[title:MADERE]
+[link label:Madere]
+[date:20/01/2025 16:40:00]
+
+[section:main]
+
+This is the main section of the MADERE article !
+
+[img:MLT_3.JPG:"A brilliant but optional comment"]
+
+A useless sentence...
+
+[img:MLT_1.JPG]
+
+<blockquote>A useless sentence...</blockquote>
+
+
+This is the zork section
+A really bad, bad section.
+
+[section:not_filled]
+This is the famous not filled section.

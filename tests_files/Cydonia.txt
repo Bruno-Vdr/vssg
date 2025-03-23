@@ -1,0 +1,21 @@
+[title:Cydonia - The Face on MARS]
+[link label:The mars's face]
+[date:09/02/2025 20:03:00]
+
+[section:main]
+
+This is the main section
+[img:CYD_1.jpg:"Most stunning mars mystery :)"]
+
+A useless sentence...
+<p>
+Cydonia was first imaged in detail by the Viking 1 and Viking 2 orbiters. Eighteen images of the Cydonia region were taken by the orbiters, of which seven have resolutions better than 250 m/pixel (820 ft/pixel). The other eleven images have resolutions that are worse than 550 m/pixel (1800 ft/pixel) and are of limited use for studying surface features. Of the seven good images, the lighting and time at which two pairs of images were taken are so close as to reduce the number to five distinct images. The Mission to Mars: Viking Orbiter Images of Mars CD-ROM set image numbers for these are: 035A72 (VO-1010), 070A13 (VO-1011), 561A25 (VO-1021), 673B54 & 673B56 (VO-1063), and 753A33 & 753A34 (VO-1028).[11][12]
+In one of the images taken by Viking 1 on July 25, 1976, a two-kilometre-long (1.2 mi) Cydonian mesa, situated at 40.75° north latitude and 9.46° west longitude,[13] had the appearance of a humanoid face. When the image was originally acquired, Viking chief scientist Gerald Soffen dismissed the "Face on Mars" in image 035A72[14] as a "trick of light and shadow".[15][16] A second image, 070A13, also shows the "face", and was acquired 35 Viking orbits later at a different sun-angle from the 035A72 image. This latter discovery was made independently by Vincent DiPietro and Gregory Molenaar, two computer engineers at NASA's Goddard Space Flight Center. DiPietro and Molenaar discovered the two misfiled images, Viking frames 035A72 and 070A13, while searching through NASA archives.[17] The resolution of these images was of about 50 m/pixel.[18]
+</p>
+<blockquote>I want to believe...</blockquote>
+[img:CYD_2.jpg:"D & M pyramid"]
+<blockquote>X-Files</blockquote>
+
+[section:not_filled]
+There is nothing to add.
+This is the famous not filled section.

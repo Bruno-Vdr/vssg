@@ -1,0 +1,7 @@
+[title:Minimal]
+[link label:Smallest post]
+[date:]
+[section:main]
+Deux mots.
+[section:not_filled]
+This is the not filled section.

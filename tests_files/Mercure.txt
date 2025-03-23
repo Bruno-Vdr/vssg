@@ -1,0 +1,21 @@
+[title:Mercure]
+[link label:Mercure (SOL-1), 1ere planete]
+[date:]
+
+[section:main]
+
+Mercure est la planète la plus proche du Soleil et la moins massive du Système solaireN 1. Son éloignement du Soleil est compris entre 0,31 et 0,47 unité astronomique (soit 46 et 70 millions de kilomètres), ce qui correspond à une excentricité orbitale de 0,2 — plus de douze fois supérieure à celle de la Terre, et de loin la plus élevée pour une planète du Système solaire. Elle est visible à l'œil nu depuis la Terre avec une taille apparente de 4,5 à 13 secondes d'arc, et une magnitude apparente de 5,7 à −2,3 ; son observation est toutefois rendue difficile par son élongation toujours inférieure à 28,3° qui la noie le plus souvent dans l'éclat du soleil. En pratique, cette proximité avec le soleil implique qu'elle ne peut être vue que près de l'horizon occidental après le coucher du soleil ou près de l'horizon oriental avant le lever du soleil, en général au crépuscule. Mercure a la particularité d'être en résonance spin-orbite 3:2, sa période de révolution (~88 jours) valant exactement 1,5 fois sa période de rotation (~59 jours), et donc la moitié d'un jour solaire (~176 jours). Ainsi, relativement aux étoiles fixes, elle tourne sur son axe exactement trois fois toutes les deux révolutions autour du Soleil.
+[img:merc1.jpg:"Mercure - Mariner orbiter"]
+
+<strong>Orbite</strong>
+[img:merc-orbit.gif:"Animation des révolutions de Mercure et de la Terre autour du Soleil. "]
+L'orbite de Mercure est inclinée de 7 degrés par rapport au plan de l'orbite terrestre (écliptique), comme le montre le schéma de droite. Par conséquent, les transits de Mercure devant le Soleil ne peuvent avoir lieu que lorsque la planète traverse le plan de l'écliptique, au moment où elle se trouve entre la Terre et le Soleil, c'est-à-dire en mai ou en novembre. Cela se produit environ tous les sept ans en moyenne12.
+
+L'inclinaison de l'axe de rotation de Mercure sur son plan orbital est la plus faible du Système solaire, à peine 2 minutes d'arc, soit environ 0,03 degré13. Cela est significativement plus faible que celle de Jupiter, qui a la deuxième plus petite inclinaison axiale de toutes les planètes, à 3,1 degrés. Cela signifie que pour un observateur aux pôles de Mercure, le centre du soleil ne s'élève jamais à plus de 2 minutes d'arc au-dessus de l'horizon13.
+
+<strong>Geologie</strong>
+[img:merc2.jpg:"Pole sud de Mercure"]
+
+La surface de Mercure est couverte d'un tapis poussiéreux, de cassures et de cratères30. La surface de Mercure est similaire à celle de la Lune, montrant de vastes plaines de minéraux (silicates) ressemblant à des mers lunaires et de nombreux cratères, ce qui indique qu'elle est géologiquement inactive depuis des milliards d'années76,77. Pour les astronomes, ces cratères sont très anciens et racontent l'histoire de la formation du Système solaire, lorsque les planétésimaux entraient en collision avec les jeunes planètes pour fusionner avec elles. Par opposition, certaines portions de la surface de Mercure semblent lisses, vierges de tout impact78,79. Il s'agit probablement de coulées de lave recouvrant un sol plus ancien et plus marqué par les impacts. La lave, une fois refroidie, donnerait lieu à l'apparition d'une surface lisse, blanchâtre. Ces plaines datent d'une époque plus récente, postérieure à la période de bombardements intenses. La découverte des plaines volcaniques sur la surface permet de mettre en cause des chutes d'énormes astéroïdes atteignant le manteau, et pouvant créer en même temps des éruptions volcaniques à l'opposé de la planète.
+
+
