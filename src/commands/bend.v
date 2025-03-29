@@ -124,7 +124,6 @@ fn bend(p []string) ! {
 	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
 	if sync == true {
 		// perform rsync on the redirect_html file
-
 		dst := util.get_remote_url() or {
 			return error('${cst.remote_url} environment variable not set, redirection file not synced.')
 		}
@@ -135,7 +134,7 @@ fn bend(p []string) ! {
 
 		println(term.yellow('updating redirection file.'))
 		src = src + os.path_separator + cst.blog_entry_filename
-		sync_file(src, dst)!
+		Sync.sync_file(src, dst)!
 	} else {
 		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from blog\'s root directory to publish.')
 	}

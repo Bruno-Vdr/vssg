@@ -92,7 +92,8 @@ fn sync(p []string) ! {
 	run_sync_cmd(cmd)!
 }
 
-fn sync_file(src string, dst string) ! {
+
+fn Sync.sync_file(src string, dst string) ! {
 	permanent_opt := util.get_sync_opt() or { '' }
 	cmd := cst.rsync_single_file + ' ${permanent_opt} ${src} ${dst}'
 	println('${cmd}')

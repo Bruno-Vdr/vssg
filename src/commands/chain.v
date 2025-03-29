@@ -64,11 +64,11 @@ fn chain(params []string) ! {
 
 	lst := topics.posts.values()
 	for id, ps in lst {
-		prev := if id == 0 { none } else { int(lst[id - 1].id) }
-		next := if id == lst.len - 1 { none } else { int(lst[id + 1].id) }
+		prev_id := if id == 0 { none } else { int(lst[id - 1].id) }
+		next_id := if id == lst.len - 1 { none } else { int(lst[id + 1].id) }
 
-		prev_lnk := generate_link(prev, .previous)
-		next_lnk := generate_link(next, .next)
+		prev_lnk := generate_link(prev_id, .previous)
+		next_lnk := generate_link(next_id, .next)
 
 		filename := '${cst.push_dir_prefix}${ps.id}${os.path_separator}${cst.push_filename}'
 		// println('Updating ${filename} - ${ps.title}')
@@ -103,9 +103,9 @@ fn generate_link(to ?int, kind LnkType) string {
 	href := if to != none {
 		label := if kind == .previous { 'Previous' } else { 'Next' }
 		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
-		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button>${label}</button></a>'
+		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button class="nextprev">${label}</button></a>'
 	} else {
-		'<a style="display: none;"></a>'
+		'<a style="visibility: hidden;"></a>'
 	}
 
 	return match kind {

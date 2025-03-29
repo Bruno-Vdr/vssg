@@ -119,3 +119,15 @@ a:active {
   text-decoration:none;
 }
 
+/* Next/Previous link button customization. Required for pushes */
+.nextprev {
+  background-color: #04AA6D; /* Green */
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  display: inline;
+  font-size: 16px;
+}
