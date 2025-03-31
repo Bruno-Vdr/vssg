@@ -1,5 +1,4 @@
 -Try to use [LinkModel] with next/previous links in chain.
--The command show should show the number of pushes in topics.
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html
