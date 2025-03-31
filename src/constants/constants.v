@@ -24,6 +24,8 @@ pub const lnk_next_tag = '<vssg-lnk-next>'
 pub const next_tag_close = '</vssg-lnk-next>'
 pub const lnk_prev_tag = '<vssg-lnk-prev>'
 pub const prev_tag_close = '</vssg-lnk-prev>'
+pub const lnk_next_label = 'Next'
+pub const lnk_prev_label = 'Prev.'
 
 // VSSG environment variables.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
