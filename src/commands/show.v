@@ -52,9 +52,7 @@ fn show(param []string) ! {
 	if param.len == 1 {
 		if '-a' in param {
 			show_all = true
-		}
-		else
-		{
+		} else {
 			return error('Unknown option ${term.red(param[0])}')
 		}
 	}
@@ -96,7 +94,8 @@ fn show(param []string) ! {
 fn list_topic(header bool) ! {
 	topic := Topic.load()!
 	if header {
-		println('Topic "' + term.blue('${topic.title}') +'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
+		println('Topic "' + term.blue('${topic.title}') +
+			'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
 	}
 	for _, p in topic.posts {
 		mut str := 'Push id: ${p.id} ${term.bright_yellow('"' + p.title + '"')} [${util.to_blog_date(p.date)}] ${term.bright_blue(p.dir)}'

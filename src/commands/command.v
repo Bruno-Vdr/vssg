@@ -66,6 +66,9 @@ pub fn Command.get() map[string]Command {
 	chain := Chain.new()
 	c[chain.name] = chain
 
+	backup := Backup.new()
+	c[backup.name] = backup
+
 	obfuscate := Obfuscate.new()
 	c[obfuscate.name] = obfuscate
 

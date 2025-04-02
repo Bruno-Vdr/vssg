@@ -92,7 +92,6 @@ fn sync(p []string) ! {
 	run_sync_cmd(cmd)!
 }
 
-
 fn Sync.sync_file(src string, dst string) ! {
 	permanent_opt := util.get_sync_opt() or { '' }
 	cmd := cst.rsync_single_file + ' ${permanent_opt} ${src} ${dst}'
@@ -107,7 +106,7 @@ fn run_sync_cmd(cmd string) ! {
 	if ret.exit_code < 0 {
 		return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
 	} else {
-		if ret.exit_code == 127 {
+		if ret.exit_code == 127 { // Command not found
 			return error('rsync command not found. Is rsync installed and in your \$PATH ? ${@FILE_LINE}')
 		} else {
 			if ret.exit_code == 0 {

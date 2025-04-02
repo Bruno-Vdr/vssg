@@ -33,6 +33,11 @@ pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const rsync_permanent_option = 'VSSG_SYNC_OPT'
 
+// zip command related options.
+pub const zip_cmd = 'zip'
+pub const zip_opt = '-r -n .jpg:.JPG:.jpeg:.JPEG:.png:.PNG' // better compress, recursive.
+pub const zip_file_date_format = 'DD_MM_YYYY_kk_mm_ss'
+
 // Rsync command related options.
 pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 pub const rsync_single_file = 'rsync -avzhc'
