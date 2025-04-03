@@ -80,7 +80,7 @@ fn parse_topic_file(lines []string) !Topic {
  */
 pub fn (t Topic) save(path string) ! {
 	println('Updating ${cst.topic_file}  file in ./' + term.blue('${path}'))
-	mut file := os.open_file('${path}${os.path_separator}${cst.topic_file}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut file := os.open_file('${path}${os.path_separator}${cst.topic_file}', 'w+', cst.file_access) or {
 		return error('Unable to update $${cst.topic_file}: ${err}, ${@FILE_LINE}')
 	}
 
@@ -137,7 +137,7 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 	t_lines.insert(lmt, cst.list_links_tag)
 
 	// Now create/overwrite output file
-	mut index := os.open_file('${cst.pushs_list_filename}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut index := os.open_file('${cst.pushs_list_filename}', 'w+', cst.file_access) or {
 		return error('Error opening ${cst.pushs_list_filename} : ${err}, ${@FILE_LINE}\n [Tip: are you in the topics\'s directory ?]')
 	}
 

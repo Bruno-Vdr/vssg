@@ -118,8 +118,7 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 	}
 
 	// Now create push HTML file
-	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
-		os.s_iwusr | os.s_irusr) or {
+	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',cst.file_access) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@LOCATION}]')
 	}
 
@@ -218,6 +217,9 @@ pub fn copy_push_picture(src string, dst string) bool {
 		eprintln('[Hint: did you set your environment variable ${term.bright_yellow(cst.img_src_env)} ?]')
 		eprintln('[Hint: run ${term.green('vssg ')} ${term.bright_yellow('env')} to display environment variables.]')
 		return false
+	}
+	os.chmod(dst, cst.file_access) or {
+		eprintln(term.bright_red('Image(s) have been copied, but cannot change file permissions. ${dst} : ${err}. [${@FILE_LINE}]'))
 	}
 	return true
 }

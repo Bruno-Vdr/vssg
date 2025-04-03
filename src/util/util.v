@@ -74,7 +74,7 @@ pub fn parse_push_values(label string, s string) ?(u64, string, i64, string) {
 
 pub fn create_default_file(path string, output_file string, multiline string) ! {
 	println('Creating ${output_file}  file in ' + term.blue('${path}'))
-	mut file := os.open_file('${path}${os.path_separator}${output_file}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut file := os.open_file('${path}${os.path_separator}${output_file}', 'w+',	cst.file_access) or {
 		return error('os.open_file() fails: ${err}. [${@FILE_LINE}]')
 	}
 

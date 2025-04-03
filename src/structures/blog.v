@@ -59,7 +59,7 @@ pub fn (b Blog) get_topic(i int) ?TopicItem {
 // Save the blog_file configuration.
 pub fn (b Blog) save() ! {
 	println('Updating ${cst.blog_file}  file in ' + term.blue('${b.name}'))
-	mut file := os.open_file('${cst.blog_file}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut file := os.open_file('${cst.blog_file}', 'w+', cst.file_access) or {
 		return error('Unable to update ${cst.blog_file}: ${err}. ${@FILE_LINE}')
 	}
 
@@ -104,7 +104,7 @@ fn emit_topics(mut file os.File, b &Blog) ! {
  */
 pub fn (b Blog) create() ! {
 	println('Creating ${cst.blog_file}  file in ' + term.blue('${b.name}'))
-	mut file := os.open_file('${b.name}${os.path_separator}${cst.blog_file}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut file := os.open_file('${b.name}${os.path_separator}${cst.blog_file}', 'w+', cst.file_access) or {
 		return error('Unable to update ${b.name}${os.path_separator}${cst.blog_file}: ${err}. ${@FILE_LINE}')
 	}
 
@@ -153,7 +153,7 @@ pub fn (b &Blog) generate_topics_list_html() ! {
 	t_lines.insert(lmt, cst.list_links_tag)
 
 	// Now create/overwrite output file
-	mut index := os.open_file('${cst.topics_list_filename}', 'w+', os.s_iwusr | os.s_irusr) or {
+	mut index := os.open_file('${cst.topics_list_filename}', 'w+', cst.file_access) or {
 		return error('opening ${cst.topics_list_filename} : ${err}. ${@FILE_LINE}\n [Tip: are you in the blog\'s root directory ?]')
 	}
 

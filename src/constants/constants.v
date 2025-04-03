@@ -1,6 +1,8 @@
 module constants
 
-pub const blog_file = '.blog'
+import os
+
+	pub const blog_file = '.blog'
 pub const topic_file = '.topic'
 pub const style_file = 'style.css'
 pub const push_dir_prefix = 'push_'
@@ -52,3 +54,6 @@ pub const pushs_list_style_css = $embed_file('../templates/pushs_list_style.css'
 
 pub const push_template = $embed_file('../templates/push.htm', .zlib)
 pub const push_style_css = $embed_file('../templates/push_style.css', .zlib)
+
+// Default files right = -rw-r--r--
+pub const file_access = os.s_iwusr | os.s_irusr| os.s_irgrp | os.s_iroth
