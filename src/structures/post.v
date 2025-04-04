@@ -37,15 +37,7 @@ pub fn (mut p Post) set_id(id u64) {
 // after '#' comment symbol. Empty lines are also rejected. Leading spaces
 // are removed too.
 fn load_all(filename string) ![]string {
-
-	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
-		mut s := str.trim_left(' ')
-		if p := s.index('#') {
-			s = s.substr(0, p) // remove all after comment
-		}
-		return if s.len == 0 { none } else { s }
-	}
-	return util.load_transform_text_file(filename, f)!
+	return util.load_transform_text_file(filename, util.rem_empty_and_comments)!
 }
 
 // parse_post retrieve Post data from relevant lines.

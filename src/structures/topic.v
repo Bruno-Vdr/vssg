@@ -38,15 +38,8 @@ pub fn Topic.load() !Topic {
 	if util.where_am_i() != .topic_dir {
 		return error('Unable to load ${cst.topic_file}.\n[Hint: Are you in a Topic\'s directory ?]')
 	}
-	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
-		mut s := str.trim_left(' ')
-		if p := s.index('#') {
-			s = s.substr(0, p) // remove all after comment
-		}
-		return if s.len == 0 { none } else { s }
-	}
 
-	mut ret := util.load_transform_text_file(cst.topic_file, f)!
+	mut ret := util.load_transform_text_file(cst.topic_file, util.rem_empty_and_comments)!
 	return parse_topic_file(ret)!
 }
 
