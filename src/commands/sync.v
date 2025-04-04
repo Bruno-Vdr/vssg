@@ -77,9 +77,9 @@ fn sync(p []string) ! {
 	}
 
 	sub_dir, msg := if cwd.len > abs_path.len {
-		cwd.substr(abs_path.len, cwd.len), 'Syncing sub-directory.'
+		cwd.substr(abs_path.len, cwd.len), 'Operation: ${term.green('Syncing sub-directory.')}'
 	} else {
-		'', 'Complete blog sync.'
+		'', 'Operation: ${term.green('Syncing complete blog.')}'
 	}
 	println('${msg}')
 
@@ -88,8 +88,8 @@ fn sync(p []string) ! {
 	// add n for dry run. On source, trailing '/' is required to sync the whole directory.
 	cmd := '${cst.rsync_cmd_opt} ${options} ${permanent_opt} ${cwd}${os.path_separator} ${url}${sub_dir}' //
 	println('${term.bright_yellow(cst.rsync_cmd_opt)} ${term.gray(options)} ${term.blue(permanent_opt)} ${cwd}${os.path_separator} ${url}${sub_dir}')
-
 	run_sync_cmd(cmd)!
+	println('${msg} : Done.')
 }
 
 fn Sync.sync_file(src string, dst string) ! {
