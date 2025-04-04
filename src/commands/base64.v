@@ -20,7 +20,7 @@ pub fn Base64.new() Command {
 	return Base64{
 		kind:    .helper
 		name:    'base64'
-		desc:    'Base64 (hash) the given string.'
+		desc:    'Encodes a given file to its Base64 representation.'
 		help:    Base64.help()
 		arg_min: 1
 		arg_max: 1

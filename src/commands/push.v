@@ -50,7 +50,11 @@ The push command creates a new push/entry in the ${term.magenta('current topic d
 
 // push command feature are implemented here. The parameters number has been checked before call.
 fn push(p []string) ! {
-	post_file := p[0]
+
+	push_path := util.get_default_push_dir() or {
+		return error('${cst.default_push_dir} is not set. Fix it with: export ${cst.default_push_dir}= ...')
+	}
+	post_file := push_path + p[0]
 
 	// First, check post_file.
 	if !os.exists('${post_file}') {

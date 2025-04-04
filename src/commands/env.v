@@ -34,7 +34,8 @@ fn Env.help() string {
 Command: ${term.green('vssg')} ${term.yellow('env')}
 
 The env command displays the environment variables used by vssg:
-	${term.bright_yellow(cst.default_push_dir)} : Default directory to get push files from.
+
+    ${term.bright_yellow(cst.default_push_dir)} : Default directory to get push files from.
     ${term.bright_yellow(cst.img_src_env)} : Path to grab pushed images from.
     ${term.bright_yellow(cst.remote_url)} : Remote blog\'s URL (used by sync command).
     ${term.bright_yellow(cst.blog_root)} : Local blog\' location (used by sync command).
@@ -46,8 +47,8 @@ The env command displays the environment variables used by vssg:
 fn env(p []string) ! {
 	println("vssg's environement variables:\n")
 	print(term.bright_yellow(cst.default_push_dir) + ' = ')
-	if img_post := util.get_default_push_dir() {
-		println('"' + img_post + '"')
+	if push_dir := util.get_default_push_dir() {
+		println('"' + push_dir + '"')
 	} else {
 		println(term.red('Not set'))
 	}

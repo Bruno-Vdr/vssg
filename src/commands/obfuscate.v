@@ -19,7 +19,7 @@ pub fn Obfuscate.new() Command {
 	return Obfuscate{
 		kind:    .helper
 		name:    'obfuscate'
-		desc:    'Obfuscate (hash) the given string.'
+		desc:    'Obfuscates (hash) the given string.'
 		help:    Obfuscate.help()
 		arg_min: 1
 		arg_max: 1
