@@ -31,9 +31,9 @@ pub const lnk_prev_label = 'Prev.'
 
 // VSSG environment variables.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
-pub const remote_url = 'VSSG_BLOG_URL' // Env var pointing remote site location.
+pub const remote_url = 'VSSG_BLOG_REMOTE_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
-pub const rsync_permanent_option = 'VSSG_SYNC_OPT'
+pub const rsync_permanent_option = 'VSSG_RSYNC_OPT'
 
 // zip command related options.
 pub const zip_cmd = 'zip'
