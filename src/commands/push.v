@@ -59,6 +59,8 @@ fn push(p []string) ! {
 	// First, check post_file.
 	if !os.exists('${post_file}') {
 		return error('Failed loading "${post_file}" : The file does not exist.')
+	} else {
+		println('File ${term.blue(post_file)} : Found.')
 	}
 
 	// Environment var for Image dir is mandatory.

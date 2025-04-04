@@ -1,14 +1,9 @@
-
--Create a Push directory, same as VSSG_Img for Push ? Only need to provide filename instead of fullpath ?
-
-    Adapt : -Push
-            -Modify
-
 -Factorize Sync and Backup command exec code.
 -Try to use [LinkModel] with next/previous links in chain.
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.
 -Harden topic generate_pushes_list_html
+-Factorize all Env related util.get... methods.
 
 Errors Rules:
     -Indicates FILE_LINE only at the source of error. Else, transmit err, with @LOCATION.

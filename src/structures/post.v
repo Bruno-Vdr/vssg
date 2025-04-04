@@ -1,9 +1,8 @@
 module structures
 
-import io
-import os
 import time
 import constants as cst
+import util
 
 pub struct Section {
 pub:
@@ -38,27 +37,15 @@ pub fn (mut p Post) set_id(id u64) {
 // after '#' comment symbol. Empty lines are also rejected. Leading spaces
 // are removed too.
 fn load_all(filename string) ![]string {
-	mut lines := []string{} // []string is array type, []string{} declares an empty array.
-	mut file := os.open(filename) or {
-		return error('failed loading file "${filename}": ${err}, ${@FILE_LINE}')
-	}
 
-	defer {
-		file.close()
-	}
-
-	// Load all given file content excepted comments. Leading spaces are also removed.
-	mut b_reader := io.new_buffered_reader(reader: file)
-	for {
-		mut line := b_reader.read_line() or { break }
-
-		// Remove empty lines and comments # bla bla...
-		line = line.trim_left(' ')
-		if !line.starts_with('#') && line.len > 0 {
-			lines << line
+	f := fn (str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
+		mut s := str.trim_left(' ')
+		if p := s.index('#') {
+			s = s.substr(0, p) // remove all after comment
 		}
+		return if s.len == 0 { none } else { s }
 	}
-	return lines
+	return util.load_transform_text_file(filename, f)!
 }
 
 // parse_post retrieve Post data from relevant lines.

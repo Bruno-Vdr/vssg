@@ -56,6 +56,7 @@ fn modify(param []string) ! {
 		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int
 
+
 	push_path := util.get_default_push_dir() or {
 		return error('${cst.default_push_dir} is not set. Fix it with: export ${cst.default_push_dir}= ...')
 	}

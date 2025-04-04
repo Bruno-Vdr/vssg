@@ -179,20 +179,19 @@ pub type Op = fn (string) ?string
 // load_transform_text_file loads all lines from given text file, and apply func to each
 // of them. Rejection, transformation are done in the func closure
 pub fn load_transform_text_file(f string, func ?Op) ![]string {
-	mut ret := []string{} // []string is array type, []string{} declares an empty array.
 	mut file := os.open(f) or { return error('opening file : ${err} ${@FILE_LINE}') }
-
 	defer {
 		file.close()
 	}
 
+	mut ret := []string{} // []string is array type, []string{} allocates an empty array.
 	mut b_reader := io.new_buffered_reader(reader: file)
 	for {
 		mut s := b_reader.read_line() or { break }
 
 		// Apply func feature on line if any.
 		if func != none {
-			if after_func := func(s) {
+			if after_func := func(s) { // Option unwrapping if any.
 				ret << after_func
 			}
 		} else {
