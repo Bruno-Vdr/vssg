@@ -176,9 +176,9 @@ pub fn where_am_i() Location {
 // keep untouched parameter string.
 pub type Op = fn (string) ?string
 
-// to use as closure parameter with load_transform_text_file.
+// del_empty_and_comments to use as closure parameter with load_transform_text_file.
 // The method removes all empty lines and trailing symbols after #.
-pub fn rem_empty_and_comments(str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
+pub fn del_empty_and_comments(str string) ?string { // Filtering closure. Remove commentary, rejects empty strings.
 	mut s := str.trim_left(' ')
 	if p := s.index('#') {
 		s = s.substr(0, p) // remove all after comment

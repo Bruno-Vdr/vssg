@@ -34,7 +34,7 @@ pub fn Blog.load() !Blog {
 		return error('Unable to load ${cst.blog_file}.\n[Hint: Are you in the Blog root\'s directory ?]')
 	}
 
-	mut ret := util.load_transform_text_file(cst.blog_file, util.rem_empty_and_comments)!
+	mut ret := util.load_transform_text_file(cst.blog_file, util.del_empty_and_comments)!
 	return parse_blog(ret)
 }
 

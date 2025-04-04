@@ -39,7 +39,7 @@ pub fn Topic.load() !Topic {
 		return error('Unable to load ${cst.topic_file}.\n[Hint: Are you in a Topic\'s directory ?]')
 	}
 
-	mut ret := util.load_transform_text_file(cst.topic_file, util.rem_empty_and_comments)!
+	mut ret := util.load_transform_text_file(cst.topic_file, util.del_empty_and_comments)!
 	return parse_topic_file(ret)!
 }
 
