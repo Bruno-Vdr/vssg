@@ -55,7 +55,7 @@ fn main() {
 		return
 	}
 
-	// All basic checks are done, command is known, with a correct number of arguments.
+	// All basic checks are done, command is known, with a correct number of (unchecked) arguments.
 	cm.exec(os.args[2..]) or {
 		eprintln('${term.red('Error')}: ${err}')
 		exit(-1)
