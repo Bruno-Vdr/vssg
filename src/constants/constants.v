@@ -30,6 +30,7 @@ pub const lnk_next_label = 'Next'
 pub const lnk_prev_label = 'Prev.'
 
 // VSSG environment variables.
+pub const default_push_dir = "VSSG_PUSH_DIR" // Default dir of push files.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
 pub const remote_url = 'VSSG_BLOG_REMOTE_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root

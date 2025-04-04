@@ -93,6 +93,10 @@ pub fn get_img_post_dir() ?string {
 	return os.getenv_opt(cst.img_src_env)
 }
 
+pub fn get_default_push_dir() ?string {
+	return os.getenv_opt(cst.default_push_dir)
+}
+
 pub fn get_remote_url() ?string {
 	return os.getenv_opt(cst.remote_url)
 }
