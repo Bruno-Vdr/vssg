@@ -56,29 +56,9 @@ fn backup(p []string) ! {
 
 			date := time.now().unix()
 			str_date := time.unix(date).custom_format(cst.zip_file_date_format)
-			output_file := p[0] + '_' + str_date + '.zip'
+			output_file := p[0].trim_right(os.path_separator) + '_' + str_date + '.zip'
 			cmd := cst.zip_cmd + ' ' + cst.zip_opt + ' ' + output_file + ' ' + p[0]
-
-			println('Command: "${term.yellow(cmd)}".')
-			ret := os.execute(cmd)
-			// now check that zip is installed on the system.
-			if ret.exit_code < 0 {
-				return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
-			} else {
-				if ret.exit_code == 127 { // Command not found
-					return error('${cst.zip_cmd} command not found. Is it installed and in your \$PATH ? ${@FILE_LINE}')
-				} else {
-					if ret.exit_code == 0 {
-						println(term.bright_green('${ret.output}'))
-						println(term.bright_green('${cst.zip_cmd} command successful.'))
-					} else {
-						// An error occurs´
-						return error('${cst.zip_cmd} returns ${ret.exit_code} :\n' +
-							term.red(ret.output) +
-							'\nCheck ${cst.zip_cmd} return code for more information. ${@FILE_LINE}')
-					}
-				}
-			}
+			util.exec(cmd, true)!
 		}
 		else {
 			return error("This command must be launched from outside blog's directory.")

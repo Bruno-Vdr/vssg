@@ -101,22 +101,5 @@ fn Sync.sync_file(src string, dst string) ! {
 
 // run_sync_cmd Launch the rsync command
 fn run_sync_cmd(cmd string) ! {
-	ret := os.execute(cmd)
-	// now check that rsync is installed on the system.
-	if ret.exit_code < 0 {
-		return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
-	} else {
-		if ret.exit_code == 127 { // Command not found
-			return error('rsync command not found. Is rsync installed and in your \$PATH ? ${@FILE_LINE}')
-		} else {
-			if ret.exit_code == 0 {
-				println('rsync command successful:')
-				println(term.bright_green('${ret.output}'))
-			} else {
-				// An error occurs´
-				return error('rsync returns ${ret.exit_code} :\n' + term.red(ret.output) +
-					'\nCheck rsync return code for more information. ${@FILE_LINE}')
-			}
-		}
-	}
+	util.exec(cmd, true)!
 }

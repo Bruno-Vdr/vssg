@@ -74,7 +74,7 @@ pub fn parse_push_values(label string, s string) ?(u64, string, i64, string) {
 
 pub fn create_default_file(path string, output_file string, multiline string) ! {
 	println('Creating ${output_file}  file in ' + term.blue('${path}'))
-	mut file := os.open_file('${path}${os.path_separator}${output_file}', 'w+',	cst.file_access) or {
+	mut file := os.open_file('${path}${os.path_separator}${output_file}', 'w+', cst.file_access) or {
 		return error('os.open_file() fails: ${err}. [${@FILE_LINE}]')
 	}
 
@@ -223,5 +223,37 @@ pub fn write_all(f string, lines []string) ! {
 
 	for l in lines {
 		file.writeln(l) or { return error('Unable to write ${f}: ${err}, ${@FILE_LINE}') }
+	}
+}
+
+pub fn exec(cmd string, verbose bool) ! {
+	// Extract exe name, first word in command.
+	mut exe_name := cmd.trim_left(' ')
+	if i := cmd.index(' ') {
+		exe_name = cmd.substr(0, i)
+	}
+
+	if verbose {
+		println('Command: "${term.yellow(cmd)}".')
+	}
+
+	ret := os.execute(cmd)
+	if ret.exit_code < 0 {
+		return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
+	} else {
+		if ret.exit_code == 127 { // Command not found
+			return error('${exe_name} command not found. Is it installed and in your \$PATH ? ${@FILE_LINE}')
+		} else {
+			if ret.exit_code == 0 {
+				if verbose {
+					println(term.bright_green('${ret.output}'))
+					println(term.bright_green('${cst.zip_cmd} command successful.'))
+				}
+			} else {
+				// An error occurs´
+				return error('${cst.zip_cmd} returns ${ret.exit_code} :\n' + term.red(ret.output) +
+					'\nCheck ${cst.zip_cmd} return code for more information. ${@FILE_LINE}')
+			}
+		}
 	}
 }

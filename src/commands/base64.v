@@ -20,7 +20,7 @@ pub fn Base64.new() Command {
 	return Base64{
 		kind:    .helper
 		name:    'base64'
-		desc:    'Encodes a given file to its Base64 representation.'
+		desc:    'Encodes a given image file to its Base64 representation.'
 		help:    Base64.help()
 		arg_min: 1
 		arg_max: 1
@@ -33,8 +33,8 @@ fn Base64.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('base64')} ${term.blue('filename')}
 
-The base64 command converts given (image) file to base64 string file. It allows images to be embeded in HTML
-page, without needed additional file.
+The base64 command converts given image file to base64 string on std output. It allows images to be embedded in HTML
+page, without need of additional file. HTML <img> tag is also creates, with complete mime type, and extension.
 '
 }
 
