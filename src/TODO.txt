@@ -1,4 +1,3 @@
--Factorize Sync and Backup command exec code.
 -Try to use [LinkModel] with next/previous links in chain.
 -util.functions could be hardened.
 -documentation could be extracted from Command.help method.

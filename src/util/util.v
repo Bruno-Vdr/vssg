@@ -247,12 +247,12 @@ pub fn exec(cmd string, verbose bool) ! {
 			if ret.exit_code == 0 {
 				if verbose {
 					println(term.bright_green('${ret.output}'))
-					println(term.bright_green('${cst.zip_cmd} command successful.'))
+					println(term.bright_green('${exe_name} command successful.'))
 				}
 			} else {
 				// An error occurs´
-				return error('${cst.zip_cmd} returns ${ret.exit_code} :\n' + term.red(ret.output) +
-					'\nCheck ${cst.zip_cmd} return code for more information. ${@FILE_LINE}')
+				return error('${exe_name} returns ${ret.exit_code} :\n' + term.red(ret.output) +
+					'\nCheck ${exe_name} return code for more information. ${@FILE_LINE}')
 			}
 		}
 	}
