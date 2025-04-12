@@ -104,11 +104,10 @@ fn push(p []string) ! {
 	// Build HTML page of links to posts.
 	generate_push_html(path, &post, img_dir)!
 
-	println('You can now customize your ' +
-		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
-		term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
-
+	println('You can now customize this specific push files : ' +term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +	term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
+	println('To ${term.yellow('modify')} this page NOW, you can do "${term.green('vssg')}  ${term.yellow('modify')} ${id} ${term.blue(p[0])}".')
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
+
 	// Now update topics's page containing links to posts.
 	return topics.generate_pushes_list_html()
 }

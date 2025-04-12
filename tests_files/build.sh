@@ -19,6 +19,14 @@ vssg chain
 vssg bend ./push_1/index.htm
 cd ..
 
+cd ./ce9a28d8e47beefe # cd Third
+vssg push Jupiter.txt
+vssg remove -f 0
+vssg push Mercure.txt
+vssg push Mercure.txt
+vssg modify 1 Jupiter.txt
+vssg chain
+
 cd .. # Back out of Blog
 
 

@@ -136,6 +136,7 @@ fn bend(p []string) ! {
 		src = src + os.path_separator + cst.blog_entry_filename
 		Sync.sync_file(src, dst)!
 	} else {
-		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from blog\'s root directory to publish.')
+		local := 'blog\'s root directory' // Bug workaround https://github.com/vlang/v/issues/24198
+		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from ${term.blue(local)} to publish.')
 	}
 }
