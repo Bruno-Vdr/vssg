@@ -66,10 +66,10 @@ fn modify(param []string) ! {
 	mut post := Post.load(post_filename)!
 
 	// Load .topic
-	mut topics := Topic.load()!
+	mut topic := Topic.load()!
 
 	// Verify in map that post exists in post list of topic by ID
-	if p := topics.posts[id] {
+	if p := topic.posts[id] {
 		lnk := if post.link_label.len == 0 {
 			post.title
 		} else {
@@ -86,12 +86,12 @@ fn modify(param []string) ! {
 		post.set_id(p.id)
 
 		// Replace new PostSummary by updated one.
-		topics.posts[ps.id] = ps
+		topic.posts[ps.id] = ps
 
-		topics.save('./')!
+		topic.save('./')!
 
 		// Build HTML topic list
-		topics.generate_pushes_list_html()!
+		topic.generate_pushes_list_html()!
 		println('Re-generated pushes links (${cst.pushs_list_filename}).')
 
 		// Environment var for Image dir is mandatory.
@@ -99,7 +99,7 @@ fn modify(param []string) ! {
 			return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
 		}
 		// Build HTML page of the post.
-		generate_push_html(p.dir, &post, img_dir)!
+		generate_push_html(p.dir, &topic,&post, img_dir)!
 		println('Re-generated push file in ${p.dir}${os.path_separator}${cst.push_filename}.')
 		println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
 		return

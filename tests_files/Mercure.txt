@@ -17,5 +17,9 @@ L'inclinaison de l'axe de rotation de Mercure sur son plan orbital est la plus f
 [img:merc2.jpg:"Pole sud de Mercure"]
 
 La surface de Mercure est couverte d'un tapis poussiéreux, de cassures et de cratères30. La surface de Mercure est similaire à celle de la Lune, montrant de vastes plaines de minéraux (silicates) ressemblant à des mers lunaires et de nombreux cratères, ce qui indique qu'elle est géologiquement inactive depuis des milliards d'années76,77. Pour les astronomes, ces cratères sont très anciens et racontent l'histoire de la formation du Système solaire, lorsque les planétésimaux entraient en collision avec les jeunes planètes pour fusionner avec elles. Par opposition, certaines portions de la surface de Mercure semblent lisses, vierges de tout impact78,79. Il s'agit probablement de coulées de lave recouvrant un sol plus ancien et plus marqué par les impacts. La lave, une fois refroidie, donnerait lieu à l'apparition d'une surface lisse, blanchâtre. Ces plaines datent d'une époque plus récente, postérieure à la période de bombardements intenses. La découverte des plaines volcaniques sur la surface permet de mettre en cause des chutes d'énormes astéroïdes atteignant le manteau, et pouvant créer en même temps des éruptions volcaniques à l'opposé de la planète.
-
-
+<blockquote>Essai de citation</blockquote>
+ <ul>
+  <li>Mercure.</li>
+  <li>Venus</li>
+  <li>Terre</li>
+</ul>

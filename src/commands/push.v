@@ -69,8 +69,9 @@ fn push(p []string) ! {
 	}
 
 	mut post := Post.load(post_file)!
-	mut topics := Topic.load()!
-	id := topics.get_next_post_id()
+	mut topic := Topic.load()!
+
+	id := topic.get_next_post_id()
 	post.set_id(id)
 	path := cst.push_dir_prefix + id.str()
 
@@ -91,10 +92,10 @@ fn push(p []string) ! {
 
 	// Add post to our structure.
 	ps := PostSummary{post.id, post.link_label, post.date, '.${os.path_separator}${cst.push_dir_prefix}${post.id}'}
-	topics.posts[ps.id] = ps
+	topic.posts[ps.id] = ps
 
 	// Save topic file. Post cmd is run from within Topic dir.
-	topics.save('./')!
+	topic.save('./')!
 
 	// Generate style.css for this post -> cp  push_style.css ./post_1/style.css  For further post customization
 	os.cp(cst.push_style_template_file, '${path}${os.path_separator}${cst.style_file}') or {
@@ -102,21 +103,21 @@ fn push(p []string) ! {
 	}
 
 	// Build HTML page of links to posts.
-	generate_push_html(path, &post, img_dir)!
+	generate_push_html(path, &topic,&post, img_dir)!
 
 	println('You can now customize this specific push files : ' +term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +	term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
 	println('To ${term.yellow('modify')} this page NOW, you can do "${term.green('vssg')}  ${term.yellow('modify')} ${id} ${term.blue(p[0])}".')
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
 
 	// Now update topics's page containing links to posts.
-	return topics.generate_pushes_list_html()
+	return topic.generate_pushes_list_html()
 }
 
 // generate_push_html generate push HTML code. It also move pictures to push_xx/pictures.
 // path: relative path of current push. File will be generated inside.
 // post:
 // img_dir: core of env. variable from where pictures are taken.
-fn generate_push_html(path string, post &Post, img_dir string) ! {
+fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
 		return error('os.read_lines fails on ${cst.push_template_file} : ${err}. [${@LOCATION}]')
@@ -135,6 +136,7 @@ fn generate_push_html(path string, post &Post, img_dir string) ! {
 	mut dyn := util.DynVars.new()
 	dyn.add('@title', post.title)
 	dyn.add('@date', util.to_blog_date(post.date))
+	dyn.add('@topic', topic.title)
 
 	for i, li in tmpl_lines {
 		line := li.trim_space()
