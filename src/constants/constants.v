@@ -26,8 +26,8 @@ pub const lnk_next_tag = '<vssg-lnk-next>'
 pub const next_tag_close = '</vssg-lnk-next>'
 pub const lnk_prev_tag = '<vssg-lnk-prev>'
 pub const prev_tag_close = '</vssg-lnk-prev>'
-pub const lnk_next_label = 'Next'
-pub const lnk_prev_label = 'Prev.'
+pub const lnk_next_label = 'Article suivant &gt;'
+pub const lnk_prev_label = '&lt; Article précédent'
 
 // VSSG environment variables.
 pub const default_push_dir = "VSSG_PUSH_DIR" // Default dir of push files.

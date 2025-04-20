@@ -67,13 +67,20 @@ fn chain(params []string) ! {
 		prev_id := if id == 0 { none } else { int(lst[id - 1].id) }
 		next_id := if id == lst.len - 1 { none } else { int(lst[id + 1].id) }
 
-		prev_lnk := generate_link(prev_id, .previous)
-		next_lnk := generate_link(next_id, .next)
+		mut prev_title := ''
+		if prev_id != none {
+			prev_title = lst[id - 1].title
+		}
+
+		mut next_title := ''
+		if next_id != none {
+			next_title = lst[id + 1].title
+		}
+
+		prev_lnk := generate_link(prev_id, .previous, prev_title)
+		next_lnk := generate_link(next_id, .next, next_title)
 
 		filename := '${cst.push_dir_prefix}${ps.id}${os.path_separator}${cst.push_filename}'
-		// println('Updating ${filename} - ${ps.title}')
-		// println('Prev link= ${prev_lnk}')
-		// println('Next link= ${next_lnk}')
 
 		mut lines := util.load_transform_text_file(filename, none)!
 		p, n := update_lnk(mut lines, prev_lnk, next_lnk)
@@ -96,14 +103,14 @@ fn chain(params []string) ! {
 }
 
 // generate_link builds a HTML link to previous or next push, returned as string.
-fn generate_link(to ?int, kind LnkType) string {
+fn generate_link(to ?int, kind LnkType, title string) string {
 	// href style is used as HTML On/Off button to show and hide the link.
 	//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev> ON
 	//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>  OFF
 	href := if to != none {
 		label := if kind == .previous { cst.lnk_prev_label } else { cst.lnk_next_label }
 		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
-		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button class="nextprev">${label}</button></a>'
+		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button>${label +'<br>'+title}</button></a>'
 	} else {
 		'<a style="visibility: hidden;"></a>'
 	}

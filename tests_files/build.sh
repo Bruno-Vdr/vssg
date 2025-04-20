@@ -1,6 +1,8 @@
 #!/bin/bash
 vssg init Blog
 cd Blog
+cp ../tests_files/blog_menu/menu.htm ./
+cp ../tests_files/blog_menu/navbar_style.css ./
 vssg add SolSys
 vssg add Small
 vssg add Third
