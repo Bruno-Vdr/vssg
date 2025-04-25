@@ -2,9 +2,10 @@ module constants
 
 import os
 
-	pub const blog_file = '.blog'
+pub const blog_file = '.blog'
 pub const topic_file = '.topic'
 pub const style_file = 'style.css'
+pub const img_size_warning = 1024 * 512 // bytes
 pub const push_dir_prefix = 'push_'
 pub const dir_removed_suffix = '__DELETED'
 pub const pushs_pic_dir = './pictures'
@@ -30,7 +31,7 @@ pub const lnk_next_label = 'Article suivant &gt;'
 pub const lnk_prev_label = '&lt; Article précédent'
 
 // VSSG environment variables.
-pub const default_push_dir = "VSSG_PUSH_DIR" // Default dir of push files.
+pub const default_push_dir = 'VSSG_PUSH_DIR' // Default dir of push files.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
 pub const remote_url = 'VSSG_BLOG_REMOTE_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
@@ -57,4 +58,4 @@ pub const push_template = $embed_file('../templates/push.htm', .zlib)
 pub const push_style_css = $embed_file('../templates/push_style.css', .zlib)
 
 // Default files right = -rw-r--r--
-pub const file_access = os.s_iwusr | os.s_irusr| os.s_irgrp | os.s_iroth
+pub const file_access = os.s_iwusr | os.s_irusr | os.s_irgrp | os.s_iroth

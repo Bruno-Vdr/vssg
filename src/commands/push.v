@@ -50,7 +50,6 @@ The push command creates a new push/entry in the ${term.magenta('current topic d
 
 // push command feature are implemented here. The parameters number has been checked before call.
 fn push(p []string) ! {
-
 	push_path := util.get_default_push_dir() or {
 		return error('${cst.default_push_dir} is not set. Fix it with: export ${cst.default_push_dir}= ...')
 	}
@@ -102,10 +101,12 @@ fn push(p []string) ! {
 		return error('Unable to copy ${cst.push_style_template_file} in ${path}: ${err}. [${@LOCATION}]')
 	}
 
-	// Build HTML page of links to posts.
-	generate_push_html(path, &topic,&post, img_dir)!
+	// Build HTML page of push.
+	generate_push_html(path, &topic, &post, img_dir)!
 
-	println('You can now customize this specific push files : ' +term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +	term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
+	println('You can now customize this specific push files : ' +
+		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
+		term.blue('${path}${os.path_separator}${cst.push_filename}') + '.')
 	println('To ${term.yellow('modify')} this page NOW, you can do "${term.green('vssg')}  ${term.yellow('modify')} ${id} ${term.blue(p[0])}".')
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
 
@@ -124,7 +125,8 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 	}
 
 	// Now create push HTML file
-	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',cst.file_access) or {
+	mut push_file := os.open_file('${path}${os.path_separator}${cst.push_filename}', 'w+',
+		cst.file_access) or {
 		return error('Failed opening ${cst.push_filename} : ${err}. [${@LOCATION}]')
 	}
 
@@ -227,6 +229,9 @@ pub fn copy_push_picture(src string, dst string) bool {
 	}
 	os.chmod(dst, cst.file_access) or {
 		eprintln(term.bright_red('Image(s) have been copied, but cannot change file permissions. ${dst} : ${err}. [${@FILE_LINE}]'))
+	}
+	if os.file_size(src) > cst.img_size_warning {
+		println('${term.rgb(255, 165, 0, 'Warning:')} image "${term.blue(src)}" size is > ${cst.img_size_warning / 1024}kB.')
 	}
 	return true
 }
