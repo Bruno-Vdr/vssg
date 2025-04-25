@@ -92,6 +92,7 @@ fn remove(param []string) ! {
 		topics.generate_pushes_list_html()!
 		println('Re-generated pushes links in (${cst.pushs_list_filename}).')
 		println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
+		println('Please also considere using "${term.green('vssg')} ${term.yellow('bend')}" to a valid URL (drop might break bend).')
 	} else {
 		return error('Push with id=${id} was not found. Entry NOT deleted.')
 	}

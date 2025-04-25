@@ -101,4 +101,5 @@ fn drop(p []string) ! {
 		}
 	}
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
+	println('Please also considere using "${term.green('vssg')} ${term.yellow('bend')}" to a valid URL (drop might break bend).')
 }

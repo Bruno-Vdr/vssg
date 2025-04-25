@@ -1,23 +1,29 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<!--
+    <!--
     VSSG push.htm, to be customized.
     [section:label]  are replaced with push file text by the HTML generator.
 -->
-<head>
-    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title>[@title]</title>
-    <link href="./style.css" rel="stylesheet" type="text/css"/>
-</head>
-<body>
-<!-- Navigation bar -->
-<iframe src="../../menu.htm" style="border:none;" width="100%" title="navigation bar"></iframe>
-<!-- Floating button back to the top. -->
-<a class="float my-float" href="#" style="color: lightgrey">
-    &#x23F6;
-</a>
-<div>
-<img src="data:image/jpg;base64,
+    <head>
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+        <title>[@title]</title>
+        <link href="./style.css" rel="stylesheet" type="text/css" />
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <iframe
+            src="../../menu.htm"
+            style="border: none"
+            width="100%"
+            title="navigation bar"
+        ></iframe>
+        <!-- Floating button back to the top. -->
+        <a class="float my-float" href="#" style="color: lightgrey">
+            &#x23F6;
+        </a>
+        <div>
+            <img
+                src="data:image/jpg;base64,
 /9j/4AAQSkZJRgABAQEBLAEsAAD/2wBDABQODxIPDRQSEBIXFRQYHjIhHhwcHj0sLiQySUBMS0dARk
 VQWnNiUFVtVkVGZIhlbXd7gYKBTmCNl4x9lnN+gXz/2wBDARUXFx4aHjshITt8U0ZTfHx8fHx8fHx8
 fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHx8fHz/wgARCAEsBLADAREAAhEBAx
@@ -372,38 +378,28 @@ xN9VMmpRADUK3r0QZRseI5UJUnIZYFH8CIdkL1BciLtlIucmYkQ/uAW0/cx1capmEsss4hWgyTKlR2
 BgigHLHkGTcQ3uCOBctqYK/gcq4Tkl7RLThEWqCOV5uLTZhi2IHIxMXbvxUVkA55eZdNJLr/8Abg5i
 +CY7xdsFAP4K2hOHjmcJsLSqmjcxRMpmtOMQQUiI0lJ6WrM6fX8GoMDyTIBFMFkRUiego2bibZbyxN
 6VQNaCv4Q2BB9R1YfhT9y9FjR/CYJkjjMGkbBR8j//2Q==
-">
+"
+            />
 
-<!-- PUSH HEADER -->
-<h1>
-    <center>[@title]</center>
-</h1>
-<hr>
+            <!-- PUSH HEADER -->
+            <h1>
+                <center>[@title]</center>
+            </h1>
+            <hr />
 
-<center>&#x1F554; [@date] - &#x1F4C1; [@topic]</center>
+            <center>&#x1F554; [@date] - &#x1F4C1; [@topic]</center>
 
-<hr>
+            <hr />
 
-[section:main]
+            [section:main]
 
-<hr>
+            <hr />
+            <vssg-lnk-prev></vssg-lnk-prev>
+            <vssg-lnk-next></vssg-lnk-next>
+            <br />
+        </div>
 
-    <vssg-lnk-prev></vssg-lnk-prev>
-    <vssg-lnk-next></vssg-lnk-next>
-    <br>
-
-
-
-    <p>
-        <a href="../[@posts_list_filename]">
-            <button class="nextprev" style="text-align : center; background-color: #AAAA6D">Back to posts list</button>
-        </a>
-    </p>
-</div>
-
-
-<!-- Footer -->
-<h6>[-- Generated with vssg --]</h6>
-</body>
+        <!-- Footer -->
+        <h6>[-- Generated with vssg --]</h6>
+    </body>
 </html>
-
