@@ -1,11 +1,30 @@
 /**
  *  This file is embedded into the vssg executable, to be used as default
  *   VSSG topics_list_style.css template, to be customized.
- * css template for topics list html page.
+ *   The page contains the list of all topics in the Blog.
  */
+.float{
+	position:fixed;
+	width:40px;
+	height:40px;
+	bottom:20px;
+	right:20px;
+	background-color:#666;
+	color:#FFF;
+	border-radius:2px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #999;
+}
+
+.my-float {
+display:flex;
+align-items:center;
+justify-content:center;
+}
+
 
 body {
-	background-color: lightgrey;
+	background-color: white;
 }
 
 h1 {
@@ -14,10 +33,10 @@ h1 {
 }
 
 h6 {
-	color: dark-grey;
+	color: #303030;;
 	text-align: center;
     white-space: nowrap;
-    font-weight: lighter;
+    font-weight: normal;
 }
 
 
@@ -28,10 +47,10 @@ hr {
 }
 
 div {
-	color: #2F2F2F;
-	background-color: lightgrey;
+	color: #303030;
+	background-color: white;
 	font-family: verdana;
-	font-size: 16px;
+	font-size: 14px;
 	margin-left:10%;
 	margin-right:10%;
 }
@@ -101,4 +120,16 @@ a:active {
   text-decoration:none;
 }
 
+button {
+  background-color: transparent;
+  border: none;
+  outline:none;
+  color:  #a8a22b;
+}
 
+button:hover {
+  background-color: white;
+  border: none;
+  outline:none;
+  color:  #787200;
+}
