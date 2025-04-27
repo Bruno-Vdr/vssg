@@ -93,7 +93,7 @@ fn do_pull(dst string, forced bool) ! {
 	println('rsync command: ${cmd}')
 
 	// Call sync.v run_sync_cmd
-	run_sync_cmd(cmd)!
+	run_sync_cmd(cmd, false)!
 	println('Don\'t forget to update your ${term.yellow(cst.blog_root)} environment variable if you intend to use')
 	println('this pulled directory as new blog\'s root. You should also adapt field "name" from ${term.blue('${dst}${os.path_separator}${cst.blog_file}')}')
 }

@@ -134,7 +134,7 @@ fn bend(p []string) ! {
 
 		println(term.yellow('updating redirection file.'))
 		src = src + os.path_separator + cst.blog_entry_filename
-		Sync.sync_file(src, dst)!
+		Sync.sync_file(src, dst, false)!
 	} else {
 		local := 'blog\'s root directory' // Bug workaround https://github.com/vlang/v/issues/24198
 		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from ${term.blue(local)} to publish.')

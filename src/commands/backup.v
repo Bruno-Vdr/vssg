@@ -58,7 +58,7 @@ fn backup(p []string) ! {
 			str_date := time.unix(date).custom_format(cst.zip_file_date_format)
 			output_file := p[0].trim_right(os.path_separator) + '_' + str_date + '.zip'
 			cmd := cst.zip_cmd + ' ' + cst.zip_opt + ' ' + output_file + ' ' + p[0]
-			util.exec(cmd, true)!
+			util.exec(cmd, true, false)!
 		}
 		else {
 			return error("This command must be launched from outside blog's directory.")

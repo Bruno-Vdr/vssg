@@ -1,7 +1,7 @@
--Try to use [LinkModel] with next/previous links in chain.
--util.functions could be hardened.
+-Add option to bend command: e.g. -last to bend on the latest entry in the current topic directory.
+    Should not work from Blog directory.
+    -u -last should not be allowed.
 -documentation could be extracted from Command.help method.
--Harden topic generate_pushes_list_html
 -Factorize all Env related util.get... methods.
 
 Errors Rules:

@@ -226,7 +226,7 @@ pub fn write_all(f string, lines []string) ! {
 	}
 }
 
-pub fn exec(cmd string, verbose bool) ! {
+pub fn exec(cmd string, verbose bool, dry_run bool) ! {
 	// Extract exe name, first word in command.
 	mut exe_name := cmd.trim_left(' ')
 	if i := cmd.index(' ') {
@@ -237,23 +237,28 @@ pub fn exec(cmd string, verbose bool) ! {
 		println('Command: "${term.yellow(cmd)}".')
 	}
 
-	ret := os.execute(cmd)
-	if ret.exit_code < 0 {
-		return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
-	} else {
-		if ret.exit_code == 127 { // Command not found
-			return error('${exe_name} command not found. Is it installed and in your \$PATH ? ${@FILE_LINE}')
+	if !dry_run {
+		ret := os.execute(cmd)
+
+		if ret.exit_code < 0 {
+			return error('${ret.output} : error code =  ${ret.exit_code}. ${@LOCATION}')
 		} else {
-			if ret.exit_code == 0 {
-				if verbose {
-					println(term.bright_green('${ret.output}'))
-					println(term.bright_green('${exe_name} command successful.'))
-				}
+			if ret.exit_code == 127 { // Command not found
+				return error('${exe_name} command not found. Is it installed and in your \$PATH ? ${@FILE_LINE}')
 			} else {
-				// An error occurs´
-				return error('${exe_name} returns ${ret.exit_code} :\n' + term.red(ret.output) +
-					'\nCheck ${exe_name} return code for more information. ${@FILE_LINE}')
+				if ret.exit_code == 0 {
+					if verbose {
+						println(term.bright_green('${ret.output}'))
+						println(term.bright_green('${exe_name} command successful.'))
+					}
+				} else {
+					// An error occurs´
+					return error('${exe_name} returns ${ret.exit_code} :\n' + term.red(ret.output) +
+						'\nCheck ${exe_name} return code for more information. ${@FILE_LINE}')
+				}
 			}
 		}
+	} else {
+		println('Command(s) was skipped (-dry) option.')
 	}
 }
