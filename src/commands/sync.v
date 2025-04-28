@@ -108,5 +108,5 @@ fn Sync.sync_file(src string, dst string, dry bool) ! {
 
 // run_sync_cmd Launch the rsync command
 fn run_sync_cmd(cmd string, dry bool) ! {
-		util.exec(cmd, true, dry)!
+	util.exec(cmd, true, dry)!
 }

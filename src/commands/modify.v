@@ -56,7 +56,6 @@ fn modify(param []string) ! {
 		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int
 
-
 	push_path := util.get_default_push_dir() or {
 		return error('${cst.default_push_dir} is not set. Fix it with: export ${cst.default_push_dir}= ...')
 	}
@@ -99,7 +98,7 @@ fn modify(param []string) ! {
 			return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
 		}
 		// Build HTML page of the post.
-		generate_push_html(p.dir, &topic,&post, img_dir)!
+		generate_push_html(p.dir, &topic, &post, img_dir)!
 		println('Re-generated push file in ${p.dir}${os.path_separator}${cst.push_filename}.')
 		println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish or "${term.green('vssg')} ${term.yellow('chain')}" to updates links.')
 		return

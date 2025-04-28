@@ -114,6 +114,21 @@ pub fn (t Topic) get_next_post_id() u64 {
 	return next_id + 1
 }
 
+// get_last_post_summary return the last (highest) topic id, if any.
+pub fn (t Topic) get_last_post_summary() ?PostSummary {
+	if t.posts.len == 0 {
+		return none
+	} else {
+		mut last_push := t.posts[0]
+		for _, ps in t.posts {
+			if ps.id > last_push.id {
+				last_push = ps
+			}
+		}
+		return last_push
+	}
+}
+
 // This method generates pushs index page. It reads a fixed template, and output it unchanged unless a dynamic
 // variable is met or a special tag is found, it inserts there, HTML code of links.
 pub fn (t Topic) generate_pushes_list_html() ! {

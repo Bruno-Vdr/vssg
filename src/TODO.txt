@@ -1,6 +1,3 @@
--Add option to bend command: e.g. -last to bend on the latest entry in the current topic directory.
-    Should not work from Blog directory.
-    -u -last should not be allowed.
 -documentation could be extracted from Command.help method.
 -Factorize all Env related util.get... methods.
 
