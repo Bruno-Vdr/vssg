@@ -91,7 +91,6 @@ fn bend(p []string) ! {
 
 		url = cst.push_dir_prefix + ps.id.str() + os.path_separator + cst.push_filename
 		url = make_relative_to_root(url)!
-		println('URL to the last push ${url}')
 	} else {
 		// An URL was specified
 		url = args[0]
