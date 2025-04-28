@@ -38,6 +38,7 @@ vssg push Mercure.txt
 vssg modify 1 Jupiter.txt
 vssg chain
 
+cd ..
 cd .. # Back out of Blog
 
 

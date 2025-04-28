@@ -35,12 +35,11 @@ fn Bend.help() string {
 Command: ${term.green('vssg')} ${term.yellow('bend')} ${term.blue('URL')} [-f] [-u]
 
 ${term.rgb(255,
-		165, 0, 'Warning:')} This URL parameter must be relative to Blog\'s root directory.
+		165, 0, 'Warning:')} This URL parameter must be relative to your location when the
+the command is run, unless -f option is used.
 
-Adding the ${term.gray('-f')} option, completely discards destination check. Use this to
-redirect on exterior URL.
-
-Adding the ${term.gray('-u')} option will publish the redirection file to the remote blog.
+Adding the ${term.gray('-f')} option, discards destination presence check. Use this to redirect on exterior URL.
+Adding the ${term.gray('-u')} option will sync/send the redirection file to the remote blog.
 
 The bend command creates an ${cst.blog_entry_filename} file on the blog\'s root, containing HTML redirection
 to the provided ${term.blue('URL')}. It\'s usually done to bend blog\'s entry to the last push. It can be used to redirect
@@ -108,6 +107,19 @@ fn bend(p []string) ! {
 		}
 	}
 
+	// Build redirection file
+	generate_redir_file(f, url)!
+
+	if sync == true {
+		sync_redir_file()!
+	} else {
+		local := "blog's root directory" // Bug workaround https://github.com/vlang/v/issues/24198
+		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from ${term.blue(local)} to publish.')
+	}
+}
+
+// generate_redir_file writes redirection file on blog's root dir.
+fn generate_redir_file(filename string, url string) ! {
 	redirect_html := '
 <!DOCTYPE html>
 <html>
@@ -118,25 +130,24 @@ fn bend(p []string) ! {
     </body>
 </html>'
 
-	os.write_file(f, redirect_html) or {
-		return error('Cannot write "${f}" file : ${err}. ${@LOCATION}')
+	os.write_file(filename, redirect_html) or {
+		return error('Cannot write "${filename}" file : ${err}. ${@LOCATION}')
 	}
-	println('Generated HTML file "${f}" redirecting to URL: "${term.blue(url)}')
-	if sync == true {
-		// perform rsync on the redirect_html file
-		dst := util.get_remote_url() or {
-			return error('${cst.remote_url} environment variable not set, redirection file not synced.')
-		}
+	println('Generated HTML file "${filename}" redirecting to URL: "${term.blue(url)}"')
+}
 
-		mut src := util.get_blog_root() or {
-			return error('${cst.blog_root} environment variable not set, redirection file not synced.')
-		}
-
-		println(term.yellow('updating redirection file.'))
-		src = src + os.path_separator + cst.blog_entry_filename
-		Sync.sync_file(src, dst, false)!
-	} else {
-		local := 'blog\'s root directory' // Bug workaround https://github.com/vlang/v/issues/24198
-		println('Don\'t forget to do "${term.green('vssg')} ${term.yellow('sync')}" from ${term.blue(local)} to publish.')
+// sync_redir_file upload to remote blog the redirection file.
+fn sync_redir_file() ! {
+	// perform rsync on the redirect_html file
+	dst := util.get_remote_url() or {
+		return error('${cst.remote_url} environment variable not set, redirection file not synced.')
 	}
+
+	mut src := util.get_blog_root() or {
+		return error('${cst.blog_root} environment variable not set, redirection file not synced.')
+	}
+
+	println(term.yellow('updating redirection file.'))
+	src = src + os.path_separator + cst.blog_entry_filename
+	Sync.sync_file(src, dst, false)!
 }
