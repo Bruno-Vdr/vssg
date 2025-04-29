@@ -41,12 +41,13 @@ ${term.rgb(255,
 The add command creates a new topic inside the blog:
     -Create a directory based on hashed(${term.blue('topic')}).
     -Update/create ${cst.topic_file} file in hashed directory.
-    -Update ${cst.blog_file} in blog\'s directory.
+    -Update ${term.blue(cst.blog_file)} in blog\'s directory.
     -Create ${cst.style_file} in topic\'s directory.
     -Create ${cst.pushs_list_template_file} in topic\'s directory.
     -Create ${cst.push_template_file} in topic\'s directory.
     -Create ${cst.push_style_template_file} in topic\'s directory.
     -Generate ${cst.topics_list_filename} HTML file, with links to differents topics.
+    -Generate in new topic directory a ${cst.pushs_list_filename} (Empty) html page with pushes list.
 '
 }
 
@@ -79,6 +80,10 @@ fn add(p []string) ! {
 
 	deploy_topics_templates(dir)! // in deploy.v
 
+	// Topic dir has been created, but pushes list page doesn't exists. Create on to avoid 404 Error from Topic list page.
+	// This must be done after templates deployment.
+	gen_empty_push_list(topic.directory)!
+
 	println('You should now customize your local style and post list template ' +
 		term.blue('${dir}${os.path_separator}${cst.style_file}') + ' and ' +
 		term.blue('${dir}${os.path_separator}${cst.pushs_list_template_file}') + '.')
@@ -86,4 +91,12 @@ fn add(p []string) ! {
 
 	println('Don\'t forget to perform ${term.yellow('vssg sync')} before sending an article. If a topic is not sent, pushes inside are not visibles.')
 	return
+}
+
+// gen_empty_push_list : Go in topic direcory and force generation of (empty) push list page.
+fn gen_empty_push_list(dir string) ! {
+	os.chdir(dir) !
+	t := Topic.load()!
+	t.generate_pushes_list_html()!
+	os.chdir('..')!
 }
