@@ -80,7 +80,7 @@ fn parse_post(lines []string, source_file string) !Post {
 		date_str := parse_line(lines[index], '[date:', ']')!
 		if date_str.len == 0 {
 			// No date provided, use now()
-			unix_date = time.ticks() / 1000
+			unix_date = (time.ticks() / 1000) + time.offset() // Add offset, TZ + Daylight saving.
 		} else {
 			date := time.parse_format(date_str, cst.blog_date_format) or {
 				return error('Unable to parse date in ${date_str}, expected format is ${cst.blog_date_format}. [${@FILE_LINE}]')

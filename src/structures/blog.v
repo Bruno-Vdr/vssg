@@ -39,7 +39,7 @@ pub fn Blog.load() !Blog {
 }
 
 pub fn (mut b Blog) add_topic(name string) {
-	b.topics << TopicItem{name, time.ticks() / 1000}
+	b.topics << TopicItem{name, (time.ticks() / 1000) + time.offset()}
 }
 
 pub fn (b Blog) get_topic(i int) ?TopicItem {
