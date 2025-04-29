@@ -20,7 +20,7 @@ pub const pushs_list_filename = 'index.htm'
 pub const blog_entry_filename = 'index.htm'
 pub const push_template_file = 'push.tmpl'
 pub const push_style_template_file = 'push_style.tmpl'
-pub const blog_date_format = 'DD/MM/YYYY kk:mm'
+pub const blog_date_format = 'DD/MM/YYYY HH:mm'
 
 // Custom tags, used for chain command.
 pub const lnk_next_tag = '<vssg-lnk-next>'
