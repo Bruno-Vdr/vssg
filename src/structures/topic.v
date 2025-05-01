@@ -154,6 +154,8 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 	}
 
 	mut dyn := util.DynVars.new()
+	dyn.add('@topic', t.title)
+
 	for l in t_lines {
 		// replace potential DynVar in the line.
 		s := dyn.substitute(l)!
@@ -165,6 +167,7 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 				dyn.add('@url', '${dir}${os.path_separator}${cst.push_filename}')
 				dyn.add('@title', post.title)
 				dyn.add('@date', util.to_blog_date(post.date))
+				dyn.add('@topic', t.title)
 
 				// Emit full link model lines.
 				for model_lines in link_model {
