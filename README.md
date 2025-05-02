@@ -71,3 +71,43 @@ Then, from topic's directory
 Just perform "vssg push Jupiter.txt" (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
 
 ![Terminal](./Doc/push.png "The push command from SolSys directory.")
+
+Pushes, in directory can be listed with "vssg show" command, from withing directory. From blog's directory, it shows
+Topics.
+
+![Terminal](./Doc/show_push.png "The show command from SolSys directory.")
+
+Should you need to modify the push, you can update it with modify command (Pushing again would give 2 distinct pushes).
+E.g. "vssg modify 0 Jupiter.txt". This will regenerate dependant HTML, file, copy images, without creating again
+directories.
+
+![Terminal](./Doc/modify.png "The modify command from SolSys directory.")
+
+### 4) Browse your blog:
+
+Now, you have a base.html file in your blog directory that allow to navigate through your blog. With vssg, the index.html
+file, in the blog's root directory is use to redirect to the last push. To generate it, just launch the command "vssg bend":
+
+![Terminal](./Doc/bend.png "The bend command from SolSys directory.")
+
+### 5) Publish your blog:
+
+For publishing a blog, vssg relies on the [rsync](https://manpages.debian.org/bookworm/rsync/rsync.1.en.html) command.
+See your distribution package manager to install the tool if needed. In order to use the "vssg sync" command, you need to
+setup two environment variables: VSSG_BLOG_ROOT (Should be done at init command) and VSSG_BLOG_REMOTE_URL. This last
+variable could be a local directory, for testing purpose for example. For real remote synchronization it will probably
+look more like this:
+
+![Terminal](./Doc/remote_url.png "VSSG_BLOG_REMOTE_URL env example")
+
+Depending on your domain, hosting, and remote access. In order to adapt rsync command to your hosting needs, vssg offers
+a last environment variable to customize the command: VSSG_RSYNC_OPT. My hosting requires a SSH access on port 22, with a directory to
+keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
+
+![Terminal](./Doc/rsync_opt.png "VSSG_RSYNC_OPT env example")
+
+Giving the full rsync command:
+
+![Terminal](./Doc/full_rsync.png " full command env example")
+
+
