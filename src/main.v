@@ -19,7 +19,7 @@ fn main() {
 
 	if os.args.len == 1 { // case: No parameters given
 		usage(cmds)
-		println('\n    vssg compiled on ${@BUILD_DATE} ${@BUILD_TIME}')
+		println('\nvssg compiled on ${@BUILD_DATE} ${@BUILD_TIME}')
 		return
 	}
 
@@ -64,7 +64,7 @@ fn main() {
 
 // usage shows all vssg's commands usage.
 fn usage(cmds map[string]Command) {
-	println('vssg usage: ${term.green('vssg')} ${term.yellow('command')} [parameters]')
+	println('vssg usage: ${term.green('vssg')} ${term.yellow('command')} [parameters]\n')
 	for _, c in cmds {
 		match c.kind {
 			.command { println('    ${term.green('vssg')} ${term.yellow(c.name)} : ${c.desc}') }
