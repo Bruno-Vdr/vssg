@@ -28,12 +28,12 @@ vssg recognize only three concepts:
 - Pushes: 0 to N Pushes inside a Topic directory. Each push is an HTML page, in a topic sub-directory.
 
 ## Quickstart guide:
-0) Grab and install V lang from [V repository](https://github.com/vlang/v).
-    Then grab vssg sources and in the main directory (the one that contains the v.mod) file run v .
-    This will compile vssg executable. You should alias or put is in your $PATH env variable.
+### 0) Grab and install V lang from [V repository](https://github.com/vlang/v).
 
-1) Init the blog with the command:
+Then grab vssg sources and in the main directory (the one that contains the v.mod) file run v .
+This will compile vssg executable. You should alias or put is in your $PATH env variable.
 
+### 1) Init the blog with the command:
 In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
 
  ![Terminal](./Doc/init.png "The init command results:")
@@ -41,7 +41,8 @@ In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
 It's **strongly** suggested to export the absolute path of your blog to VSSG_BLOG_ROOT environment variable.
 This variable will be used by many commands.
 
-2) Add few topics to the Blog: First, **you must move in your blog directory**. All vssg commands are relatives to the
+### 2) Add few topics to the Blog:
+First, **you must move in your blog directory**. All vssg commands are relatives to the
 location the commands are launched from. Two locations are known: Blog's root, and Topic directory.
 
 Launch the "vssg add SolSys" to add a Topic in your blog.
@@ -56,7 +57,17 @@ you can perform a "vssg show" to list topics, from blog's directory:
 
 ![Terminal](./Doc/show.png "The show command from blog's directory.")
 
+### 3) Insert a push into a given topic.
+To insert a push in a specific Topic, just move (cd) into the Topic directory. To retrieve the topic hashed name
+just perform a "vssg show" (see above). The pushes are provided through text files (format specified later). These
+files are typically grabbed from a location specified by the VSSG_PUSH_DIR, setup via export VSSG_PUSH_DIR="Absolute dir path".
 
+Environment variable used by vssg can be shown with "vssg env" command.
 
-3) Insert a push into a given topic.
+![Terminal](./Doc/env.png "The env command from blog's directory.")
 
+Then, from topic's directory
+
+Just perform "vssg push Jupiter.txt" (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
+
+![Terminal](./Doc/push.png "The push command from SolSys directory.")
