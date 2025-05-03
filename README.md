@@ -121,3 +121,4 @@ but from a topic directory, only this topic will be synced.
 ### Further readings:
 
 - [Blog files hierarchy](./Doc/Hierarchy.md)
+- [VSSG templates](./Doc/Templates.md)

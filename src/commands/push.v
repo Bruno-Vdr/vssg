@@ -37,6 +37,8 @@ Command: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('push_text_fil
 
 ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} the push_text_file MUST be located in the directory pointed by the environment variable ${term.yellow('VSSG_PUSH_DIR')}.
 
 The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
     -Create a directory named ${cst.push_dir_prefix}xx

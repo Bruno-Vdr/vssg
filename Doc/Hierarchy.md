@@ -2,7 +2,7 @@
 
 The blog file hierarchy is frozen and will always be the same:
 
-- 1 blog root (here Blog/)
+- 1 blog root (here Blog/):
 - 1 to N Topics (name hashed e.g. 2dc8c707808d050a/)
 - 0 to N pushes (named push_X with a single pictures sub directory.)
 
