@@ -30,8 +30,9 @@ vssg recognize only three concepts:
 ## Quickstart guide:
 ### 0) Grab and install V lang from [V repository](https://github.com/vlang/v).
 
-Then grab vssg sources and in the main directory (the one that contains the v.mod) file run v .
-This will compile vssg executable. You should alias or put is in your $PATH env variable.
+Then grab vssg sources, follow installation procedure. Then DL vssg source files and in the main directory (the one that
+contains the v.mod) file run "v ." command. This will compile vssg executable. You should alias or put is in your $PATH
+env variable.
 
 ### 1) Init the blog with the command:
 In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
@@ -93,6 +94,7 @@ file, in the blog's root directory is use to redirect to the last push. To gener
 ### 5) Publish your blog:
 
 For publishing a blog, vssg relies on the [rsync](https://manpages.debian.org/bookworm/rsync/rsync.1.en.html) command.
+Defaults parameters are: --delete -avzhrc to ensure perfect mirroring with local and distant blog.
 See your distribution package manager to install the tool if needed. In order to use the "vssg sync" command, you need to
 setup two environment variables: VSSG_BLOG_ROOT (Should be done at init command) and VSSG_BLOG_REMOTE_URL. This last
 variable could be a local directory, for testing purpose for example. For real remote synchronization it will probably
@@ -110,4 +112,8 @@ Giving the full rsync command:
 
 ![Terminal](./Doc/full_rsync.png " full command env example")
 
+You can run the command "vssg sync -dry" in order to perform a basic check, without sending or receiving data. It's also
+displays the whole rsync command.
 
+**Note:** The synchronization is relative to your current location. From blog root directory, the whole blog is synced,
+but from a topic directory, only this topic will be synced.
