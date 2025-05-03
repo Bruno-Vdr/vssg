@@ -24,6 +24,19 @@ it to keep track of pushes within the topic. The file is still easily understand
 
 **ID - Title - Unix date - Directory**
 
-
 ![Terminal](topic_file.png ".topic file")
 
+These files are the only ways to keep track of the blog's structure. Many commands operates differently when
+run from blog directory, or topic directory. For example **vssg show**
+
+From blog directory show the available topics:
+
+![Terminal](show_blog_dir.png "command vssg show from blog directory:")
+
+From a topic directory show the available pushes:
+
+![Terminal](show_topic_dir.png "command vssg show from topic directory:")
+
+**vssg show -a** from blog directory shows the whole hierarchy:
+
+![Terminal](show_a.png "command vssg show from blog directory:")
