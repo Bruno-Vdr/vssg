@@ -18,7 +18,7 @@ line. The project is very Linux, developer centric, and I won't make any effort 
 The SSG was written for my personal need, and doesn't aim to be widely used. It is provided as is, with hope to
 be useful for others people. The project is released under MIT license, as most of V projects
 
-![Terminal](./Doc/term.png "The SSG is command line driven")
+![Terminal](Doc/pictures/term.png "The SSG is command line driven")
 
 ## Three concepts of vssg:
 vssg recognize only three concepts:
@@ -37,7 +37,7 @@ env variable.
 ### 1) Init the blog with the command:
 In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
 
- ![Terminal](./Doc/init.png "The init command results:")
+ ![Terminal](Doc/pictures/init.png "The init command results:")
 
 It's **strongly** suggested to export the absolute path of your blog to VSSG_BLOG_ROOT environment variable.
 This variable will be used by many commands.
@@ -48,7 +48,7 @@ location the commands are launched from. Two locations are known: Blog's root, a
 
 Launch the "vssg add SolSys" to add a Topic in your blog.
 
-![Terminal](./Doc/add.png "The add command results:")
+![Terminal](Doc/pictures/add.png "The add command results:")
 
 The command traces its actions, and guides you for customization. Here, add deploys several css and
 template files to be customised before pushing pages. Note that the topic's name is hashed (fnv1a algorithm) to generate
@@ -56,7 +56,7 @@ a directory name. Here SolSys topic is held in 2dc8c707808d050a directory.
 
 you can perform a "vssg show" to list topics, from blog's directory:
 
-![Terminal](./Doc/show.png "The show command from blog's directory.")
+![Terminal](Doc/pictures/show.png "The show command from blog's directory.")
 
 ### 3) Insert a push into a given topic.
 To insert a push in a specific Topic, just move (cd) into the Topic directory. To retrieve the topic hashed name
@@ -65,31 +65,31 @@ files are typically grabbed from a location specified by the VSSG_PUSH_DIR, setu
 
 Environment variable used by vssg can be shown with "vssg env" command.
 
-![Terminal](./Doc/env.png "The env command from blog's directory.")
+![Terminal](Doc/pictures/env.png "The env command from blog's directory.")
 
 Then, from topic's directory
 
 Just perform "vssg push Jupiter.txt" (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
 
-![Terminal](./Doc/push.png "The push command from SolSys directory.")
+![Terminal](Doc/pictures/push.png "The push command from SolSys directory.")
 
 Pushes, in directory can be listed with "vssg show" command, from withing directory. From blog's directory, it shows
 Topics.
 
-![Terminal](./Doc/show_push.png "The show command from SolSys directory.")
+![Terminal](Doc/pictures/show_push.png "The show command from SolSys directory.")
 
 Should you need to modify the push, you can update it with modify command (Pushing again would give 2 distinct pushes).
 E.g. "vssg modify 0 Jupiter.txt". This will regenerate dependant HTML, file, copy images, without creating again
 directories.
 
-![Terminal](./Doc/modify.png "The modify command from SolSys directory.")
+![Terminal](Doc/pictures/modify.png "The modify command from SolSys directory.")
 
 ### 4) Browse your blog:
 
 Now, you have a base.html file in your blog directory that allow to navigate through your blog. With vssg, the index.html
 file, in the blog's root directory is use to redirect to the last push. To generate it, just launch the command "vssg bend":
 
-![Terminal](./Doc/bend.png "The bend command from SolSys directory.")
+![Terminal](Doc/pictures/bend.png "The bend command from SolSys directory.")
 
 ### 5) Publish your blog:
 
@@ -100,17 +100,17 @@ setup two environment variables: VSSG_BLOG_ROOT (Should be done at init command)
 variable could be a local directory, for testing purpose for example. For real remote synchronization it will probably
 look more like this:
 
-![Terminal](./Doc/remote_url.png "VSSG_BLOG_REMOTE_URL env example")
+![Terminal](Doc/pictures/remote_url.png "VSSG_BLOG_REMOTE_URL env example")
 
 Depending on your domain, hosting, and remote access. In order to adapt rsync command to your hosting needs, vssg offers
 a last environment variable to customize the command: VSSG_RSYNC_OPT. My hosting requires a SSH access on port 22, with a directory to
 keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
 
-![Terminal](./Doc/rsync_opt.png "VSSG_RSYNC_OPT env example")
+![Terminal](Doc/pictures/rsync_opt.png "VSSG_RSYNC_OPT env example")
 
 Giving the full rsync command:
 
-![Terminal](./Doc/full_rsync.png " full command env example")
+![Terminal](Doc/pictures/full_rsync.png " full command env example")
 
 You can run the command "vssg sync -dry" in order to perform a basic check, without sending or receiving data. It's also
 displays the whole rsync command.
