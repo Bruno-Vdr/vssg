@@ -61,7 +61,7 @@ fn doc(p []string) ! {
 
 // emit_html_doc launch  "vssg doc | aha -b -w > vssg_doc.htm". This output documentation through aha
 // (ascii-HTML-adapter) and redirect the stdout to a file. This allow to get an HTML document of vssg
-// detailled help, with colors kept.
+// detailed help, with colors kept.
 fn emit_html_doc() ! {
 	util.exec(cst.doc_command, true, false)!
 }
