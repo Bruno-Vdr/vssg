@@ -35,10 +35,10 @@ fn Init.help() string {
 Command: ${term.green('vssg')} ${term.yellow('init')} ${term.blue('blog_name')}
 
 The init command initializes a new blog:
-	-Creates a directory with the given ${term.blue('blog_name')}.
-	-Creates a ${cst.blog_file} config file inside this directory.
-	-Generates a default ${cst.style_file} to be used by local HTML.
-	-Generates a default ${cst.topics_list_template_file} topic list template file.
+    -Creates a directory with the given ${term.blue('blog_name')}.
+    -Creates a ${cst.blog_file} config file inside this directory.
+    -Generates a default ${cst.style_file} to be used by local HTML.
+    -Generates a default ${cst.topics_list_template_file} topic list template file.
 '
 }
 

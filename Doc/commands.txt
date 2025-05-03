@@ -1,0 +1,3 @@
+To generate HTML doc from command line:
+
+vssg doc | aha > commands.htm

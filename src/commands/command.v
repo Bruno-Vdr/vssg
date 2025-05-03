@@ -78,5 +78,8 @@ pub fn Command.get() map[string]Command {
 	deploy := Deploy.new()
 	c[deploy.name] = deploy
 
+	doc := Doc.new()
+	c[doc.name] = doc
+
 	return c
 }

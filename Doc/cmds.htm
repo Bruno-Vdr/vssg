@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!-- This file was created with the aha Ansi HTML Adapter. https://github.com/theZiz/aha -->
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="application/xml+xhtml; charset=UTF-8"/>
+<title>stdin</title>
+<style>
+.myDiv {
+  background-color: #404040;
+  color: white;
+}
+</style>
+</head>
+<body>
+<pre>
+<div class="myDiv">
+vssg's commands documentation:
+
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">init</span> <span style="color:blue;">blog_name</span>
+
+The init command initializes a new blog:
+    -Creates a directory with the given <span style="color:blue;">blog_name</span>.
+    -Creates a .blog config file inside this directory.
+    -Generates a default style.css to be used by local HTML.
+    -Generates a default topics_list.tmpl topic list template file.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">add</span> <span style="color:blue;">topic</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within blog directory.
+
+The add command creates a new topic inside the blog:
+    -Create a directory based on hashed(<span style="color:blue;">topic</span>).
+    -Update/create .topic file in hashed directory.
+    -Update <span style="color:blue;">.blog</span> in blog's directory.
+    -Create style.css in topic's directory.
+    -Create pushs_list.tmpl in topic's directory.
+    -Create push.tmpl in topic's directory.
+    -Create push_style.tmpl in topic's directory.
+    -Generate base.htm HTML file, with links to differents topics.
+    -Generate in new topic directory a index.htm (Empty) html page with pushes list.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">push</span> <span style="color:blue;">push_text_file</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within topic directory.
+
+The push command creates a new push/entry in the <span style="color:purple;">current topic directory</span>:
+    -Create a directory named push_xx
+    -Create a pictures sub-directory named push_xx/./pictures
+    -Update/Create the .topic with new push.
+    -Create style.css in new directory push_xx for local customization
+    -Generation of HTML push page index.htm based on template {push.tmpl}
+    -Pictures copy to push_xx/./pictures based on <span style="color:blue;">push_text_file</span>
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">env</span>
+
+The env command displays the environment variables used by vssg:
+
+    <span style="filter: contrast(70%) brightness(190%);color:olive;">VSSG_PUSH_DIR</span> : Default directory to get push files from.
+    <span style="filter: contrast(70%) brightness(190%);color:olive;">VSSG_IMG_PUSH_DIR</span> : Path to grab pushed images from.
+    <span style="filter: contrast(70%) brightness(190%);color:olive;">VSSG_BLOG_REMOTE_URL</span> : Remote blog's URL (used by sync command).
+    <span style="filter: contrast(70%) brightness(190%);color:olive;">VSSG_BLOG_ROOT</span> : Local blog' location (used by sync command).
+    <span style="filter: contrast(70%) brightness(190%);color:olive;">VSSG_RSYNC_OPT</span> : Permanent customizable rsync option e.g. &quot;-e 'ssh -p 2223'&quot;.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">show</span> <span style="filter: contrast(70%) brightness(190%);color:dimgray;">[-a]</span>
+
+The show command displays information depending current working directory:
+    In the blog root directory (containing .blog it displays:
+    -topic list.
+
+    With the <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-a</span> option, topic's push are also displayed.
+
+    In a topic directory (containing .topic it displays:
+    -push list.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">modify</span> <span style="color:purple;">id</span> <span style="color:blue;">push_text_file</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within topic directory.
+
+The modify command modifies the push, identified by <span style="color:purple;">id</span> with the given push file.
+To get the push's <span style="color:purple;">id</span>, just do &quot;<span style="color:green;">vssg</span> <span style="color:olive;">show</span>&quot;
+Modify is used to modify text, date, title or images of an already existing push.
+    -The .topic file is updated accordingly to <span style="color:blue;">push_text_file</span>
+    -The push HTML code is rebuilt.
+    -The HTML topic page with link to pushes is also rebuilt.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">remove</span> <span style="color:purple;">id</span> [-f]
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within topic directory.
+To get the push's <span style="color:purple;">id</span>, just do &quot;<span style="color:green;">vssg</span> <span style="color:olive;">show</span>&quot;
+
+The remove command deletes a push from a topic:
+    -Removes push description from .topic
+    -Regenerates index.htm with links to push.
+    -Print out command to delete remaining directories.
+
+Note: the remove commands only remove push from .topic. Directory push_ is
+      not delete neither its contained files, subdirectory and images, its suffixed with __DELETED
+      UNLESS <span style="color:red;">-f</span> is passed on the command line.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">update</span>
+
+    The update command force generation of links page (topic list or push list) depending
+    on the current directory. This command is usefull when modifying local template_list
+    model.
+
+    In the blog root directory (containing .blog) it rebuilds topic list.
+    In a topic directory (containing .topic) it rebuilds push list.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">rename</span> title new_title
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within blog directory.
+
+The rename command changes the title and directory of an already existing TOPIC:
+    -Patch the topic title/comment into .blog file, containing topic(s) list.
+    -Rename original topic directory with hash(&quot;new_title&quot;).
+    -Update topic's .topic with new name and directory, keeping posts untouched.
+    -Rebuild HTML topic list page &quot;base.htm&quot;.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">help</span> command
+
+The help command displays detailled information about a specific commad.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">drop</span> topic_title [-f]
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within blog directory.
+
+The drop command deletes a complete topic with all of its pushes, if any. By default the commands appends the
+__DELETED suffix to the directory. By adding the <span style="color:red;">-f</span> the
+directory will be definitely removed.
+
+    -It also updates .blog accordingly.
+    -Rebuilt the HTML links to topic page, &quot;base.htm&quot;.
+
+To get a list of topics, run &quot;vssg show&quot; from blog's root directory.&quot;
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">sync</span> [-bend] [-dry]
+
+The sync command performs a synchronization between local and remote directories:
+Source is defined with the env var <span style="color:olive;">VSSG_BLOG_ROOT</span>  (set to: /home/vedder/Bruno-Archive/Development/V/vssg/Blog)
+Destination is defined with the env var <span style="color:olive;">VSSG_BLOG_REMOTE_URL</span>  (set to: daza1548@golem.o2switch.net:cam2025.vedder.fr)
+
+The <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-dry</span> option prevents command execution, and only prints the rsync command(s).
+The <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-bend</span> option also synchronizes the redirection file <span style="color:blue;">index.htm</span> in blog root's directory, updated by <span style="color:olive;">bend</span> command.
+
+Permanent or additional option(s) can be set using environment variable <span style="color:olive;">VSSG_RSYNC_OPT</span> e.g.  &quot;-e 'ssh -p 2223'&quot; to specify
+a different SSH port with rsync under sync command.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">bend</span> [<span style="color:blue;">URL</span>] [-f] [-u]
+
+Launched from a topic directory, the bend command creates a blog redirection to its last push.
+
+If an optional <span style="color:blue;">URL</span> is provided, it will be used instead of last topic. This optional URL
+must be relative to your location when the the command is run, <span style="color:#ffa500;">unless -f option is used</span> .
+
+Adding the <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-f</span> option, discards destination presence check. Use this to redirect on exterior URL.
+Adding the <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-u</span> option will sync/send the redirection file to the remote blog.
+
+This command si usually used to bend blog's entry to the last push. It can be used to redirect to any other <span style="color:blue;">URL</span>,
+in case of unavailability for example.
+
+    e.g. <span style="color:green;">vssg</span> <span style="color:olive;">bend</span> <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-u</span> will redirect to the last push in topic and sync the redirection.
+    e.g. <span style="color:green;">vssg</span> <span style="color:olive;">bend</span> <span style="color:red;">-f</span> <span style="color:blue;">https://duckduckgo.com/</span> will redirect to duckduckgo site.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">pull</span> <span style="color:blue;">destination_dir</span>  <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-f</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from outside blog directory.
+
+The <span style="filter: contrast(70%) brightness(190%);color:dimgray;">-f</span> option, allows to continue if destination directory already exists. It's
+useful to resume interrupted earlier pull command.
+
+The pull command downloads the full remote blog to local the directory. This is useful
+if the local blog is lost. This command is potentially dangerous, and must be run from
+outside blog directory.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">chain</span> string
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from within topic directory.
+
+This command will open all pushe from the current topics, and insert (if any) a link to previous and
+next push. Its done by patching custom HTML tag in template &quot;&lt;vssg-lnk-next&gt;&quot; and &quot;&lt;vssg-lnk-prev&gt;&quot;.
+Order is given by order of push in .topic file.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">backup</span> <span style="color:blue;">directory</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from outside blog's directory.
+
+The backup command generates a compressed (.zip) archive if the blog in <span style="color:blue;">directory</span>.
+The archive can be restored later. Useful in case of dangerous command usage.
+Note: No check is done to verify presence of a blog. The directory may contain anything.
+Classic images format file are just stored .jpg .png as they are already compressed, to
+save time at compression stage.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">obfuscate</span> string
+
+The obfuscate command applies obfuscation function (hash) over the given string. It allows
+to retrieve topics mangled named.
+e.g. <span style="color:green;">vssg</span> <span style="color:olive;">obfuscate</span> vssg will return &quot;dec5fe0145ac7440&quot;
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">base64</span> <span style="color:blue;">filename</span>
+
+The base64 command converts given image file to base64 string on std output. It allows images to be embedded in HTML
+page, without need of additional file. HTML &lt;img&gt; tag is also creates, with complete mime type, and extension.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">deploy</span>
+
+<span style="color:#ffa500;">Warning:</span> This command must be launched from blog or topic directory.
+
+The deploy command emits local  (embedded) templates files in the current directory accordingly to current blog or topic position.
+Note: All files are deployed by the command.
+
+________________________________________________________________________________
+
+Command: <span style="color:green;">vssg</span> <span style="color:olive;">doc</span>
+
+The doc command displays all commands documentation.
+
+________________________________________________________________________________
+</div>
+</pre>
+</body>
+</html>

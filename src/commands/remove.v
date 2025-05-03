@@ -40,9 +40,9 @@ ${term.rgb(255,
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
 
 The remove command deletes a push from a topic:
-	-Removes push description from ${cst.topic_file}
-	-Regenerates ${cst.pushs_list_filename} with links to push.
-	-Print out command to delete remaining directories.
+    -Removes push description from ${cst.topic_file}
+    -Regenerates ${cst.pushs_list_filename} with links to push.
+    -Print out command to delete remaining directories.
 
 Note: the remove commands only remove push from ${cst.topic_file}. Directory ${cst.push_dir_prefix} is
       not delete neither its contained files, subdirectory and images, its suffixed with ${cst.dir_removed_suffix}

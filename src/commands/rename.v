@@ -39,10 +39,10 @@ ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within blog directory.
 
 The rename command changes the title and directory of an already existing TOPIC:
-	-Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.
-	-Rename original topic directory with hash("new_title").
-	-Update topic\'s ${cst.topic_file} with new name and directory, keeping posts untouched.
-	-Rebuild HTML topic list page "${cst.topics_list_filename}".
+    -Patch the topic title/comment into ${cst.blog_file} file, containing topic(s) list.
+    -Rename original topic directory with hash("new_title").
+    -Update topic\'s ${cst.topic_file} with new name and directory, keeping posts untouched.
+    -Rebuild HTML topic list page "${cst.topics_list_filename}".
 '
 }
 

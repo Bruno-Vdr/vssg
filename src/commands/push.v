@@ -39,12 +39,12 @@ ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within topic directory.
 
 The push command creates a new push/entry in the ${term.magenta('current topic directory')}:
-	-Create a directory named ${cst.push_dir_prefix}xx
-	-Create a pictures sub-directory named ${cst.push_dir_prefix}xx${os.path_separator}${cst.pushs_pic_dir}
-	-Update/Create the ${cst.topic_file} with new push.
-	-Create ${cst.style_file} in new directory ${cst.push_dir_prefix}xx for local customization
-	-Generation of HTML push page ${cst.push_filename} based on template {${cst.push_template_file}}
-	-Pictures copy to ${cst.push_dir_prefix}xx/${cst.pushs_pic_dir} based on ${term.blue('push_text_file')}
+    -Create a directory named ${cst.push_dir_prefix}xx
+    -Create a pictures sub-directory named ${cst.push_dir_prefix}xx${os.path_separator}${cst.pushs_pic_dir}
+    -Update/Create the ${cst.topic_file} with new push.
+    -Create ${cst.style_file} in new directory ${cst.push_dir_prefix}xx for local customization
+    -Generation of HTML push page ${cst.push_filename} based on template {${cst.push_template_file}}
+    -Pictures copy to ${cst.push_dir_prefix}xx/${cst.pushs_pic_dir} based on ${term.blue('push_text_file')}
 '
 }
 

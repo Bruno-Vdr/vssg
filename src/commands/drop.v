@@ -42,8 +42,8 @@ The drop command deletes a complete topic with all of its pushes, if any. By def
 ${cst.dir_removed_suffix} suffix to the directory. By adding the ${term.red('-f')} the
 directory will be definitely removed.
 
-	-It also updates ${cst.blog_file} accordingly.
-	-Rebuilt the HTML links to topic page, "${cst.topics_list_filename}".
+    -It also updates ${cst.blog_file} accordingly.
+    -Rebuilt the HTML links to topic page, "${cst.topics_list_filename}".
 
 To get a list of topics, run "vssg show" from blog\'s root directory."
 '
