@@ -117,3 +117,7 @@ displays the whole rsync command.
 
 **Note:** The synchronization is relative to your current location. From blog root directory, the whole blog is synced,
 but from a topic directory, only this topic will be synced.
+
+### Further readings:
+
+- [Blog files hierarchy](./Doc/Hierarchy.md)
