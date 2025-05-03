@@ -25,4 +25,30 @@ The template could embed 2 specials tags:
 
 ![Terminal](pictures/prev_next_links.png "2 special tags")
 
-That will be replaced by links to previous and next push (if any). Theses tags are optional.
+That will be replaced by links to previous and next push (if any) by the **vssg chain** command. Theses tags are optional.
+
+The last specificity of the template is the availability of 3 dynamics variables substituted, at push time by their
+corresponding values:
+
+- **[@topic]** : The name of containing topic.
+- **[@date]** : The date of the push.
+- **[@title]** : The title of the push.
+
+## Push List template: pushs_list.htm:
+
+This file is a template for generating a HTML page with link to various pushes in the blog. The template file MUST
+provide a special section between [LinkModel] and [EndModel] tag:
+
+![Terminal](pictures/link_model.png " Link models")
+
+This section is the HTML model that will be used
+to generate any links in the push list page. It recognize 3 dynamic variables, substituted on push time:
+
+- **[@url]** : The url of the push page.
+- **[@date]** : The date of the target push.
+- **[@title]** : The title of the target push.
+
+## Topic List template: topics_list.htm:
+
+This page is working the same way push list does. It here to allow different customization of push list page.
+

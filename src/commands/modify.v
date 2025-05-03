@@ -38,6 +38,8 @@ Command: ${term.green('vssg')} ${term.yellow('modify')} ${term.magenta('id')} ${
 
 ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255,
+		165, 0, 'Warning:')} the push_text_file MUST be located in the directory pointed by the environment variable ${term.yellow('VSSG_PUSH_DIR')}.
 
 The modify command modifies the push, identified by ${term.magenta('id')} with the given push file.
 To get the push\'s ${term.magenta('id')}, just do "${term.green('vssg')} ${term.yellow('show')}"
