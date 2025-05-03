@@ -1,4 +1,3 @@
--documentation could be extracted from Command.help method.
 -Factorize all Env related util.get... methods.
 
 Errors Rules:

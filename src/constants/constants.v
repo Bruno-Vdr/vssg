@@ -47,6 +47,10 @@ pub const rsync_cmd_opt = 'rsync --delete -avzhrc'
 pub const rsync_single_file = 'rsync -avzhc'
 pub const rsync_pull_opt = 'rsync -chavzP'
 
+// Documentation file
+pub const doc_file = 'vssg_doc.htm'
+pub const doc_command = 'vssg doc | aha -b -w > vssg_doc.htm'
+
 // Templates file are embedded into vssg executable.
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)
 pub const topics_list_style_css = $embed_file('../templates/topics_list_style.css', .zlib)
