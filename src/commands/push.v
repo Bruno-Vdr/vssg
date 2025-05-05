@@ -119,7 +119,7 @@ fn push(p []string) ! {
 // generate_push_html generate push HTML code. It also move pictures to push_xx/pictures.
 // path: relative path of current push. File will be generated inside.
 // post:
-// img_dir: core of env. variable from where pictures are taken.
+// img_dir: core of env. variable where pictures are taken from.
 fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 	// Load local post template, and generate post.
 	tmpl_lines := os.read_lines(cst.push_template_file) or {
@@ -157,7 +157,7 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 			// Emit section core into the file
 			for l in section.code {
 				if im, com := parse_for_image(l) {
-					img_src := img_dir + os.path_separator + im
+					img_src := img_dir + im
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
 
 					if copy_push_picture(img_src, img_dst) {

@@ -75,8 +75,9 @@ fn sync(p []string) ! {
 	abs_path := util.get_blog_root() or {
 		return error('${cst.blog_root} environment variable not set.')
 	}
-	cwd := os.getwd() // get current working directory.
+	cwd := os.getwd() + os.path_separator // get current working directory, happend "/"
 
+	println('${cwd} != $abs_path')
 	if !cwd.starts_with(abs_path) {
 		return error("Trying to sync blog from outside blog's directories.")
 	}
@@ -90,8 +91,8 @@ fn sync(p []string) ! {
 
 	permanent_opt := util.get_sync_opt() or { '' }
 
-	// Trailing '/' is required to sync the whole directory.
-	cmd := '${cst.rsync_cmd_opt}  ${permanent_opt} ${cwd}${os.path_separator} ${url}${sub_dir}' //
+	// Note: source Trailing '/' is required to sync the whole directory.
+	cmd := '${cst.rsync_cmd_opt}  ${permanent_opt} ${cwd} ${url}${os.path_separator}${sub_dir}' //
 	run_sync_cmd(cmd, dry)!
 	if sync_bend {
 		// Also synchronize blog entrance  redirection.

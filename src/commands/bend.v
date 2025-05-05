@@ -108,7 +108,7 @@ fn bend(p []string) ! {
 	mut redir_file := util.get_blog_root() or {
 		return error('Cannot bend blog to URL, ${term.bright_yellow(cst.blog_root)} is not set. ${err}. ${@LOCATION}')
 	}
-	redir_file = redir_file + os.path_separator + cst.blog_entry_filename
+	redir_file = redir_file + cst.blog_entry_filename
 
 	// Build redirection file
 	generate_redirection_file(redir_file, url)!
@@ -151,7 +151,7 @@ fn sync_redirection_file() ! {
 	}
 
 	println(term.yellow('updating redirection file.'))
-	src = src + os.path_separator + cst.blog_entry_filename
+	src = src + cst.blog_entry_filename
 	Sync.sync_file(src, dst, false)!
 }
 
@@ -184,8 +184,6 @@ fn make_relative_to_root(u string) !string {
 	mut brd := util.get_blog_root() or {
 		return error('Unable to get Blog root env.${err}. ${@LOCATION}')
 	}
-
-	brd = brd + os.path_separator
 	url = cwd.replace(brd, '') + os.path_separator + url
 	return url
 }

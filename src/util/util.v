@@ -89,20 +89,50 @@ pub fn to_blog_date(date i64) string {
 	return time.unix(date).custom_format(cst.blog_date_format)
 }
 
-pub fn get_img_post_dir() ?string {
-	return os.getenv_opt(cst.img_src_env)
+// get_blog_root Returns blog's root directory. Add terminal path separator if missing.
+pub fn get_blog_root() ?string {
+	p := os.getenv_opt(cst.blog_root)
+	return if p != none {
+		if p.ends_with(os.path_separator) {
+			p
+		} else {
+			p + os.path_separator
+		}
+	} else {
+		none
+	}
 }
 
+// get_img_post_dir Returns image push directory. Add terminal path separator if missing.
+pub fn get_img_post_dir() ?string {
+	p := os.getenv_opt(cst.img_src_env)
+	return if p != none {
+		if p.ends_with(os.path_separator) {
+			p
+		} else {
+			p + os.path_separator
+		}
+	} else {
+		none
+	}
+}
+
+// get_default_push_dir Returns push directory. Add terminal path separator if missing.
 pub fn get_default_push_dir() ?string {
-	return os.getenv_opt(cst.default_push_dir)
+	p := os.getenv_opt(cst.default_push_dir)
+	return if p != none {
+		if p.ends_with(os.path_separator) {
+			p
+		} else {
+			p + os.path_separator
+		}
+	} else {
+		none
+	}
 }
 
 pub fn get_remote_url() ?string {
 	return os.getenv_opt(cst.remote_url)
-}
-
-pub fn get_blog_root() ?string {
-	return os.getenv_opt(cst.blog_root)
 }
 
 pub fn get_sync_opt() ?string {

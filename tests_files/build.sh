@@ -14,7 +14,7 @@ do
   vssg add "Topic $i"
   directory=$(vssg obfuscate -s "Topic $i")
   cd $directory
-  for o in {0..5}
+  for o in {0..6}
   do
     vssg push ${pushes[$(($o%6))]}
   done
