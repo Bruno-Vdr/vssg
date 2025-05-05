@@ -8,6 +8,12 @@ cp ../tests_files/blog_menu/navbar_style.css ./
 cp ../tests_files/Common/banniere.jpg ./
 
 # Create Topics
+
+for i in {0..16}
+do
+  vssg add "Topic $i"
+  done
+
 vssg add SolSys
 vssg add Small
 vssg add Third

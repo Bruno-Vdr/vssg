@@ -22,7 +22,7 @@ pub fn Obfuscate.new() Command {
 		desc:    'Obfuscates (hash) the given string.'
 		help:    Obfuscate.help()
 		arg_min: 1
-		arg_max: 1
+		arg_max: 2
 		exec:    obfuscate
 	}
 }
@@ -30,15 +30,31 @@ pub fn Obfuscate.new() Command {
 // help give a complete description of the command, including parameters.
 fn Obfuscate.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('obfuscate')} string
+Command: ${term.green('vssg')} ${term.yellow('obfuscate')} ${term.gray('-s')} string
 
 The obfuscate command applies obfuscation function (hash) over the given string. It allows
 to retrieve topics mangled named.
 e.g. ${term.green('vssg')} ${term.yellow('obfuscate')} vssg will return "${util.obfuscate('vssg')}"
+The ${term.gray('-s')} option (silence) will force output to be the Hash only.
 '
 }
 
 // obfuscate command feature are implemented here. The parameters number has been checked before call.
 fn obfuscate(p []string) ! {
-	println('Obfuscated "${term.yellow(p[0])}"  is "${term.bright_blue(util.obfuscate(p[0]))}".')
+	mut s := p[0]
+	silence := '-s' in p
+	if p.len == 2 {
+		if '-s' !in p {
+			return error('Wrong option used. Only -s is allowed with obfuscate command.')
+		}
+
+		if p[0] == '-s' {
+			s = p[1]
+		}
+	}
+	if silence {
+		println(util.obfuscate(s))
+	} else {
+		println('Obfuscated "${term.yellow(s)}"  is "${term.bright_blue(util.obfuscate(s))}".')
+	}
 }
