@@ -9,12 +9,12 @@ cp ../tests_files/Common/banniere.jpg ./
 
 # Create Topics
 pushes=("Cydonia.txt" "Jupiter.txt" "Lorem.txt" "Mercure.txt" "Neptune.txt" "Sedna.txt")
-for i in {0..10}
+for i in {0..2}
 do
   vssg add "Topic $i"
   directory=$(vssg obfuscate -s "Topic $i")
   cd $directory
-  for o in {0..30}
+  for o in {0..5}
   do
     vssg push ${pushes[$(($o%6))]}
   done
