@@ -5,7 +5,7 @@ cd Blog
 # Copy files common to al HTML page
 cp ../tests_files/blog_menu/menu.htm ./
 cp ../tests_files/blog_menu/navbar_style.css ./
-cp ../tests_files/Common/banniere.jpg ./
+cp ../tests_files/Common/banner.png ./
 
 # Create Topics
 pushes=("Cydonia.txt" "Jupiter.txt" "Lorem.txt" "Mercure.txt" "Neptune.txt" "Sedna.txt")
@@ -21,7 +21,7 @@ do
   vssg chain
   cd ..
 done
-
+vssg bend ./base.htm
 cd .. # Back out of Blog
 
 
