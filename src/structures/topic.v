@@ -158,6 +158,7 @@ pub fn (t Topic) generate_pushes_list_html() ! {
 
 	for l in t_lines {
 		// replace potential DynVar in the line.
+		dyn.add('@num', t.posts.len.str())
 		s := dyn.substitute(l)!
 
 		if s.contains(cst.list_links_tag) {

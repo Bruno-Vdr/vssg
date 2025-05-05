@@ -157,6 +157,7 @@ pub fn (b &Blog) generate_topics_list_html() ! {
 	mut dyn := util.DynVars.new()
 	for l in t_lines {
 		// replace potential DynVar in the line.
+		dyn.add('@num', b.topics.len.str())
 		s := dyn.substitute(l)!
 
 		if s.contains(cst.list_links_tag) {
