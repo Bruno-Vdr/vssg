@@ -68,7 +68,7 @@ fn init(p []string) ! {
 		term.blue('${path}${os.path_separator}${cst.style_file}') + ' and ' +
 		term.blue('${path}${os.path_separator}${cst.topics_list_template_file}') + '.')
 
-	println('\nYou can also add to your profile file : \n' + 'export ' +
-		term.bright_yellow('${cst.blog_root}') + '=' + term.blue(os.getwd() + os.path_separator +
-		path))
+	println('\nYou should also add to your profile file : \n' + 'export ' +
+		term.bright_yellow('${cst.blog_root}') + '="' + term.blue(os.getwd() + os.path_separator +
+		path + os.path_separator) + '"')
 }

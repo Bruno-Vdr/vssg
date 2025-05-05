@@ -12,7 +12,7 @@ using push or modify command. All push files are taken from this directory. It s
 it's a directory.
 
 **VSSG_IMG_PUSH_DIR**: This variable is the blog source of images. Images, referenced in push file are taken here,
-before beeing moved into ./pictures/ directory of pushes. It should end with a '/' indicating it's a directory.
+before being moved into ./pictures/ directory of pushes. It should end with a '/' indicating it's a directory.
 
 **VSSG_BLOG_REMOTE_URL**: This variable indicates the remote blogs directory, in rsync format:
 - /home/John/Blog/   if remote URL is a local directory (useful for tests).
