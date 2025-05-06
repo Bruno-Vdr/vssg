@@ -29,4 +29,26 @@ In push_text_file, images are provided like this:
 
 Only the filename is provided as path is taken from the VSSG_IMG_PUSH_DIR environment variable.
 
+![image](pictures/push_minimal.png)
 
+Here push perform the following actions:
+- Create directory push_X
+- Create directory push_X/pictures
+- Update the .topic Topic file
+- Create the push HTML page
+- Copy images (if any) into picture directory
+
+
+To modify you can use the command: **vssg modify 0 Minimal.txt**
+
+![image](pictures/modify_minimal.png)
+
+The modify command only modifies an existing push. It perform the following actions:
+- Update the .topic Topic file
+- Create the push HTML page
+- Copy images (if any) into picture directory
+
+Pushing (vssg push file.txt) several times, will leads to the same push posted multiples times.
+That's why the modify command exists. It patches an existing push.
+
+You can remove a push using the command **remove**.
