@@ -5,7 +5,7 @@
 ![Terminal](./pictures/env.png "The env command from blog's directory.")
 
 **VSSG_BLOG_ROOT** : This is the most important variable here. The absolute path of your blog directory. Should
-en with '/' to indicates its directory nature.
+end with the os path separator '/' to indicate its directory nature.
 
 **VSSG_PUSH_DIR**: This variable must contains the absolute path where the push files will be loaded from, when
 using push or modify command. All push files are taken from this directory. It should end with a '/' indicating
@@ -18,5 +18,9 @@ before being moved into ./pictures/ directory of pushes. It should end with a '/
 - /home/John/Blog/   if remote URL is a local directory (useful for tests).
 - name@domain.com:distant_dir  in case of SSH access.
 
+**VSSG_RSYNC_OPT** : Default synchronization rsync options are --delete -avzhrc but sometimes its required to provide
+an additional option. That's why this environment variable exists. My hosting requires a SSH access on port 22, with a directory to
+keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
 
+![Terminal](pictures/rsync_opt.png "VSSG_RSYNC_OPT env example")
 
