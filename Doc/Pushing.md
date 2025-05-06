@@ -19,8 +19,14 @@ An exemple of minimal push file:
   the push HTML page, and [section:...] in your push, will be substituted with this text section.
 
 You can have as many section as you want in your push template. They all will be substituted with the corresponding
-section text in your push file. Nevertheless, refering to an non existing section in your push text will generate an
-error.
+section text in your push file. Nevertheless, referring to an non existing section in your push text will generate a
+warning:
+
+![image](pictures/no_section.png)
+
+Sections in template that are not filled also generate a warning:
+
+![image](pictures/not_filled.png)
 
 In push_text_file, images are provided like this:
 

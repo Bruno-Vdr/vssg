@@ -136,6 +136,9 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 		push_file.close()
 	}
 
+	// Copy post sections to keep track of those that has been used.
+	mut sections_copy := post.sections.clone()
+
 	// Initialize dynamic vars.
 	mut dyn := util.DynVars.new()
 	dyn.add('@title', post.title)
@@ -143,16 +146,19 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 	dyn.add('@topic', topic.title)
 
 	for i, li in tmpl_lines {
-		line := li.trim_space()
+		tmpl_line := li.trim_space()
 
 		mut section_name := ''
-		if line.starts_with('[section:') && line.ends_with(']') {
-			section_name = line.find_between('[section:', ']')
+		if tmpl_line.starts_with('[section:') && tmpl_line.ends_with(']') {
+			section_name = tmpl_line.find_between('[section:', ']')
 			section := post.sections[section_name] or {
 				println('${term.rgb(255, 165, 0, 'Warning:')} Found section "${section_name}" line ${
 					i + 1} in template ${cst.push_template_file} that is not filled in ${post.filename}. [${@FILE_LINE}]')
 				continue
 			}
+
+			// A section was found remove it from copy
+			sections_copy.delete(section_name)
 
 			// Emit section core into the file
 			for l in section.code {
@@ -185,13 +191,17 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 			}
 		} else {
 			// Not a special section, emit line as is after substituting dynamic vars (if any).
-			substitute := dyn.substitute(line) or {
+			substitute := dyn.substitute(tmpl_line) or {
 				return error('Wrong template ${cst.push_template} : ${err}. [${@FILE_LINE}]')
 			}
 			push_file.writeln(substitute) or {
 				return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 			}
 		}
+	}
+
+	for s, _ in sections_copy {
+		println('${term.rgb(255, 165, 0, 'Warning:')} section "${s}" didn\'t match any section in push template.')
 	}
 }
 
