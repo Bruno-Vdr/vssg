@@ -42,7 +42,7 @@ provide a special section between [LinkModel] and [EndModel] tag:
 ![Terminal](pictures/link_model.png " Link models")
 
 This section is the HTML model that will be used
-to generate any links in the push list page. It recognizes 3 dynamic variables, substituted on push time:
+to generate any links in the push list page. It recognizes 4 dynamic variables, substituted on push time:
 
 - **[@url]** : The url of the push page.
 - **[@date]** : The date of the target push.

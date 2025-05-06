@@ -2,15 +2,19 @@
 
 Push and Modify are two major commands of **vssg**.
 
-These commands must be launched from the topic's directory you want to update. In order to use them
+These commands MUST be launched from the topic's directory you want to update. In order to use them
 both VSSG_PUSH_DIR and VSSG_IMG_PUSH_DIR must be set.
 
-vssg push Saturn.txt : Saturn.txt is the push_text_file. will load the push file from the directory pointed by
-VSSG_PUSH_DIR. Images (if any) referenced in the Saturn.txt file will be searched (copied) from the VSSG_IMG_PUSH_DIR path.
+vssg push **Saturn.txt** : Saturn.txt is the push_text_file.
 
-An exemple of minimal push file:
+This command will load the push file from the directory pointed by VSSG_PUSH_DIR. Images (if any) referenced in the
+Saturn.txt file will be searched (copied) from the VSSG_IMG_PUSH_DIR path. (See [VSSG variables](EnvVars.md))
+
+An example of minimal push file:
 
 ![image](pictures/min_push.png)
+
+These 4 lines must be present in that order in the push file.
 
 - **title**: mandatory, is the title of your push.
 - **link label**: optional, is the link to your push in push list of the topic.
