@@ -92,11 +92,12 @@ fn sync(p []string) ! {
 	permanent_opt := util.get_sync_opt() or { '' }
 
 	// Note: source Trailing '/' is required to sync the whole directory.
-	cmd := '${cst.rsync_cmd_opt}  ${permanent_opt} ${cwd} ${url}${os.path_separator}${sub_dir}' //
+	cmd := '${cst.rsync_cmd_opt}  ${permanent_opt} ${cwd} ${url}${sub_dir}' //
 	run_sync_cmd(cmd, dry)!
 	if sync_bend {
 		// Also synchronize blog entrance  redirection.
-		Sync.sync_file(abs_path + '/' + cst.blog_entry_filename, url, dry)!
+		Sync.sync_file(abs_path + cst.blog_entry_filename, url, dry)!
+		Sync.sync_file(abs_path + cst.blog_entry_filename, url, dry)!
 	}
 	println('${msg} : Done.')
 }
