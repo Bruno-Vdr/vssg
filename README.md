@@ -28,6 +28,9 @@ vssg recognize only three concepts:
 - Pushes: 0 to N Pushes inside a Topic directory. Each push is an HTML page, in a topic sub-directory.
 
 ## Quickstart guide:
+
+Want an example: [Go the the test blog, to try by yourself vssg.](./Doc/Playground.md)
+
 ### 0) Grab and install V lang from [V repository](https://github.com/vlang/v).
 
 Then grab vssg sources, follow installation procedure. Then DL vssg source files and in the main directory (the one that
