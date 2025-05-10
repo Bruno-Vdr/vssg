@@ -31,6 +31,8 @@ vssg recognize only three concepts:
 
 Want an example: [Go the the test blog, to try by yourself vssg.](./Doc/Playground.md)
 
+## A more detailed start guide:
+
 ### 0) Grab and install V lang from [V repository](https://github.com/vlang/v).
 
 Then grab vssg sources, follow installation procedure. Then DL vssg source files and in the main directory (the one that
