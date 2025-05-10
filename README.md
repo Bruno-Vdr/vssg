@@ -13,10 +13,10 @@ The project aims to have zero dependencies:
 
 
 **vssg** is command line driven, and almost fully self documented. All operations are done via command
-line. The project is very Linux, developer centric, and I won't make any effort to support MS Windows.
+line. The project is very Linux and developer centric. No particular effort were made to support MS Windows.
 
 The SSG was written for my personal need, and doesn't aim to be widely used. It is provided as is, with hope to
-be useful for others people. The project is released under MIT license, as most of V projects
+be useful for others people. The project is released under MIT license, as most of V projects.
 
 ![Terminal](Doc/pictures/term.png "The SSG is command line driven")
 
