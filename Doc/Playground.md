@@ -41,11 +41,11 @@ Then, you should end with a new directory called Blog, with 3 topics and several
 ![image](pictures/blog1.png)
 
 
-### A push example:
+### A push example*:
 
 ![image](pictures/blog2.png)
 
-#### Text and Images source: [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+#### *Text and Images source: [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 
 Enter the Blog directory by doing cd Blog, and then running 'vssg show' you should get:
 
