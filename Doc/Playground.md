@@ -31,6 +31,22 @@ or
 Both command are equivalent.
 Then, you should end with a new directory called Blog, with 3 topics and several (repeted) push inside, fully browsable.
 
+### The topic list:
+
+![image](pictures/blog0.png)
+
+
+### The pushes list:
+
+![image](pictures/blog1.png)
+
+
+### A push example:
+
+![image](pictures/blog2.png)
+
+#### Text and Images source: [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
+
 Enter the Blog directory by doing cd Blog, and then running 'vssg show' you should get:
 
 ![image](pictures/vssg_show.png)

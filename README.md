@@ -24,7 +24,7 @@ be useful for others people. The project is released under MIT license, as most 
 vssg recognize only three concepts:
 
 - The Blog: A blog, denoted by it's directory. It contains 1 to N topics.
-- Topics: 1 to N exists in the Blog. Topics are similar to forum Topics/Threads, denoted as blog's sub-directory.
+- Topics: 1 to N can exist in a Blog. Topics are similar to forum Topics/Threads, denoted as blog's sub-directory.
 - Pushes: 0 to N Pushes inside a Topic directory. Each push is an HTML page, in a topic sub-directory.
 
 ### Before all: Install V from [V repository](https://github.com/vlang/v).
@@ -35,7 +35,7 @@ You should alias or put is in your $PATH env variable.
 
 ## Quickstart guide:
 
-Want an example: [Go the the test blog, to try by yourself vssg.](./Doc/Playground.md)
+Want an example: [Check out the test blog, to try by yourself vssg.](./Doc/Playground.md)
 
 ## A more detailed start guide:
 
