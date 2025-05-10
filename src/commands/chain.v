@@ -33,7 +33,7 @@ pub fn Chain.new() Command {
 // help give a complete description of the command, including parameters.
 fn Chain.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('chain')} string
+Command: ${term.green('vssg')} ${term.yellow('chain')}
 
 ${term.rgb(255,
 		165, 0, 'Warning:')} This command must be launched from within topic directory.
