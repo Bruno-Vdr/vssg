@@ -27,17 +27,17 @@ vssg recognize only three concepts:
 - Topics: 1 to N exists in the Blog. Topics are similar to forum Topics/Threads, denoted as blog's sub-directory.
 - Pushes: 0 to N Pushes inside a Topic directory. Each push is an HTML page, in a topic sub-directory.
 
+### Before all: Install V from [V repository](https://github.com/vlang/v).
+
+Grab V sources, follow installation procedure. Then you can download or clone vssg source files. Then in the main
+directory (the one that contains the v.mod) file run "v ." command. This will compile vssg executable.
+You should alias or put is in your $PATH env variable.
+
 ## Quickstart guide:
 
 Want an example: [Go the the test blog, to try by yourself vssg.](./Doc/Playground.md)
 
 ## A more detailed start guide:
-
-### 0) Grab and install V lang from [V repository](https://github.com/vlang/v).
-
-Then grab vssg sources, follow installation procedure. Then DL vssg source files and in the main directory (the one that
-contains the v.mod) file run "v ." command. This will compile vssg executable. You should alias or put is in your $PATH
-env variable.
 
 ### 1) Init the blog with the command:
 In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
