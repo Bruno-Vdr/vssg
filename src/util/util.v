@@ -103,8 +103,8 @@ pub fn get_blog_root() ?string {
 	}
 }
 
-// get_img_post_dir Returns image push directory. Add terminal path separator if missing.
-pub fn get_img_post_dir() ?string {
+// get_img_push_dir Returns image push directory. Add terminal path separator if missing.
+pub fn get_img_push_dir() ?string {
 	p := os.getenv_opt(cst.img_src_env)
 	return if p != none {
 		if p.ends_with(os.path_separator) {

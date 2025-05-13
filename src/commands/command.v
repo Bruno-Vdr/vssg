@@ -81,5 +81,8 @@ pub fn Command.get() map[string]Command {
 	doc := Doc.new()
 	c[doc.name] = doc
 
+	mogrify := Mogrify.new()
+	c[mogrify.name] = mogrify
+
 	return c
 }

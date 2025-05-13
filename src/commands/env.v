@@ -53,7 +53,7 @@ fn env(p []string) ! {
 		println(term.red('Not set'))
 	}
 	print(term.bright_yellow(cst.img_src_env) + ' = ')
-	if img_post := util.get_img_post_dir() {
+	if img_post := util.get_img_push_dir() {
 		println('"' + img_post + '"')
 	} else {
 		println(term.red('Not set'))

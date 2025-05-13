@@ -65,7 +65,7 @@ fn push(p []string) ! {
 	}
 
 	// Environment var for Image dir is mandatory.
-	img_dir := util.get_img_post_dir() or {
+	img_dir := util.get_img_push_dir() or {
 		return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}= ...')
 	}
 

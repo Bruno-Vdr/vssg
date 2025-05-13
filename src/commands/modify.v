@@ -96,7 +96,7 @@ fn modify(param []string) ! {
 		println('Re-generated pushes links (${cst.pushs_list_filename}).')
 
 		// Environment var for Image dir is mandatory.
-		img_dir := util.get_img_post_dir() or {
+		img_dir := util.get_img_push_dir() or {
 			return error('${cst.img_src_env} is not set. Fix it with: export ${cst.img_src_env}=/home/....')
 		}
 		// Build HTML page of the post.
