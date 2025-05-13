@@ -5,8 +5,8 @@ import util
 import constants as cst
 import os
 
-// Mogrify structure, implementing Command interface.
-struct Mogrify implements Command {
+// Convert structure, implementing Command interface.
+struct Convert implements Command {
 	kind    CommandType
 	name    string
 	desc    string
@@ -16,31 +16,31 @@ struct Mogrify implements Command {
 	exec    fn (s []string) ! @[required]
 }
 
-// new builds a Mogrify Command.
-pub fn Mogrify.new() Command {
-	return Mogrify{
+// new builds a Convert Command.
+pub fn Convert.new() Command {
+	return Convert{
 		kind:    .helper
-		name:    'mogrify'
+		name:    'convert'
 		desc:    "Transforms images to Blog format's image size."
-		help:    Mogrify.help()
+		help:    Convert.help()
 		arg_min: 0
 		arg_max: 1
-		exec:    mogrify
+		exec:    convert
 	}
 }
 
 // help give a complete description of the command, including parameters.
-fn Mogrify.help() string {
+fn Convert.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('mogrify')} ${term.gray('[-o]')}
+Command: ${term.green('vssg')} ${term.yellow('convert')} ${term.gray('[-o]')}
 
-The mogrify command convert all .jpg images contained in directory pointed by VSSG_IMG_PUSH_DIR
+The convert command convert all .jpg images contained in directory pointed by VSSG_IMG_PUSH_DIR
 (now: ${util.get_img_push_dir() or {
 		'"Not set"'
 	}}) to Blog\'s defined standard. The command relies on ImageMagik package, to run.
 Executed command is the following:
 
-${cst.mogrify_cmd}
+${cst.convert_cmd}
 
 If no -o option is added, the output file will be the source file, prefixed by r_  (resized).
 
@@ -48,8 +48,8 @@ The ${term.gray('-o')} option will overwrite source file.
 '
 }
 
-// mogrify command feature are implemented here. The parameters number has been checked before call.
-fn mogrify(p []string) ! {
+// convert command feature are implemented here. The parameters number has been checked before call.
+fn convert(p []string) ! {
 	overwrite := '-o' in p
 
 	if !overwrite && p.len > 0 {
@@ -72,7 +72,7 @@ fn mogrify(p []string) ! {
 				}
 
 				// Generate image magick command line.
-				mut cmd := cst.mogrify_cmd.replace('@IFILE', src_name)
+				mut cmd := cst.convert_cmd.replace('@IFILE', src_name)
 				cmd = cmd.replace('@OFILE', dst_name)
 				println(cmd)
 
