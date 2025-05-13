@@ -84,10 +84,10 @@ blockquote p {
 }
 
 img {
-	border-radius: 8px;
+	border-radius: 4px;
 	display: block;
 	max-width:900px;
-	max-height:600px;
+	max-height:900px;
 	width: auto;
 	height: auto;
 	margin-left: auto;  /* To center image */
