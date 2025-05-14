@@ -61,6 +61,8 @@ fn convert(p []string) ! {
 	}
 
 	entries := os.ls(path) or { [] }
+	mut sorted := []string{}
+
 	for entry in entries {
 		if !os.is_dir(os.join_path(os.home_dir(), entry)) {
 			if entry.ends_with('.JPG') || entry.ends_with('.jpg') {
@@ -70,7 +72,7 @@ fn convert(p []string) ! {
 				} else {
 					src_name
 				}
-
+				sorted << dst_name.replace(path,'') // Only keep filename
 				// Generate image magick command line.
 				mut cmd := cst.convert_cmd.replace('@IFILE', src_name)
 				cmd = cmd.replace('@OFILE', dst_name)
@@ -79,5 +81,74 @@ fn convert(p []string) ! {
 				util.exec(cmd, true, false) or { println('${term.red('Error:')} ${err}') }
 			}
 		}
+	}
+
+	generate_image_list(sorted, path)!
+}
+
+// generate_image_list build a HTML page containing preview of converted images with their name, to ease Push writing.
+fn generate_image_list(images []string, path string) ! {
+	// Now create/overwrite output file
+	out_file := path + cst.image_list_name
+	mut ofile := os.open_file(out_file, 'w+', cst.file_access) or {
+		return error('opening ${out_file} : ${err}. ${@FILE_LINE}')
+	}
+
+	defer {
+		ofile.close()
+	}
+
+	doc_start := '
+<!DOCTYPE html>
+<html>
+<body>
+'
+
+	doc_end := '
+</body>
+</html>
+'
+
+	mut img_names := []string{}
+
+	ofile.writeln(doc_start) or {
+		return error('Unable to write ${cst.topics_list_filename}: ${err}. ${@FILE_LINE}')
+	}
+
+	mut col := 0
+
+	mut html_table := []string{}
+	html_table << '<table>'
+	html_table << '<tr>'
+	for image in images {
+		html_table << '<th>'
+		html_table << ' <img src="${image}" alt="${image}" width="200" height="200"><br>'
+		html_table << '[img:${image}:""]'
+		img_names << '[img:${image}:""]'
+		html_table << '</th>'
+		col++
+		if col > 2 {
+			html_table << '</tr>'
+			html_table << '<tr>'
+			col = 0
+		}
+	}
+
+	html_table << '</table>'
+
+	for l in html_table {
+		ofile.writeln(l) or {
+			return error('Unable to write ${cst.topics_list_filename}: ${err}. ${@FILE_LINE}')
+		}
+	}
+	// Emit full name list.
+	for name in img_names {
+		ofile.writeln('${name}' + '\n<br>') or {
+			return error('Unable to write ${cst.topics_list_filename}: ${err}. ${@FILE_LINE}')
+		}
+	}
+
+	ofile.writeln(doc_end) or {
+		return error('Unable to write ${cst.topics_list_filename}: ${err}. ${@FILE_LINE}')
 	}
 }
