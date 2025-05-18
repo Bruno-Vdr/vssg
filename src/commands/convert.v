@@ -48,6 +48,11 @@ The ${term.gray('-o')} option will overwrite source file.
 '
 }
 
+struct Sd {
+	src string
+	dst string
+}
+
 // convert command feature are implemented here. The parameters number has been checked before call.
 fn convert(p []string) ! {
 	overwrite := '-o' in p
@@ -61,33 +66,35 @@ fn convert(p []string) ! {
 	}
 
 	entries := os.ls(path) or { [] }
-	mut sorted := []string{}
+	mut filtered := []Sd{}
 
 	for entry in entries {
 		if !os.is_dir(os.join_path(os.home_dir(), entry)) {
 			if entry.ends_with('.JPG') || entry.ends_with('.jpg') {
 				src_name := path + entry
 				dst_name := if !overwrite {
-					path + 'r_' + entry
+					path + 'resized_' + entry
 				} else {
 					src_name
 				}
-				sorted << dst_name.replace(path,'') // Only keep filename
-				// Generate image magick command line.
-				mut cmd := cst.convert_cmd.replace('@IFILE', src_name)
-				cmd = cmd.replace('@OFILE', dst_name)
-				println(cmd)
-
-				util.exec(cmd, true, false) or { println('${term.red('Error:')} ${err}') }
+				filtered << Sd{src: src_name, dst : dst_name}
 			}
 		}
 	}
 
-	generate_image_list(sorted, path)!
+	for name in filtered {
+		// Generate image magick command line.
+		mut cmd := cst.convert_cmd.replace('@IFILE', name.src)
+		cmd = cmd.replace('@OFILE', name.dst)
+		println(cmd)
+		util.exec(cmd, true, false) or { println('${term.red('Error:')} ${err}') }
+	}
+
+	generate_image_list(filtered, path)!
 }
 
 // generate_image_list build a HTML page containing preview of converted images with their name, to ease Push writing.
-fn generate_image_list(images []string, path string) ! {
+fn generate_image_list(images []Sd, path string) ! {
 	// Now create/overwrite output file
 	out_file := path + cst.image_list_name
 	mut ofile := os.open_file(out_file, 'w+', cst.file_access) or {
@@ -122,9 +129,9 @@ fn generate_image_list(images []string, path string) ! {
 	html_table << '<tr>'
 	for image in images {
 		html_table << '<th>'
-		html_table << ' <img src="${image}" alt="${image}" width="200" height="200"><br>'
-		html_table << '[img:${image}:""]'
-		img_names << '[img:${image}:""]'
+		html_table << ' <img src="${image.dst}" alt="${image.dst}" width="200" height="200"><br>'
+		html_table << '[img:${image.dst.replace(path, '')}:""]'
+		img_names << '[img:${image.dst.replace(path, '')}:""]'
 		html_table << '</th>'
 		col++
 		if col > 2 {

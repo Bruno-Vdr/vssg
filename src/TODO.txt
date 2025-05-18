@@ -1,3 +1,4 @@
+-Parallel ImageMagick convert, on thread by image.
 -section not_filled
 -Factorize all Env related util.get... methods.
 
