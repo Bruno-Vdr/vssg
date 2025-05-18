@@ -4,6 +4,8 @@ import term
 import util
 import constants as cst
 import os
+import sync.pool
+import runtime
 
 // Convert structure, implementing Command interface.
 struct Convert implements Command {
@@ -48,7 +50,7 @@ The ${term.gray('-o')} option will overwrite source file.
 '
 }
 
-struct Sd {
+pub struct Sd {
 	src string
 	dst string
 }
@@ -77,20 +79,34 @@ fn convert(p []string) ! {
 				} else {
 					src_name
 				}
-				filtered << Sd{src: src_name, dst : dst_name}
+				filtered << Sd{
+					src: src_name
+					dst: dst_name
+				}
 			}
 		}
 	}
 
-	for name in filtered {
-		// Generate image magick command line.
-		mut cmd := cst.convert_cmd.replace('@IFILE', name.src)
-		cmd = cmd.replace('@OFILE', name.dst)
-		println(cmd)
-		util.exec(cmd, true, false) or { println('${term.red('Error:')} ${err}') }
+	cores := runtime.nr_cpus()
+	println('Spawning conversion on ${cores} cores.')
+	mut pp := pool.new_pool_processor(pool.PoolProcessorConfig{ maxjobs: cores, callback: worker })
+	pp.work_on_items(filtered)
+	for s in pp.get_results[string]() {
+		println(s)
 	}
 
 	generate_image_list(filtered, path)!
+}
+
+// worker is the callback given to the pool processor to convert images.
+fn worker(mut p pool.PoolProcessor, idx int, worker_id int) &string {
+	name := p.get_item[Sd](idx)
+	// Generate image magick command line.
+	mut cmd := cst.convert_cmd.replace('@IFILE', name.src)
+	cmd = cmd.replace('@OFILE', name.dst)
+	mut r := term.green('${name.src} converted to ${name.dst}')
+	util.exec(cmd, false, false) or { r = '${term.red('Error:')} ${err}' }
+	return &r
 }
 
 // generate_image_list build a HTML page containing preview of converted images with their name, to ease Push writing.
