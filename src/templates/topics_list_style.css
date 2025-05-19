@@ -26,7 +26,31 @@ body {
 	background-color: white;
 }
 
+p {
+    max-width: 900px;
+}
+
 h1 {
+	color: black;
+	text-align: center;
+}
+
+h2 {
+	color: black;
+	text-align: left;
+}
+
+h3 {
+	color: black;
+	text-align: left;
+}
+
+h4 {
+	color: black;
+	text-align: left;
+}
+
+h5 {
 	color: black;
 	text-align: left;
 }
@@ -47,13 +71,15 @@ hr {
 }
 
 div {
-	color: #303030;
+	color: #202020;
 	background-color: white;
 	font-family: verdana;
-	font-size: 14px;
-	margin-left:10%;
-	margin-right:10%;
+	font-size: 13px;
+	width: 900px;
+	max-width: 900px;
+	margin: auto;
 }
+
 
 
 blockquote {
@@ -81,7 +107,9 @@ blockquote:after {
 }
 
 blockquote p {
-  display: inline;
+  width=100%;
+  max-width: 900px;
+  display: block;
 }
 
 img {

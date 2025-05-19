@@ -1,10 +1,20 @@
+div {
+	color: #303030;
+	background-color: white;
+	font-family: verdana;
+	font-size: 14px;
+	width: 900px;
+	max-width: 900px;
+	margin: auto;
+}
+
 ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
     overflow: hidden;
     background-color: #333;
-}
+ }
 
 li {
     float: left;

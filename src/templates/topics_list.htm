@@ -8,7 +8,7 @@
 -->
 <head>
     <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-    <title>Topics list</title>
+    <title>Available Topics</title>
     <link href="./style.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
@@ -21,17 +21,18 @@
 ></iframe>
 <div>
     <img src="./banner.png">
-    <h2>
-        <center>[@num] available topic(s)</center>
+    <h2 style="text-align:center">
+        [@num] available topic(s)
     </h2>
-    [LinkModel]
     <hr>
-    <div>
-    <li><span><a href="[@url]"> [@title] </a> &#x1F553; - [@date]</span></li>
-    </div>
-    [EndModel]
+    <ul>
+        [LinkModel]
+        <li><span><a href="[@url]"> [@title] </a> &#x1F553; - [@date]</span></li>
+        [EndModel]
+    </ul>
     <hr>
-    <h6>[-- Generated with vssg --]</h6>
 </div>
+<!-- Footer -->
+<h6>[-- Generated with vssg --]</h6>
 </body>
 </html>
