@@ -104,7 +104,7 @@ a:link {
 
 /* visited link */
 a:visited {
-  color: green;
+  color: #603030;
   text-decoration:none;
 }
 
