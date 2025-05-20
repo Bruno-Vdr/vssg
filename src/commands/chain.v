@@ -110,7 +110,7 @@ fn generate_link(to ?int, kind LnkType, title string) string {
 	href := if to != none {
 		label := if kind == .previous { cst.lnk_prev_label } else { cst.lnk_next_label }
 		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
-		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button>${
+		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button  style="font-size: medium; font-weight: bolder;">${
 			label + '<br>' + title}</button></a>'
 	} else {
 		'<a style="visibility: hidden;"></a>'

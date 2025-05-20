@@ -70,6 +70,15 @@ h6 {
     font-weight: normal;
 }
 
+.h6_comment {
+    margin-top: 0px;
+    display: block;
+    font-size: 0.67rem;
+	color: #303030;;
+	text-align: center;
+    white-space: nowrap;
+    font-weight: normal;
+}
 
 hr {
 	border: 0;
@@ -128,7 +137,8 @@ img {
   max-height:max-content;
   margin-left: auto;
   margin-right: auto;
-  margin-bottom: 10px
+  margin-bottom: 2px
+  margin-top: 2px
 }
 
 /* unvisited link */
@@ -178,5 +188,6 @@ li {
     font-size: medium;
     width: 900px;
 }
+
 
 

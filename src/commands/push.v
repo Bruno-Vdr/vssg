@@ -174,7 +174,7 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 
 						// Emit comment (if any)
 						if com.len > 0 {
-							push_file.writeln('<h6>${com}</h6>') or {
+							push_file.writeln('<h6 class="h6_comment">${com}</h6>') or {
 								return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 							}
 						}
