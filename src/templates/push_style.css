@@ -16,16 +16,16 @@
 }
 
 .my-float {
-display:flex;
-align-items:center;
-justify-content:center;
+    display:flex;
+    align-items:center;
+    justify-content:center;
 }
 
 
 body {
     font-family: "Garamond", serif, monospace;
 	background-color: white;
-	font-size: calc(10px + 0.390625vw);
+	font-size: medium;
 }
 
 p {
@@ -82,6 +82,7 @@ div {
 	color: #202020;
 	background-color: white;
 	width: 900px;
+	height: 100%;
 	max-width: 900px;
 	margin: auto;
 }
@@ -169,6 +170,13 @@ button:hover {
   color:  #787200;
 }
 
+ul {
+    list-style-type: disc;
+}
 
+li {
+    font-size: medium;
+    width: 900px;
+}
 
 

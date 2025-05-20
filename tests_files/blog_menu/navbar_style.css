@@ -1,8 +1,11 @@
+body {
+	font-size: large;
+}
+
 div {
 	color: #303030;
 	background-color: white;
 	font-family: verdana;
-	font-size: 14px;
 	width: 900px;
 	max-width: 900px;
 	margin: auto;
@@ -25,7 +28,6 @@ li a {
     color: white;
     text-align: center;
     padding: 6px 8px;
-    font-size: 14px;
     text-decoration: none;
 }
 
