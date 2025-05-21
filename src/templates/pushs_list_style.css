@@ -70,16 +70,6 @@ h6 {
     font-weight: normal;
 }
 
-.h6_comment {
-    margin-top: 0px;
-    display: block;
-    font-size: 0.80rem;
-	color: #353535;
-	text-align: center;
-    white-space: nowrap;
-    font-weight: bolder;
-}
-
 hr {
 	border: 0;
 	height: 1px;
@@ -139,6 +129,14 @@ img {
   margin-right: auto;
   margin-bottom: 2px;
   margin-top: 2px;
+}
+
+figcaption {
+  color: #303030;
+  font-size: smaller;
+  font-style: italic;
+  padding: 0px;
+  text-align: center;
 }
 
 /* unvisited link */

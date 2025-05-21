@@ -167,16 +167,23 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 					img_dst := path + os.path_separator + cst.pushs_pic_dir + os.path_separator + im
 
 					if copy_push_picture(img_src, img_dst) {
-						// Emit HTML <img> tag
-						push_file.writeln('<img src="${cst.pushs_pic_dir + os.path_separator + im}">') or {
+						// Emit HTML
+						// <figure>
+						// <img> tag
+						// <figcaption><f/igcaption>
+						// </figure>
+						push_file.writeln('<figure>\n    <img src="${cst.pushs_pic_dir + os.path_separator + im}">') or {
 							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 						}
 
 						// Emit comment (if any)
 						if com.len > 0 {
-							push_file.writeln('<h6 class="h6_comment">${com}</h6>') or {
+							push_file.writeln('    <figcaption>${com}</figcaption>') or {
 								return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 							}
+						}
+						push_file.writeln('</figure>') or {
+							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 						}
 					}
 				} else {
