@@ -23,9 +23,9 @@
 
 
 body {
-    font-family: "Garamond", serif, monospace;
+    font-family: "verdana", "garamond", serif, monospace;
 	background-color: white;
-	font-size: medium;
+	font-size: 1.25vw;
 }
 
 p {
@@ -133,8 +133,8 @@ img {
 
 figcaption {
   color: #303030;
-  font-size: smaller;
-  font-style: italic;
+  font-size: 0.5rem;
+  font-weight: light;
   padding: 0px;
   text-align: center;
 }
