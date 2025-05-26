@@ -1,14 +1,14 @@
 body {
-	font-size: 2vw;
+	font-size: 16px;
+	font-weight: bolder;
 	font-family: "verdana", "garamond", serif, monospace;
+    max-width: 900px;
+    margin: auto;
 }
 
 div {
 	color: #303030;
-	background-color: white;
-	font-family: verdana;
 	width: 100%;
-	max-width: 900px;
 	margin: auto;
 }
 
