@@ -19,15 +19,18 @@ pub struct Topic {
 pub:
 	title     string // Topic title
 	directory string // Dir. containing posts.
-pub mut:
+mut:
 	posts map[u64]PostSummary
 }
 
-/**
- * Create a new empty topic, with no posts.
- */
+// Create a new empty topic, with no posts.
 pub fn Topic.new(title string) Topic {
 	return Topic{title, util.obfuscate(title), map[u64]PostSummary{}}
+}
+
+// build a new topic with existing posts.
+pub fn Topic.build(title string, posts map[u64]PostSummary) Topic {
+	return Topic{title, util.obfuscate(title), posts}
 }
 
 /**
@@ -96,6 +99,39 @@ pub fn (t Topic) save(path string) ! {
 		file.writeln('push = [id:${p.id}][title:${p.title}][date:${p.date}][dir:.${os.path_separator}${cst.push_dir_prefix}${p.id}]') or {
 			return error('Unable to write ${t.directory}${os.path_separator}${cst.topic_file}: ${err}, ${@FILE_LINE}')
 		}
+	}
+}
+
+// get_posts_number return the number of post in the topic.
+pub fn (t Topic) get_posts_number() int {
+	return t.posts.len
+}
+
+// Return a COPY of the posts map
+pub fn (t Topic) get_posts() map[u64]PostSummary {
+	return t.posts.clone()
+}
+
+// Return PostSummary identified with id if any, none otherwise.
+pub fn (t Topic) get_post(id u64) ?PostSummary {
+	return if id in t.posts {
+		t.posts[id]
+	} else {
+		none
+	}
+}
+
+// Set/Add or Replace post based on its id. If id already exist, post is replace, else it's added.
+pub fn (mut t Topic) set_post(ps PostSummary) {
+	t.posts[ps.id] = ps
+}
+
+// delete a post from posts map, given the post id.
+pub fn (mut t Topic) delete(id u64) ! {
+	if id in t.posts {
+		t.posts.delete(id)
+	} else {
+		return error('Non existing post with id=${id}.')
 	}
 }
 

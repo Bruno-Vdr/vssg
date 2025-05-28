@@ -93,7 +93,7 @@ fn push(p []string) ! {
 
 	// Add post to our structure.
 	ps := PostSummary{post.id, post.link_label, post.date, '.${os.path_separator}${cst.push_dir_prefix}${post.id}'}
-	topic.posts[ps.id] = ps
+	topic.set_post(ps)
 
 	// Save topic file. Post cmd is run from within Topic dir.
 	topic.save('./')!
@@ -172,7 +172,8 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 						// <img> tag
 						// <figcaption><f/igcaption>
 						// </figure>
-						push_file.writeln('<figure>\n    <img src="${cst.pushs_pic_dir + os.path_separator + im}">') or {
+						push_file.writeln('<figure>\n    <img src="${cst.pushs_pic_dir +
+							os.path_separator + im}">') or {
 							return error('Failed writing file. ${err}. [${@FILE_LINE}]')
 						}
 

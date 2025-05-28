@@ -70,7 +70,7 @@ fn modify(param []string) ! {
 	mut topic := Topic.load()!
 
 	// Verify in map that post exists in post list of topic by ID
-	if p := topic.posts[id] {
+	if p := topic.get_post(id) {
 		lnk := if post.link_label.len == 0 {
 			post.title
 		} else {
@@ -87,7 +87,7 @@ fn modify(param []string) ! {
 		post.set_id(p.id)
 
 		// Replace new PostSummary by updated one.
-		topic.posts[ps.id] = ps
+		topic.set_post(ps)
 
 		topic.save('./')!
 

@@ -35,8 +35,8 @@ fn Chain.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('chain')}
 
-${term.rgb(255,
-		165, 0, 'Warning:')} This command must be launched from within topic directory.
+${term.rgb(255, 165,
+		0, 'Warning:')} This command must be launched from within topic directory.
 
 This command will open all pushe from the current topics, and insert (if any) a link to previous and
 next push. Its done by patching custom HTML tag in template "${cst.lnk_next_tag}" and "${cst.lnk_prev_tag}".
@@ -57,12 +57,13 @@ fn chain(params []string) ! {
 
 	topics := Topic.load()!
 
-	if topics.posts.len == 0 {
+	pst := topics.get_posts_number()
+	if pst == 0 {
 		return error('The topic "${topics.title}" does not contain any push.')
 	}
-	println('Chaining "${topics.title}" : ${topics.posts.len} pushes found.')
+	println('Chaining "${topics.title}" : ${pst} pushes found.')
 
-	lst := topics.posts.values()
+	lst := topics.get_posts().values()
 	for id, ps in lst {
 		prev_id := if id == 0 { none } else { int(lst[id - 1].id) }
 		next_id := if id == lst.len - 1 { none } else { int(lst[id + 1].id) }

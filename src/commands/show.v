@@ -95,9 +95,11 @@ fn list_topic(header bool) ! {
 	topic := Topic.load()!
 	if header {
 		println('Topic "' + term.blue('${topic.title}') +
-			'" contains ${topic.posts.len} ${term.bright_green('push(s)')}:')
+			'" contains ${topic.get_posts_number()} ${term.bright_green('push(s)')}:')
 	}
-	for _, p in topic.posts {
+
+	pst := topic.get_posts()
+	for _, p in pst {
 		mut str := 'Push id: ${p.id} ${term.bright_yellow('"' + p.title + '"')} [${util.to_blog_date(p.date)}] ${term.bright_blue(p.dir)}'
 		if header {
 			str = '    ' + str

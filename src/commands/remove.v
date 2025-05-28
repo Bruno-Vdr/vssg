@@ -70,10 +70,10 @@ fn remove(param []string) ! {
 
 	// Load .topic
 	mut topics := Topic.load()!
-	if v := topics.posts[id] {
+	if v := topics.get_post(id) {
 		println('Deleting push ${id} "${v.title}."')
 		dir := v.dir
-		topics.posts.delete(id)
+		topics.delete(id)!
 		topics.save('./')!
 
 		if force_delete {

@@ -105,11 +105,7 @@ fn rename(p []string) ! {
 		}
 
 		// Create new Topic struct with new name and directory, with the SAME posts.
-		nt := Topic{
-			title:     new_title
-			directory: util.obfuscate(new_title)
-			posts:     tf.posts
-		}
+		nt := Topic.build(new_title, tf.get_posts())
 		nt.save('./') or {
 			return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}. ${@LOCATION}')
 		}
