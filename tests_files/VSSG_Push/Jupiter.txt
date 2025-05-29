@@ -19,5 +19,4 @@ As the most massive of the eight planets, the gravitational influence of Jupiter
 In addition to its moons, Jupiter's gravitational field controls numerous asteroids that have settled around the Lagrangian points that precede and follow the planet in its orbit around the Sun. These are known as the Trojan asteroids, and are divided into Greek and Trojan "camps" to honour the Iliad. The first of these, 588 Achilles, was discovered by Max Wolf in 1906; since then more than two thousand have been discovered.[215] The largest is 624 Hektor.[216]
 The Jupiter family is defined as comets that have a semi-major axis smaller than Jupiter's; most short-period comets belong to this group. Members of the Jupiter family are thought to form in the Kuiper belt outside the orbit of Neptune. During close encounters with Jupiter, they are perturbed into orbits with a smaller period, which then becomes circularized by regular gravitational interactions with the Sun and Jupiter.[217]
 [img:Jupiter_3.jpg:"Seen from James Webb telescope."]
-[section:not_filled]
-This is the not filled section.
+

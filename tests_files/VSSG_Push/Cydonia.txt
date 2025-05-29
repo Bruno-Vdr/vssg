@@ -16,6 +16,3 @@ In one of the images taken by Viking 1 on July 25, 1976, a two-kilometre-long (1
 [img:CYD_2.jpg:"D & M pyramid"]
 <blockquote>X-Files</blockquote>
 
-[section:not_filled]
-There is nothing to add.
-This is the famous not filled section.
