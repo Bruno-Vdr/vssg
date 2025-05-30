@@ -69,8 +69,15 @@ fn show(param []string) ! {
 
 				// Date is stored as milliseconds since epoq
 				str_date := util.to_blog_date(topic_item.date)
+
+				locked_str := if topic_item.locked {
+					term.red('[Locked  ]')
+				} else {
+					term.green('[Unlocked]')
+				}
+
 				println('    Topic ${i}: ' + term.bright_yellow('"${topic_item.title}"') +
-					' [${str_date}] in sub-dir. -> ' +
+					' [${str_date}] ${locked_str} : Stored in sub-dir. -> ' +
 					term.bright_blue('.${os.path_separator}${util.obfuscate(topic_item.title)}'))
 
 				// Dump topic if -a option present.
