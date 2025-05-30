@@ -64,42 +64,30 @@ fn drop(p []string) ! {
 	}
 
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
+	blog.delete(title)!
+	println('Found Topic named "${title}".')
+	blog.save()!
 
-	mut index := -1
-	for i, t in blog.topics {
-		if t.title == title {
-			index = i
-			break
-		}
-	}
-
-	if index == -1 {
-		return error('Topic named "${title}" was not found.')
-	} else {
-		blog.topics.delete(index)
-		println('Found Topic named "${title}".')
-		blog.save()!
-
-		dir := util.obfuscate(title)
-		if os.exists(dir) {
-			if force_delete {
-				os.rmdir_all(dir) or {
-					return error('Could not remove directory "${dir}": ${err}. ${@LOCATION}')
-				}
-				println('Associated directory "${dir}" was deleted.')
-			} else {
-				os.mv(dir, dir + cst.dir_removed_suffix) or {
-					return error('Could not remove directory "${dir}": ${err} ${@LOCATION}')
-				}
-				println('Associated directory "${dir}" was renamed ${dir}${cst.dir_removed_suffix}.')
+	dir := util.obfuscate(title)
+	if os.exists(dir) {
+		if force_delete {
+			os.rmdir_all(dir) or {
+				return error('Could not remove directory "${dir}": ${err}. ${@LOCATION}')
 			}
-
-			// Now Rebuild topic list HTML page
-			blog.generate_topics_list_html()!
+			println('Associated directory "${dir}" was deleted.')
 		} else {
-			println('Associated directory "${dir}" was not found.')
+			os.mv(dir, dir + cst.dir_removed_suffix) or {
+				return error('Could not remove directory "${dir}": ${err} ${@LOCATION}')
+			}
+			println('Associated directory "${dir}" was renamed ${dir}${cst.dir_removed_suffix}.')
 		}
+
+		// Now Rebuild topic list HTML page
+		blog.generate_topics_list_html()!
+	} else {
+		println('Associated directory "${dir}" was not found.')
 	}
+
 	println('You can now use "${term.green('vssg')} ${term.yellow('sync')}" to publish.')
 	println('Please also considere using "${term.green('vssg')} ${term.yellow('bend')}" to a valid URL (drop might break bend).')
 }

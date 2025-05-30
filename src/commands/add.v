@@ -56,10 +56,8 @@ fn add(p []string) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 
-	for item in blog.topics {
-		if item.title == title {
-			return error(' The topic "${title}" already exists in ${cst.blog_file} file.')
-		}
+	if blog.exists(title) {
+		return error(' The topic "${title}" already exists in ${cst.blog_file} file.')
 	}
 
 	dir := util.obfuscate(title)
@@ -95,7 +93,7 @@ fn add(p []string) ! {
 
 // gen_empty_push_list : Go in topic direcory and force generation of (empty) push list page.
 fn gen_empty_push_list(dir string) ! {
-	os.chdir(dir) !
+	os.chdir(dir)!
 	t := Topic.load()!
 	t.generate_pushes_list_html()!
 	os.chdir('..')!

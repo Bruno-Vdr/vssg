@@ -19,7 +19,7 @@ pub mut:
 pub struct Blog {
 pub:
 	name string
-pub mut:
+mut:
 	topics []TopicItem
 }
 
@@ -36,6 +36,48 @@ pub fn Blog.load() !Blog {
 
 	mut ret := util.load_transform_text_file(cst.blog_file, util.del_empty_and_comments)!
 	return parse_blog(ret)
+}
+
+// exists check for an existing topic with same title as given. Returns boolean accordingly.
+pub fn (b Blog) exists(title string) bool {
+	for item in b.topics {
+		if item.title == title {
+			return true
+		}
+	}
+	return false
+}
+
+// delete check for an existing topic with same title as given. Returns boolean accordingly.
+pub fn (mut b Blog) delete(title string) ! {
+	for index, item in b.topics {
+		if item.title == title {
+			b.topics.delete(index)
+			return
+		}
+	}
+	return error('Topic named "${title}" was not found.')
+}
+
+// rename the topic with title by new title. Return error if not found.
+pub fn (mut b Blog) rename(title string, new_title string) ! {
+	mut found := false
+	for mut topic in b.topics {
+		if title != topic.title {
+			continue
+		}
+		topic.title = new_title
+		found = true
+		break
+	}
+	if !found {
+		return error('Topic with title "${title}" was not found.')
+	}
+}
+
+// get_topics_number return numer of topic inside the blog
+pub fn (b Blog) get_topics_number() int {
+	return b.topics.len
 }
 
 pub fn (mut b Blog) add_topic(name string) {

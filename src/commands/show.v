@@ -61,8 +61,8 @@ fn show(param []string) ! {
 		.blog_dir {
 			blog := Blog.load()!
 			println('Blog "' + term.blue('${blog.name}') + '"\n' +
-				'Contains ${blog.topics.len} ${term.bright_green('topic(s)')}:')
-			for i in 0 .. blog.topics.len {
+				'Contains ${blog.get_topics_number()} ${term.bright_green('topic(s)')}:')
+			for i in 0 .. blog.get_topics_number() {
 				topic_item := blog.get_topic(i) or {
 					return error('Unable to perform blob.get_topic(). ${err}. ${@LOCATION}')
 				}
