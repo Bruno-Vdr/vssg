@@ -14,19 +14,22 @@ import io
 // Comment, starting at # are ignored.
 // Since these files should not be modified by hand, malformed file/line are skipped.
 // The function returns an Option rather than a Result.
-pub fn parse_topic_values(label string, line string) ?(string, i64) {
+pub fn parse_topic_values(label string, line string) ?(string, i64, bool) {
 	if line.len == 0 {
 		return none
 	}
 
 	pos := line.index('#') or { line.len }
-
 	s := line.substr_with_check(0, pos) or { line }
 
 	if s.starts_with(label) {
 		value := s.find_between('"', '"')
 		dte := s.find_between('[', ']')
-		return if value.len == 0 || dte.len == 0 { none } else { value, dte.i64() }
+		locked := s.find_between('[Locked=', ']')
+		if locked !in ['true', 'false'] {
+			return none
+		}
+		return if value.len == 0 || dte.len == 0 { none } else { value, dte.i64(), locked=='true'}
 	}
 	return none
 }

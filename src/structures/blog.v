@@ -14,6 +14,7 @@ pub struct TopicItem {
 pub mut:
 	title string
 	date  i64
+	locked bool
 }
 
 pub struct Blog {
@@ -81,7 +82,7 @@ pub fn (b Blog) get_topics_number() int {
 }
 
 pub fn (mut b Blog) add_topic(name string) {
-	b.topics << TopicItem{name, (time.ticks() / 1000) + time.offset()}
+	b.topics << TopicItem{name, (time.ticks() / 1000) + time.offset(), false}
 }
 
 pub fn (b Blog) get_topic(i int) ?TopicItem {
@@ -122,7 +123,7 @@ fn emit_header(mut file os.File, b &Blog) ! {
 fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
 	for t in b.topics {
-		file.writeln('topic="${t.title}" [${t.date}] # In directory ./${b.name}/' +
+		file.writeln('topic="${t.title}" [${t.date}] [Locked=${t.locked}] # In directory ./${b.name}/' +
 			util.obfuscate(t.title)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}. ${@FILE_LINE}')
 		}
@@ -152,6 +153,7 @@ pub fn (b Blog) create() ! {
 
 fn parse_blog(lines []string) !Blog {
 	mut topics := []TopicItem{}
+	//mut locked := false
 
 	if lines.len < 1 {
 		return error('${cst.blog_file} is empty or incomplete. ${@FILE_LINE}')
@@ -162,10 +164,10 @@ fn parse_blog(lines []string) !Blog {
 	}
 
 	for i in 1 .. lines.len {
-		t, dte := util.parse_topic_values('topic', lines[i]) or {
-			return error('Empty message. ${@FILE_LINE}')
+		t, dte, locked := util.parse_topic_values('topic', lines[i]) or {
+			return error('util.parse_topic_values(...) returns nothing for line \'${lines[i]}\' in ${cst.blog_file} blog file. ${@FILE_LINE}')
 		}
-		topics << TopicItem{t, dte}
+		topics << TopicItem{t, dte, locked}
 	}
 	return Blog{name, topics}
 }

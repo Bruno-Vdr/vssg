@@ -86,7 +86,7 @@ fn rename(p []string) ! {
 	tf := Topic.load() or { return error('Cannot load ${cst.topic_file}: ${err}. ${@LOCATION}') }
 
 	// Create new Topic struct with new name and directory, with the SAME posts.
-	nt := Topic.build(new_title, tf.get_posts())
+	nt := Topic.build(new_title, tf.locked, tf.get_posts())
 	nt.save('./') or {
 		return error('Cannot update ${util.obfuscate(new_title)}${os.path_separator}${cst.topic_file}: ${err}. ${@LOCATION}')
 	}

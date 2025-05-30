@@ -19,18 +19,19 @@ pub struct Topic {
 pub:
 	title     string // Topic title
 	directory string // Dir. containing posts.
+	locked bool // Is the topic locked ?
 mut:
 	posts map[u64]PostSummary
 }
 
 // Create a new empty topic, with no posts.
 pub fn Topic.new(title string) Topic {
-	return Topic{title, util.obfuscate(title), map[u64]PostSummary{}}
+	return Topic{title, util.obfuscate(title), false, map[u64]PostSummary{}}
 }
 
 // build a new topic with existing posts.
-pub fn Topic.build(title string, posts map[u64]PostSummary) Topic {
-	return Topic{title, util.obfuscate(title), posts}
+pub fn Topic.build(title string, locked bool, posts map[u64]PostSummary) Topic {
+	return Topic{title, util.obfuscate(title), locked, posts}
 }
 
 /**
@@ -59,7 +60,17 @@ fn parse_topic_file(lines []string) !Topic {
 	directory := util.parse_name_value('directory=', lines[1]) or {
 		return error('Unable to extract "directory" from ${cst.topic_file}. [${@FILE_LINE}]')
 	}
-	for i in 2 .. lines.len {
+
+	locked_str := util.parse_name_value('locked=', lines[2]) or {
+		return error('Unable to extract "locked" from  "${lines[2]}" in ${cst.topic_file}. [${@FILE_LINE}]')
+	}
+	if locked_str !in ['true', 'false'] {
+		return error('"locked" field is not true nor false in "${lines[2]}"')
+	}
+
+	locked := locked_str == 'true'
+
+	for i in 3 .. lines.len {
 		id, t, date, dir := util.parse_push_values('push', lines[i]) or {
 			return error('unable to parse "${lines[i]}". [${@FILE_LINE}]')
 		}
@@ -68,7 +79,7 @@ fn parse_topic_file(lines []string) !Topic {
 		posts[p.id] = p
 	}
 
-	return Topic{title, directory, posts}
+	return Topic{title, directory, locked, posts}
 }
 
 /**
@@ -91,6 +102,9 @@ pub fn (t Topic) save(path string) ! {
 		return error('Unable to write ${cst.topic_file}: ${err}, ${@FILE_LINE}')
 	}
 	file.writeln('directory="${t.directory}"') or {
+		return error('Unable to write ${cst.topic_file}: ${err}, ${@FILE_LINE}')
+	}
+	file.writeln('locked="${t.locked}"') or {
 		return error('Unable to write ${cst.topic_file}: ${err}, ${@FILE_LINE}')
 	}
 
