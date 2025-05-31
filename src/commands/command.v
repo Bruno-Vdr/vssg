@@ -15,6 +15,16 @@ pub enum RunFrom {
 	anywhere
 }
 
+pub fn (r RunFrom)str() string {
+	return match r {
+		.outside_blog {'outside blog directory'}
+		.blog_dir {'blog directory'}
+		.topic_dir {'topic directory'}
+		.blog_or_topic_dir {'blog or topic directory'}
+		.anywhere {'anywhere'}
+	}
+}
+
 pub interface Command {
 	kind     CommandType       // Command type
 	validity RunFrom           // Valid execution location
@@ -27,7 +37,7 @@ pub interface Command {
 }
 
 // get is the main command access. It returns a complete list of all available commands
-// in map to allow random or sequencial access. All commands must be added in the map,
+// in map to allow random or sequential access. All commands must be added in the map,
 // in this static method.
 pub fn Command.get() map[string]Command {
 	mut c := map[string]Command{}

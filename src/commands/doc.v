@@ -56,6 +56,7 @@ fn doc(p []string) ! {
 		mut cmds := Command.get()
 		for _, c in cmds {
 			println(c.help)
+			println('The command ${term.yellow(c.name)} can be run from ${term.green(c.validity.str())}.')
 			println('________________________________________________________________________________')
 		}
 	}

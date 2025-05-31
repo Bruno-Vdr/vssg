@@ -43,4 +43,5 @@ fn help(p []string) ! {
 	cmd_name := p[0]
 	cm := cmds[cmd_name] or { return error('Cannot get help for unknown command "${cmd_name}".') }
 	println('${cm.help}')
+	println('The command ${term.yellow(cm.name)} can be run from ${term.green(cm.validity.str())}.')
 }
