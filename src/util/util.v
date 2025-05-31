@@ -8,6 +8,7 @@ import hash.fnv1a
 import strconv
 import io
 
+
 // parse_topic_values parses a single line of the following format:
 // A start label, a doubled quoted string and a int between []
 // topic = "topik" [1737634926] # In directory ./glob/520c837d69349ecc
@@ -29,7 +30,7 @@ pub fn parse_topic_values(label string, line string) ?(string, i64, bool) {
 		if locked !in ['true', 'false'] {
 			return none
 		}
-		return if value.len == 0 || dte.len == 0 { none } else { value, dte.i64(), locked=='true'}
+		return if value.len == 0 || dte.len == 0 { none } else { value, dte.i64(), locked == 'true' }
 	}
 	return none
 }
@@ -204,6 +205,8 @@ pub fn where_am_i() Location {
 		return .topic_dir
 	}
 }
+
+
 
 // Type alias used with load_transform_text_file function. The filtering function can transform, reject or
 // keep untouched parameter string.

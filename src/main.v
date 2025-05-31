@@ -55,6 +55,12 @@ fn main() {
 		return
 	}
 
+	// Check if command is launch from its valid location.
+	cm.check_validity() or {
+		eprintln('${term.red('Error')}: ${err}')
+		exit(-1)
+	}
+
 	// All basic checks are done, command is known, with a correct number of (unchecked) arguments.
 	cm.exec(os.args[2..]) or {
 		eprintln('${term.red('Error')}: ${err}')

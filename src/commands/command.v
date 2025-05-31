@@ -1,19 +1,9 @@
 module commands
+import util
 
 pub enum CommandType {
 	command
 	helper
-}
-
-pub interface Command {
-	kind     CommandType // Command type
-	validity RunFrom
-	name     string            // Command name as used on CLI
-	desc     string            // Single line description
-	help     string            // Detailed and formated description
-	arg_min  int               // Minimal argument number expected
-	arg_max  int               // Maximal argument number expected
-	exec     fn (s []string) ! // Command callback.
 }
 
 pub enum RunFrom {
@@ -22,6 +12,17 @@ pub enum RunFrom {
 	topic_dir
 	blog_or_topic_dir
 	anywhere
+}
+
+pub interface Command {
+	kind     CommandType       // Command type
+	validity RunFrom           // Valid execution location
+	name     string            // Command name as used on CLI
+	desc     string            // Single line description
+	help     string            // Detailed and formated description
+	arg_min  int               // Minimal argument number expected
+	arg_max  int               // Maximal argument number expected
+	exec     fn (s []string) ! // Command callback.
 }
 
 // get is the main command access. It returns a complete list of all available commands
@@ -95,3 +96,39 @@ pub fn Command.get() map[string]Command {
 
 	return c
 }
+
+// check_validity verifies that c command is launched from where it should.
+pub fn (c Command) check_validity() ! {
+	wd := util.where_am_i()
+
+	match c.validity {
+		.outside_blog {
+			if wd != .outside {
+				return error('This command must be run from outside blog\'s directory.')
+			}
+			return
+		}
+		.blog_dir {
+			if wd != .blog_dir {
+				return error('This command must be run from blog\'s directory.')
+			}
+			return
+		}
+		.topic_dir {
+			if wd != .topic_dir {
+				return error('This command must be run from a topic directory.')
+			}
+			return
+		}
+		.blog_or_topic_dir {
+			if wd != .topic_dir && wd != .blog_dir {
+				return error('This command must be run from blog or topic directory.')
+			}
+			return
+		}
+		.anywhere {
+			return
+		}
+	}
+}
+
