@@ -8,27 +8,27 @@ import os
 
 // Show structure, implementing Command interface.
 struct Show implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Show Command.
 pub fn Show.new() Command {
 	return Show{
-		kind:    .command
+		kind:     .command
 		validity: .blog_or_topic_dir
-		name:    'show'
-		desc:    'Shows entries of blog or topic.'
-		help:    Show.help()
-		arg_min: 0
-		arg_max: 1
-		exec:    show
+		name:     'show'
+		desc:     'Shows entries of blog or topic.'
+		help:     Show.help()
+		arg_min:  0
+		arg_max:  1
+		exec:     show
 	}
 }
 
@@ -59,44 +59,37 @@ fn show(param []string) ! {
 		}
 	}
 
-	match util.where_am_i() {
-		.blog_dir {
-			blog := Blog.load()!
-			println('Blog "' + term.blue('${blog.name}') + '"\n' +
-				'Contains ${blog.get_topics_number()} ${term.bright_green('topic(s)')}:')
-			for i in 0 .. blog.get_topics_number() {
-				topic_item := blog.get_topic(i) or {
-					return error('Unable to perform blob.get_topic(). ${err}. ${@LOCATION}')
-				}
+	if util.where_am_i() == .blog_dir {
+		blog := Blog.load()!
+		println('Blog "' + term.blue('${blog.name}') + '"\n' +
+			'Contains ${blog.get_topics_number()} ${term.bright_green('topic(s)')}:')
+		for i in 0 .. blog.get_topics_number() {
+			topic_item := blog.get_topic(i) or {
+				return error('Unable to perform blob.get_topic(). ${err}. ${@LOCATION}')
+			}
 
-				// Date is stored as milliseconds since epoq
-				str_date := util.to_blog_date(topic_item.date)
+			// Date is stored as milliseconds since epoq
+			str_date := util.to_blog_date(topic_item.date)
 
-				locked_str := if topic_item.locked {
-					term.red('[Locked  ]')
-				} else {
-					term.green('[Unlocked]')
-				}
+			locked_str := if topic_item.locked {
+				term.red('[Locked  ]')
+			} else {
+				term.green('[Unlocked]')
+			}
 
-				println('    Topic ${i}: ' + term.bright_yellow('"${topic_item.title}"') +
-					' [${str_date}] ${locked_str} : Stored in sub-dir. -> ' +
-					term.bright_blue('.${os.path_separator}${util.obfuscate(topic_item.title)}'))
+			println('    Topic ${i}: ' + term.bright_yellow('"${topic_item.title}"') +
+				' [${str_date}] ${locked_str} : Stored in sub-dir. -> ' +
+				term.bright_blue('.${os.path_separator}${util.obfuscate(topic_item.title)}'))
 
-				// Dump topic if -a option present.
-				if show_all {
-					os.chdir(util.obfuscate(topic_item.title))!
-					list_topic(false)!
-					os.chdir('..')!
-				}
+			// Dump topic if -a option present.
+			if show_all {
+				os.chdir(util.obfuscate(topic_item.title))!
+				list_topic(false)!
+				os.chdir('..')!
 			}
 		}
-		.topic_dir {
-			list_topic(true)!
-		}
-		.outside {
-			// We didn't  find topic_file or conf_file.
-			println('Not in Blog or Topic directory. Nothing to be shown.')
-		}
+	} else { // .topic_dir
+		list_topic(true)!
 	}
 }
 

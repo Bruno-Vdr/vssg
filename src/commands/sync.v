@@ -7,27 +7,27 @@ import os
 
 // Sync structure, implementing Command interface.
 struct Sync implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Sync Command.
 pub fn Sync.new() Command {
 	return Sync{
-		kind:    .command
+		kind:     .command
 		validity: .blog_or_topic_dir
-		name:    'sync'
-		desc:    'Synchronizes the local blog with the remote blog. It means publish the blog.'
-		help:    Sync.help()
-		arg_min: 0
-		arg_max: 2
-		exec:    sync
+		name:     'sync'
+		desc:     'Synchronizes the local blog with the remote blog. It means publish the blog.'
+		help:     Sync.help()
+		arg_min:  0
+		arg_max:  2
+		exec:     sync
 	}
 }
 
@@ -82,7 +82,7 @@ fn sync(p []string) ! {
 	}
 	cwd := os.getwd() + os.path_separator // get current working directory, happend "/"
 
-	println('${cwd} != $abs_path')
+	println('${cwd} != ${abs_path}')
 	if !cwd.starts_with(abs_path) {
 		return error("Trying to sync blog from outside blog's directories.")
 	}

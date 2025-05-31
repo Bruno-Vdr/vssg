@@ -6,27 +6,27 @@ import util
 
 // Doc structure, implementing Command interface.
 struct Doc implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Doc Command.
 pub fn Doc.new() Command {
 	return Doc{
-		kind:    .helper
+		kind:     .helper
 		validity: .anywhere
-		name:    'doc'
-		desc:    'Displays the whole vssg documentation (all commands).'
-		help:    Doc.help()
-		arg_min: 0
-		arg_max: 1
-		exec:    doc
+		name:     'doc'
+		desc:     'Displays the whole vssg documentation (all commands).'
+		help:     Doc.help()
+		arg_min:  0
+		arg_max:  1
+		exec:     doc
 	}
 }
 

@@ -8,27 +8,27 @@ import structures { Post, PostSummary, Topic }
 
 // Init structure, implementing Command interface.
 struct Push implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Init Command.
 pub fn Push.new() Command {
 	return Push{
-		kind:    .command
+		kind:     .command
 		validity: .topic_dir
-		name:    'push'
-		desc:    'Pushes a new article into topic (run from inside the topic directory).'
-		help:    Push.help()
-		arg_min: 1
-		arg_max: 1
-		exec:    push
+		name:     'push'
+		desc:     'Pushes a new article into topic (run from inside the topic directory).'
+		help:     Push.help()
+		arg_min:  1
+		arg_max:  1
+		exec:     push
 	}
 }
 

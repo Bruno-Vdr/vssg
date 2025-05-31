@@ -7,27 +7,27 @@ import os
 
 // Deploy structure, implementing Command interface.
 struct Deploy implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Deploy Command.
 pub fn Deploy.new() Command {
 	return Deploy{
-		kind:    .helper
+		kind:     .helper
 		validity: .blog_or_topic_dir
-		name:    'deploy'
-		desc:    'Deploys local CSS/HTML templates.'
-		help:    Deploy.help()
-		arg_min: 0
-		arg_max: 0
-		exec:    deploy
+		name:     'deploy'
+		desc:     'Deploys local CSS/HTML templates.'
+		help:     Deploy.help()
+		arg_min:  0
+		arg_max:  0
+		exec:     deploy
 	}
 }
 
@@ -46,10 +46,10 @@ Note: All files are deployed by the command.
 
 // deploy command feature are implemented here. The parameters number has been checked before call.
 fn deploy(p []string) ! {
-	match util.where_am_i() {
-		.blog_dir { deploy_blog_templates('./')! }
-		.topic_dir { deploy_topics_templates('./')! }
-		.outside { return error('Command must be called from blog or topic directory.') }
+	if util.where_am_i() == .blog_dir {
+		deploy_blog_templates('./')!
+	} else { // .topic_dir
+		deploy_topics_templates('./')!
 	}
 }
 

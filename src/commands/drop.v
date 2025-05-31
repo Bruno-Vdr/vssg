@@ -8,27 +8,27 @@ import os
 
 // Drop structure, implementing Command interface.
 struct Drop implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Drop Command.
 pub fn Drop.new() Command {
 	return Drop{
-		kind:    .command
+		kind:     .command
 		validity: .blog_dir
-		name:    'drop'
-		desc:    'Drops a complete topic with its pushes (if any).'
-		help:    Drop.help()
-		arg_min: 1
-		arg_max: 2
-		exec:    drop
+		name:     'drop'
+		desc:     'Drops a complete topic with its pushes (if any).'
+		help:     Drop.help()
+		arg_min:  1
+		arg_max:  2
+		exec:     drop
 	}
 }
 

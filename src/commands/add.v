@@ -8,28 +8,27 @@ import os
 
 // Add structure, implementing Command interface.
 struct Add implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
-
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Init Command.
 pub fn Add.new() Command {
 	return Add{
-		kind:    .command
+		kind:     .command
 		validity: .blog_dir
-		name:    'add'
-		desc:    'Creates a new topic (run from inside the blog directory).'
-		help:    Add.help()
-		arg_min: 1
-		arg_max: 1
-		exec:    add
+		name:     'add'
+		desc:     'Creates a new topic (run from inside the blog directory).'
+		help:     Add.help()
+		arg_min:  1
+		arg_max:  1
+		exec:     add
 	}
 }
 

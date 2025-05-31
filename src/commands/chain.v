@@ -8,27 +8,27 @@ import os
 
 // Chain structure, implementing Command interface.
 struct Chain implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Chain Command.
 pub fn Chain.new() Command {
 	return Chain{
-		kind:    .command
+		kind:     .command
 		validity: .topic_dir
-		name:    'chain'
-		desc:    'Chains different pushes of a same topic together with previous and next links.'
-		help:    Chain.help()
-		arg_min: 0
-		arg_max: 0
-		exec:    chain
+		name:     'chain'
+		desc:     'Chains different pushes of a same topic together with previous and next links.'
+		help:     Chain.help()
+		arg_min:  0
+		arg_max:  0
+		exec:     chain
 	}
 }
 
@@ -53,12 +53,7 @@ enum LnkType {
 
 // chain command feature are implemented here. The parameters number has been checked before call.
 fn chain(params []string) ! {
-	if util.where_am_i() in [.blog_dir, .outside] {
-		return error('This command must be run from a topic directory.')
-	}
-
 	topics := Topic.load()!
-
 	pst := topics.get_posts_number()
 	if pst == 0 {
 		return error('The topic "${topics.title}" does not contain any push.')

@@ -1,4 +1,5 @@
 module commands
+
 import util
 
 pub enum CommandType {
@@ -104,13 +105,13 @@ pub fn (c Command) check_validity() ! {
 	match c.validity {
 		.outside_blog {
 			if wd != .outside {
-				return error('This command must be run from outside blog\'s directory.')
+				return error("This command must be run from outside blog's directory.")
 			}
 			return
 		}
 		.blog_dir {
 			if wd != .blog_dir {
-				return error('This command must be run from blog\'s directory.')
+				return error("This command must be run from blog's directory.")
 			}
 			return
 		}
@@ -131,4 +132,3 @@ pub fn (c Command) check_validity() ! {
 		}
 	}
 }
-

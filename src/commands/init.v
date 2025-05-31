@@ -7,27 +7,27 @@ import structures
 
 // Init structure, implementing Command interface.
 struct Init implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Init Command.
 pub fn Init.new() Command {
 	return Init{
-		kind:    .command
+		kind:     .command
 		validity: .outside_blog
-		name:    'init'
-		desc:    'Initializes a new blog.'
-		help:    Init.help()
-		arg_min: 1
-		arg_max: 1
-		exec:    init
+		name:     'init'
+		desc:     'Initializes a new blog.'
+		help:     Init.help()
+		arg_min:  1
+		arg_max:  1
+		exec:     init
 	}
 }
 

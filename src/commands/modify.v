@@ -9,27 +9,27 @@ import os
 
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Modify Command.
 pub fn Modify.new() Command {
 	return Modify{
-		kind:    .command
+		kind:     .command
 		validity: .topic_dir
-		name:    'modify'
-		desc:    'Modifies an existing push.'
-		help:    Modify.help()
-		arg_min: 2
-		arg_max: 2
-		exec:    modify
+		name:     'modify'
+		desc:     'Modifies an existing push.'
+		help:     Modify.help()
+		arg_min:  2
+		arg_max:  2
+		exec:     modify
 	}
 }
 

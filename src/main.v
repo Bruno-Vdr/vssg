@@ -46,6 +46,12 @@ fn main() {
 		return
 	}
 
+	// Check if command is launched from its valid location.
+	cm.check_validity() or {
+		eprintln('${term.red('Error')}: ${err}')
+		exit(-1)
+	}
+
 	// We have a valid command here, check it's parameter number.
 	params := os.args.len - 2
 
@@ -53,12 +59,6 @@ fn main() {
 		eprintln('${term.red('Error')}: Wrong argument number for  ${term.yellow(cm.name)}.')
 		println('Launch "vssg help ${cm.name}" for more details.')
 		return
-	}
-
-	// Check if command is launch from its valid location.
-	cm.check_validity() or {
-		eprintln('${term.red('Error')}: ${err}')
-		exit(-1)
 	}
 
 	// All basic checks are done, command is known, with a correct number of (unchecked) arguments.

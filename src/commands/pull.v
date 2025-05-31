@@ -7,27 +7,27 @@ import os
 
 // Pull structure, implementing Command interface.
 struct Pull implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Pull Command.
 pub fn Pull.new() Command {
 	return Pull{
-		kind:    .command
+		kind:     .command
 		validity: .outside_blog
-		name:    'pull'
-		desc:    'Pull, download the full remote blog to local the directory.'
-		help:    Pull.help()
-		arg_min: 1
-		arg_max: 2
-		exec:    pull
+		name:     'pull'
+		desc:     'Pull, download the full remote blog to local the directory.'
+		help:     Pull.help()
+		arg_min:  1
+		arg_max:  2
+		exec:     pull
 	}
 }
 
@@ -63,15 +63,7 @@ fn pull(p []string) ! {
 	} else {
 		url = p[0]
 	}
-
-	match util.where_am_i() {
-		.outside {
-			do_pull(url, force)!
-		}
-		else {
-			println('The ${term.yellow('pull')} command cannot be launched from inside blog\'s directory.')
-		}
-	}
+	do_pull(url, force)!
 }
 
 fn do_pull(dst string, forced bool) ! {

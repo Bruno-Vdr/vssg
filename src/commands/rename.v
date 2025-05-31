@@ -8,27 +8,27 @@ import os
 
 // Rename structure, implementing Command interface.
 struct Rename implements Command {
-	kind    CommandType
+	kind     CommandType
 	validity RunFrom
-	name    string
-	desc    string
-	help    string
-	arg_min int
-	arg_max int
-	exec    fn (s []string) ! @[required]
+	name     string
+	desc     string
+	help     string
+	arg_min  int
+	arg_max  int
+	exec     fn (s []string) ! @[required]
 }
 
 // new builds a Rename Command.
 pub fn Rename.new() Command {
 	return Rename{
-		kind:    .command
+		kind:     .command
 		validity: .blog_dir
-		name:    'rename'
-		desc:    'Renames (change title) of an existing topic.'
-		help:    Rename.help()
-		arg_min: 2
-		arg_max: 2
-		exec:    rename
+		name:     'rename'
+		desc:     'Renames (change title) of an existing topic.'
+		help:     Rename.help()
+		arg_min:  2
+		arg_max:  2
+		exec:     rename
 	}
 }
 
