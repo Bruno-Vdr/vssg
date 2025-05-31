@@ -90,6 +90,9 @@ pub fn Command.get() map[string]Command {
 	backup := Backup.new()
 	c[backup.name] = backup
 
+	lock_it := Lock.new()
+	c[lock_it.name] = lock_it
+
 	obfuscate := Obfuscate.new()
 	c[obfuscate.name] = obfuscate
 

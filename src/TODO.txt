@@ -1,5 +1,4 @@
--See if commands struct Show implements Command... could be shortened with mixin or short syntax.
- Today, all structure is declared again.
+-Implement lock detection at main level.
 -Factorize all Env related util.get... methods.
 
 Errors Rules:

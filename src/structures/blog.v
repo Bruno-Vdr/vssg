@@ -60,6 +60,17 @@ pub fn (mut b Blog) delete(title string) ! {
 	return error('Topic named "${title}" was not found.')
 }
 
+// lock_topic check for an existing topic with same title as given. Returns boolean accordingly.
+pub fn (mut b Blog) lock_topic(title string) ! {
+	for _, mut item in b.topics {
+		if item.title == title {
+			item.locked = true
+			return
+		}
+	}
+	return error('Topic named "${title}" was not found.')
+}
+
 // rename the topic with title by new title. Return error if not found.
 pub fn (mut b Blog) rename(title string, new_title string) ! {
 	mut found := false
