@@ -8,6 +8,7 @@ import os
 // Pull structure, implementing Command interface.
 struct Pull implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Pull implements Command {
 pub fn Pull.new() Command {
 	return Pull{
 		kind:    .command
+		validity: .outside_blog
 		name:    'pull'
 		desc:    'Pull, download the full remote blog to local the directory.'
 		help:    Pull.help()

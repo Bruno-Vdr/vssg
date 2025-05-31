@@ -9,6 +9,7 @@ import os
 // Drop structure, implementing Command interface.
 struct Drop implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Drop implements Command {
 pub fn Drop.new() Command {
 	return Drop{
 		kind:    .command
+		validity: .blog_dir
 		name:    'drop'
 		desc:    'Drops a complete topic with its pushes (if any).'
 		help:    Drop.help()

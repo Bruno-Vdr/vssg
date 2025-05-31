@@ -9,6 +9,7 @@ import structures { Topic }
 // Bend structure, implementing Command interface.
 struct Bend implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Bend implements Command {
 pub fn Bend.new() Command {
 	return Bend{
 		kind:    .command
+		validity:  .anywhere
 		name:    'bend'
 		desc:    "Redirects blog's root page to given URL (usually on last push)."
 		help:    Bend.help()

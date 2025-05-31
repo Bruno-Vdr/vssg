@@ -6,6 +6,7 @@ import util
 // Obfuscate structure, implementing Command interface.
 struct Obfuscate implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -18,6 +19,7 @@ struct Obfuscate implements Command {
 pub fn Obfuscate.new() Command {
 	return Obfuscate{
 		kind:    .helper
+		validity: .anywhere
 		name:    'obfuscate'
 		desc:    'Obfuscates (hash) the given string.'
 		help:    Obfuscate.help()

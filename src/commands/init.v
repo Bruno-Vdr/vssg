@@ -8,6 +8,7 @@ import structures
 // Init structure, implementing Command interface.
 struct Init implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Init implements Command {
 pub fn Init.new() Command {
 	return Init{
 		kind:    .command
+		validity: .outside_blog
 		name:    'init'
 		desc:    'Initializes a new blog.'
 		help:    Init.help()

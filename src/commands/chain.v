@@ -9,6 +9,7 @@ import os
 // Chain structure, implementing Command interface.
 struct Chain implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Chain implements Command {
 pub fn Chain.new() Command {
 	return Chain{
 		kind:    .command
+		validity: .topic_dir
 		name:    'chain'
 		desc:    'Chains different pushes of a same topic together with previous and next links.'
 		help:    Chain.help()

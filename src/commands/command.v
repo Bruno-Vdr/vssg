@@ -6,13 +6,22 @@ pub enum CommandType {
 }
 
 pub interface Command {
-	kind    CommandType       // Command type
-	name    string            // Command name as used on CLI
-	desc    string            // Single line description
-	help    string            // Detailed and formated description
-	arg_min int               // Minimal argument number expected
-	arg_max int               // Maximal argument number expected
-	exec    fn (s []string) ! // Command callback.
+	kind     CommandType // Command type
+	validity RunFrom
+	name     string            // Command name as used on CLI
+	desc     string            // Single line description
+	help     string            // Detailed and formated description
+	arg_min  int               // Minimal argument number expected
+	arg_max  int               // Maximal argument number expected
+	exec     fn (s []string) ! // Command callback.
+}
+
+pub enum RunFrom {
+	outside_blog
+	blog_dir
+	topic_dir
+	blog_or_topic_dir
+	anywhere
 }
 
 // get is the main command access. It returns a complete list of all available commands

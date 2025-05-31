@@ -9,6 +9,7 @@ import structures { Post, PostSummary, Topic }
 // Init structure, implementing Command interface.
 struct Push implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Push implements Command {
 pub fn Push.new() Command {
 	return Push{
 		kind:    .command
+		validity: .topic_dir
 		name:    'push'
 		desc:    'Pushes a new article into topic (run from inside the topic directory).'
 		help:    Push.help()

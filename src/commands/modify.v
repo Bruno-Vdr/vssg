@@ -10,6 +10,7 @@ import os
 // Modify structure, implementing Command interface.
 struct Modify implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -22,6 +23,7 @@ struct Modify implements Command {
 pub fn Modify.new() Command {
 	return Modify{
 		kind:    .command
+		validity: .topic_dir
 		name:    'modify'
 		desc:    'Modifies an existing push.'
 		help:    Modify.help()

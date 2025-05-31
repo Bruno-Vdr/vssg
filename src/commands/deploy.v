@@ -8,6 +8,7 @@ import os
 // Deploy structure, implementing Command interface.
 struct Deploy implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Deploy implements Command {
 pub fn Deploy.new() Command {
 	return Deploy{
 		kind:    .helper
+		validity: .blog_or_topic_dir
 		name:    'deploy'
 		desc:    'Deploys local CSS/HTML templates.'
 		help:    Deploy.help()

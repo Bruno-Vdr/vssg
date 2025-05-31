@@ -9,6 +9,7 @@ import os
 // Rename structure, implementing Command interface.
 struct Rename implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Rename implements Command {
 pub fn Rename.new() Command {
 	return Rename{
 		kind:    .command
+		validity: .blog_dir
 		name:    'rename'
 		desc:    'Renames (change title) of an existing topic.'
 		help:    Rename.help()

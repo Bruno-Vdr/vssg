@@ -1,5 +1,5 @@
--Parallel ImageMagick convert, on thread by image.
--section not_filled
+-See if commands struct Show implements Command... could be shortened with mixin or short syntax.
+ Today, all structure is declared again.
 -Factorize all Env related util.get... methods.
 
 Errors Rules:

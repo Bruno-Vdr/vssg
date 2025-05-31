@@ -9,6 +9,7 @@ import time
 // Backup structure, implementing Command interface.
 struct Backup implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Backup implements Command {
 pub fn Backup.new() Command {
 	return Backup{
 		kind:    .command
+		validity: .outside_blog
 		name:    'backup'
 		desc:    'Generates a backup (.zip) of the whole blog.'
 		help:    Backup.backup()

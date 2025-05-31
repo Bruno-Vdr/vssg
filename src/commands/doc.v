@@ -7,6 +7,7 @@ import util
 // Doc structure, implementing Command interface.
 struct Doc implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Doc implements Command {
 pub fn Doc.new() Command {
 	return Doc{
 		kind:    .helper
+		validity: .anywhere
 		name:    'doc'
 		desc:    'Displays the whole vssg documentation (all commands).'
 		help:    Doc.help()

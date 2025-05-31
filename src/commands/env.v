@@ -7,6 +7,7 @@ import constants as cst
 // Env structure, implementing Command interface.
 struct Env implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Env implements Command {
 pub fn Env.new() Command {
 	return Env{
 		kind:    .command
+		validity: .anywhere
 		name:    'env'
 		desc:    'Displays environment variables used by vssg.'
 		help:    Env.help()

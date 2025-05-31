@@ -7,6 +7,7 @@ import encoding.base64 as stdbase64
 // Base64 structure, implementing Command interface.
 struct Base64 implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -19,6 +20,7 @@ struct Base64 implements Command {
 pub fn Base64.new() Command {
 	return Base64{
 		kind:    .helper
+		validity: .anywhere
 		name:    'base64'
 		desc:    'Encodes a given image file to its Base64 representation.'
 		help:    Base64.help()

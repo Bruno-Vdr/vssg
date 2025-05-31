@@ -8,6 +8,7 @@ import constants as cst
 // Update structure, implementing Command interface.
 struct Update implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Update implements Command {
 pub fn Update.new() Command {
 	return Update{
 		kind:    .command
+		validity: .blog_or_topic_dir
 		name:    'update'
 		desc:    'Updates HTML link page of Topic or Push.'
 		help:    Update.help()

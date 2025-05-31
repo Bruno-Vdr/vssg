@@ -8,6 +8,7 @@ import os
 // Sync structure, implementing Command interface.
 struct Sync implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -20,6 +21,7 @@ struct Sync implements Command {
 pub fn Sync.new() Command {
 	return Sync{
 		kind:    .command
+		validity: .blog_or_topic_dir
 		name:    'sync'
 		desc:    'Synchronizes the local blog with the remote blog. It means publish the blog.'
 		help:    Sync.help()
@@ -33,6 +35,9 @@ pub fn Sync.new() Command {
 fn Sync.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('sync')} [-bend] [-dry]
+
+${term.rgb(255,
+		165, 0, 'Warning:')} This command must be launched from within blor or topic directory.
 
 The sync command performs a synchronization between local and remote directories:
 Source is defined with the env var ${term.yellow(cst.blog_root)}  (set to: ${util.get_blog_root() or {

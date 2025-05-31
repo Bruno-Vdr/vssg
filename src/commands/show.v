@@ -9,6 +9,7 @@ import os
 // Show structure, implementing Command interface.
 struct Show implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Show implements Command {
 pub fn Show.new() Command {
 	return Show{
 		kind:    .command
+		validity: .blog_or_topic_dir
 		name:    'show'
 		desc:    'Shows entries of blog or topic.'
 		help:    Show.help()

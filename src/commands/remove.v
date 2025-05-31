@@ -9,6 +9,7 @@ import os
 // Remove structure, implementing Command interface.
 struct Remove implements Command {
 	kind    CommandType
+	validity RunFrom
 	name    string
 	desc    string
 	help    string
@@ -21,6 +22,7 @@ struct Remove implements Command {
 pub fn Remove.new() Command {
 	return Remove{
 		kind:    .command
+		validity: .topic_dir
 		name:    'remove'
 		desc:    'Removes an entry/push from a topic.'
 		help:    Remove.help()
