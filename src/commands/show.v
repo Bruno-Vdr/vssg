@@ -98,7 +98,12 @@ fn show(param []string, run_locked bool) ! {
 fn list_topic(header bool) ! {
 	topic := Topic.load()!
 	if header {
-		println('Topic "' + term.blue('${topic.title}') +
+		locked_str := if topic.locked {
+			term.red(' [Locked  ]')
+		} else {
+			term.green(' [Unlocked]')
+		}
+		println('Topic "' + term.blue('${topic.title}' ) + locked_str +
 			'" contains ${topic.get_posts_number()} ${term.bright_green('push(s)')}:')
 	}
 
