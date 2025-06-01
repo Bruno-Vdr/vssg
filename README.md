@@ -1,11 +1,22 @@
 # VSSG is a static site generator
 
+<div style="background-color:rgba(30, 0, 0)">
+Warning: This software is beta version only. It means:
+
+- The documentation can be out of date.
+- The code is evolving daily.
+- Command interface may change (quite unlikely but...)
+- No PR are accepted now.
+- Code contains bugs.
+
+</div>
+
 The Static Site Generator (SSG) is written in new language v. This language can be found [here](https://vlang.io/). V language
 is fast and very well suited for any application. The language is quite simple, elegant and avoid most of syntactic noise.
 This leads to a great code concision and a very easy to learn language.
 
 The project aims to have zero dependencies:
-- No database link, replaced by minimalistic ASCII files.
+- No database, replaced by minimalist ASCII files.
 - No PHP or other dynamic scripts.
 - No javascript / framework dependencies.
 - No CMS.
@@ -15,7 +26,7 @@ The project aims to have zero dependencies:
 **vssg** is command line driven, and almost fully self documented. All operations are done via command
 line. The project is very Linux and developer centric. No particular effort were made to support MS Windows.
 
-The SSG was written for my personal need, and doesn't aim to be widely used. It is provided as is, with hope to
+The SSG was written for my personal needs as traveler, and doesn't aim to be widely used. It is provided as is, with hope to
 be useful for others people. The project is released under MIT license, as most of V projects.
 
 ![Terminal](Doc/pictures/term.png "The SSG is command line driven")
