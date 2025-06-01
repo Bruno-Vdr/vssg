@@ -103,8 +103,8 @@ fn list_topic(header bool) ! {
 		} else {
 			term.green(' [Unlocked]')
 		}
-		println('Topic "' + term.blue('${topic.title}' ) + locked_str +
-			'" contains ${topic.get_posts_number()} ${term.bright_green('push(s)')}:')
+		println('Topic "' + term.blue('${topic.title}' ) +
+			'" ${locked_str}  contains ${topic.get_posts_number()} ${term.bright_green('push(s)')}:')
 	}
 
 	pst := topic.get_posts()
