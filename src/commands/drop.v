@@ -67,6 +67,8 @@ fn drop(p []string) ! {
 		title = if p[0] == '-f' { p[1] } else { p[0] }
 	}
 
+	//Command.check_lock_for_run_on_topic()
+
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 	blog.delete(title)!
 	println('Found Topic named "${title}".')

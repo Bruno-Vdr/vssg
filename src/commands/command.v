@@ -1,6 +1,8 @@
 module commands
 
 import util
+import structures { Blog, Topic }
+import constants as cst
 
 pub enum CommandType {
 	command
@@ -143,6 +145,32 @@ pub fn (c Command) check_validity() ! {
 		}
 		.anywhere {
 			return
+		}
+	}
+}
+
+//  check_lock_for_run_from_topic Checks that topic_dir scoped command are allowed on locked Topic.
+pub fn (c Command) check_lock_for_run_from_topic() ! {
+	wd := util.where_am_i()
+	if wd == .topic_dir {
+		topic := Topic.load()!
+		if topic.locked && !c.run_locked {
+			return error('The command ${c.name} is not allowed from a locked Topic directory.')
+		}
+	}
+}
+
+//  check_lock_for_run_on_topic Checks that topic command are allowed on given Topic.
+pub fn (c Command)check_lock_for_run_on_topic(topic_title string) ! {
+	wd := util.where_am_i()
+	if wd == .blog_dir {
+		blog := Blog.load()!
+		locked := blog.is_locked(topic_title) or {
+			return error('The Topic "${topic_title}" cannot be found in ${cst.blog_file}.')
+		}
+
+		if locked && c.run_locked == false {
+			return error('The command ${c.name} is not allowed on locked Topic "${topic_title}".')
 		}
 	}
 }

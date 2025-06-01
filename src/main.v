@@ -52,6 +52,12 @@ fn main() {
 		exit(-1)
 	}
 
+	// Check that topic_dir scoped command are allowed on locked Topic.
+	cm.check_lock_for_run_from_topic() or {
+		eprintln('${term.red('Error')}: ${err}')
+		exit(-1)
+	}
+
 	// We have a valid command here, check it's parameter number.
 	params := os.args.len - 2
 
