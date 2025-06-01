@@ -49,6 +49,17 @@ pub fn (b Blog) exists(title string) bool {
 	return false
 }
 
+// is_locked check if the given topic is locked. Returns boolean accordingly, or an error if doesn't exist.
+pub fn (b Blog) is_locked(title string) !bool {
+	for item in b.topics {
+		if item.title == title {
+			return item.locked
+		}
+	}
+	return error('The "${title}" topic does not exist.')
+}
+
+
 // delete check for an existing topic with same title as given. Returns boolean accordingly.
 pub fn (mut b Blog) delete(title string) ! {
 	for index, item in b.topics {

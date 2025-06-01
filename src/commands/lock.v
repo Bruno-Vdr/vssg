@@ -55,8 +55,12 @@ fn lock_it(p []string) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 
-	if !blog.exists(title) {
+	l := blog.is_locked(title) or {
 		return error(' The topic "${title}" does not exist in ${cst.blog_file} file.')
+	}
+
+	if l {
+		return error(' The topic "${title}" is already locked.')
 	}
 
 	blog.lock_topic(title)!
