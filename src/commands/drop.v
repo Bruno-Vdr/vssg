@@ -16,7 +16,7 @@ struct Drop implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Drop Command.
@@ -54,7 +54,7 @@ To get a list of topics, run "vssg show" from blog\'s root directory."
 }
 
 // drop command feature are implemented here. The parameters number has been checked before call.
-fn drop(p []string) ! {
+fn drop(p []string, run_locked bool) ! {
 	mut force_delete := false
 	mut title := p[0]
 

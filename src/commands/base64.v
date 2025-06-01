@@ -14,7 +14,7 @@ struct Base64 implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Base64 Command.
@@ -43,7 +43,7 @@ page, without need of additional file. HTML <img> tag is also creates, with comp
 }
 
 // base64 command feature are implemented here. The parameters number has been checked before call.
-fn base64(p []string) ! {
+fn base64(p []string, run_locked bool) ! {
 	filename := p[0]
 	if !os.exists(filename) {
 		return error('The file "${term.blue(filename)}" does not exists.')

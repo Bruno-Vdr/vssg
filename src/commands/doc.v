@@ -14,7 +14,7 @@ struct Doc implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Doc Command.
@@ -43,7 +43,7 @@ The ${term.gray('[-html]')} option emits the documentation into a local vssg_doc
 }
 
 // doc command feature are implemented here. The parameters number has been checked before call.
-fn doc(p []string) ! {
+fn doc(p []string, run_locked bool) ! {
 	mut html := '-html' in p
 
 	if p.len == 1 && '-html' !in p {

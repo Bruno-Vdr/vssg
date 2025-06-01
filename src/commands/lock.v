@@ -16,7 +16,7 @@ struct Lock implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Lock Command.
@@ -51,7 +51,7 @@ file and alse changing locked="true" in ${cst.topic_file} file.
 }
 
 // lock_it lock command feature are implemented here. The parameters number has been checked before call.
-fn lock_it(p []string) ! {
+fn lock_it(p []string, run_locked bool) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 

@@ -15,7 +15,7 @@ struct Init implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Init Command.
@@ -47,7 +47,7 @@ The init command initializes a new blog:
 }
 
 // init command feature are implemented here. The parameters number has been checked before call.
-fn init(p []string) ! {
+fn init(p []string, run_locked bool) ! {
 	path := p[0]
 	println('Initialising blog ' + term.blue('${path}'))
 

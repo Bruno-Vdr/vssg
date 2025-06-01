@@ -13,7 +13,7 @@ struct Obfuscate implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Obfuscate Command.
@@ -44,7 +44,7 @@ The ${term.gray('-s')} option (silence) will force output to be the Hash only.
 }
 
 // obfuscate command feature are implemented here. The parameters number has been checked before call.
-fn obfuscate(p []string) ! {
+fn obfuscate(p []string, run_locked bool) ! {
 	mut s := p[0]
 	silence := '-s' in p
 	if p.len == 2 {

@@ -15,7 +15,7 @@ struct Deploy implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Deploy Command.
@@ -47,7 +47,7 @@ Note: All files are deployed by the command.
 }
 
 // deploy command feature are implemented here. The parameters number has been checked before call.
-fn deploy(p []string) ! {
+fn deploy(p []string, run_locked bool) ! {
 	if util.where_am_i() == .blog_dir {
 		deploy_blog_templates('./')!
 	} else { // .topic_dir

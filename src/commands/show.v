@@ -16,7 +16,7 @@ struct Show implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Show Command.
@@ -51,7 +51,7 @@ The show command displays information depending current working directory:
 }
 
 // show command feature are implemented here. The parameters number has been checked before call.
-fn show(param []string) ! {
+fn show(param []string, run_locked bool) ! {
 	mut show_all := false
 	if param.len == 1 {
 		if '-a' in param {

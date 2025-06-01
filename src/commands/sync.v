@@ -15,7 +15,7 @@ struct Sync implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Sync Command.
@@ -60,7 +60,7 @@ a different SSH port with rsync under sync command.
 // sync command feature are implemented here. The parameters number has been checked before call.
 // This operation is related to current directory in the blog. On blog's root, the full blog will be sync.
 // From within a directory, only this subdirectory and recursive will be synced.
-fn sync(p []string) ! {
+fn sync(p []string, run_locked bool) ! {
 	dry := '-dry' in p
 	sync_bend := '-bend' in p
 

@@ -17,7 +17,7 @@ struct Modify implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Modify Command.
@@ -57,7 +57,7 @@ Modify is used to modify text, date, title or images of an already existing push
 // modify command feature are implemented here. The parameters number has been checked before call.
 // param[0] =  ID as ASCII string
 // param[1] = push file
-fn modify(param []string) ! {
+fn modify(param []string, run_locked bool) ! {
 	id := strconv.atou64(param[0]) or {
 		return error('Cannot convert "${param[0]}" to unsigned ID.')
 	} // int

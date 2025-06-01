@@ -16,7 +16,7 @@ struct Backup implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Backup Command.
@@ -51,7 +51,7 @@ save time at compression stage.
 }
 
 // backup command feature are implemented here. The parameters number has been checked before call.
-fn backup(p []string) ! {
+fn backup(p []string, run_locked bool) ! {
 	if !os.exists(p[0]) {
 		return error('The directory "${p[0]}" doesn\'t exist.')
 	}

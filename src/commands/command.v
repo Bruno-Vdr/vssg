@@ -36,7 +36,7 @@ pub interface Command {
 	help       string            // Detailed and formated description
 	arg_min    int               // Minimal argument number expected
 	arg_max    int               // Maximal argument number expected
-	exec       fn (s []string) ! // Command callback.
+	exec       fn (s []string, rl bool) ! // Command callback.
 }
 
 // get is the main command access. It returns a complete list of all available commands
@@ -161,7 +161,7 @@ pub fn (c Command) check_lock_for_run_from_topic() ! {
 }
 
 //  check_lock_for_run_on_topic Checks that topic command are allowed on given Topic.
-pub fn (c Command)check_lock_for_run_on_topic(topic_title string) ! {
+pub fn check_lock_for_run_on_topic(topic_title string, run_locked bool) ! {
 	wd := util.where_am_i()
 	if wd == .blog_dir {
 		blog := Blog.load()!
@@ -169,8 +169,8 @@ pub fn (c Command)check_lock_for_run_on_topic(topic_title string) ! {
 			return error('The Topic "${topic_title}" cannot be found in ${cst.blog_file}.')
 		}
 
-		if locked && c.run_locked == false {
-			return error('The command ${c.name} is not allowed on locked Topic "${topic_title}".')
+		if locked && run_locked == false {
+			return error('This command is not allowed on locked Topic "${topic_title}".')
 		}
 	}
 }

@@ -16,7 +16,7 @@ struct Add implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Init Command.
@@ -56,7 +56,7 @@ The add command creates a new topic inside the blog:
 }
 
 // add command feature are implemented here. The parameters number has been checked before call.
-fn add(p []string) ! {
+fn add(p []string, run_locked bool) ! {
 	title := p[0]
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 

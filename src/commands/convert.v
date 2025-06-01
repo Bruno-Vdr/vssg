@@ -17,7 +17,7 @@ struct Convert implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Convert Command.
@@ -60,7 +60,7 @@ pub struct Sd {
 }
 
 // convert command feature are implemented here. The parameters number has been checked before call.
-fn convert(p []string) ! {
+fn convert(p []string, run_locked bool) ! {
 	overwrite := '-o' in p
 
 	if !overwrite && p.len > 0 {

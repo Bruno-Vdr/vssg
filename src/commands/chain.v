@@ -16,7 +16,7 @@ struct Chain implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Chain Command.
@@ -54,7 +54,7 @@ enum LnkType {
 }
 
 // chain command feature are implemented here. The parameters number has been checked before call.
-fn chain(params []string) ! {
+fn chain(params []string, run_locked bool) ! {
 	topics := Topic.load()!
 	pst := topics.get_posts_number()
 	if pst == 0 {

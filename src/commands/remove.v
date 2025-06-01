@@ -16,7 +16,7 @@ struct Remove implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Remove Command.
@@ -55,7 +55,7 @@ Note: the remove commands only remove push from ${cst.topic_file}. Directory ${c
 }
 
 // remove command feature are implemented here. The parameters number has been checked before call.
-fn remove(param []string) ! {
+fn remove(param []string, run_locked bool) ! {
 	mut force_delete := false
 	mut id_str := ''
 

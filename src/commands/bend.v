@@ -16,7 +16,7 @@ struct Bend implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Bend Command.
@@ -57,7 +57,7 @@ in case of unavailability for example.
 }
 
 // bend command feature are implemented here. The parameters number has been checked before call.
-fn bend(p []string) ! {
+fn bend(p []string, run_locked bool) ! {
 	mut force := false
 	mut sync := false
 	mut args := []string{}

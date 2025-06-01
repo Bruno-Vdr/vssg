@@ -15,7 +15,7 @@ struct Pull implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Pull Command.
@@ -51,7 +51,7 @@ outside blog directory.
 }
 
 // pull command feature are implemented here. The parameters number has been checked before call.
-fn pull(p []string) ! {
+fn pull(p []string, run_locked bool) ! {
 	mut force := false
 	mut url := ''
 

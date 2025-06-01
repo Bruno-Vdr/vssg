@@ -14,7 +14,7 @@ struct Env implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Env Command.
@@ -48,7 +48,7 @@ The env command displays the environment variables used by vssg:
 }
 
 // env command feature are implemented here. The parameters number has been checked before call.
-fn env(p []string) ! {
+fn env(p []string, run_locked bool) ! {
 	println("vssg's environement variables:\n")
 	print(term.bright_yellow(cst.default_push_dir) + ' = ')
 	if push_dir := util.get_default_push_dir() {

@@ -12,7 +12,7 @@ struct Help implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Help Command.
@@ -40,7 +40,7 @@ The help command displays detailled information about a specific commad.
 }
 
 // help command feature are implemented here. The parameters number has been checked before call.
-fn help(p []string) ! {
+fn help(p []string, run_locked bool) ! {
 	mut cmds := Command.get()
 	cmd_name := p[0]
 	cm := cmds[cmd_name] or { return error('Cannot get help for unknown command "${cmd_name}".') }

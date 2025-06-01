@@ -16,7 +16,7 @@ struct Rename implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Rename Command.
@@ -51,7 +51,7 @@ The rename command changes the title and directory of an already existing TOPIC:
 }
 
 // rename command feature are implemented here. The parameters number has been checked before call.
-fn rename(p []string) ! {
+fn rename(p []string, run_locked bool) ! {
 	title := p[0]
 	new_title := p[1]
 

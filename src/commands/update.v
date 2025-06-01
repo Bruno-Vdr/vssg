@@ -15,7 +15,7 @@ struct Update implements Command {
 	help       string
 	arg_min    int
 	arg_max    int
-	exec       fn (s []string) ! @[required]
+	exec       fn (s []string, rl bool) ! @[required]
 }
 
 // new builds a Update Command.
@@ -48,7 +48,7 @@ Command: ${term.green('vssg')} ${term.yellow('update')}
 }
 
 // update command feature are implemented here. The parameters number has been checked before call.
-fn update(p []string) ! {
+fn update(p []string, run_locked bool) ! {
 	r := util.where_am_i()
 	if r == .blog_dir {
 		b := Blog.load()!
