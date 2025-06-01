@@ -23,7 +23,7 @@ pub fn Init.new() Command {
 	return Init{
 		kind:       .command
 		validity:   .outside_blog
-		run_locked: true
+		run_locked: false	// n.a. since outside from blog.
 		name:       'init'
 		desc:       'Initializes a new blog.'
 		help:       Init.help()

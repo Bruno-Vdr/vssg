@@ -52,7 +52,7 @@ fn main() {
 		exit(-1)
 	}
 
-	// Check that topic_dir scoped command are allowed on locked Topic.
+	// Check that command run from Topic dir is allowed to do so.
 	cm.check_lock_for_run_from_topic() or {
 		eprintln('${term.red('Error')}: ${err}')
 		exit(-1)

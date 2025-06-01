@@ -67,7 +67,8 @@ fn drop(p []string, run_locked bool) ! {
 		title = if p[0] == '-f' { p[1] } else { p[0] }
 	}
 
-	//Command.check_lock_for_run_on_topic()
+	// Verify that command on Topic target can be run.
+	Command.check_lock_for_run_on_topic(title, run_locked)!
 
 	mut blog := Blog.load() or { return error('Unable to load_blog_file: ${err}. ${@LOCATION}') }
 	blog.delete(title)!

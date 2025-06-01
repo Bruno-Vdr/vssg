@@ -55,6 +55,9 @@ fn rename(p []string, run_locked bool) ! {
 	title := p[0]
 	new_title := p[1]
 
+	// Verify that command on Topic target can be run.
+	Command.check_lock_for_run_on_topic(title, run_locked)!
+
 	if title == new_title {
 		return error('Title and new title are identical. Nothing to do.')
 	}
