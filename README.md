@@ -129,4 +129,5 @@ but from a topic directory, only this topic will be synced.
 - [VSSG templates](./Doc/Templates.md)
 - [Environment variables](./Doc/EnvVars.md)
 - [Detailed push command](./Doc/Pushing.md)
+- [Showing the last article](./Doc/Bending.md)
 - [All vssg commands](./Doc/AllCommands.md)

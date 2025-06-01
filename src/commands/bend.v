@@ -48,7 +48,7 @@ must be relative to your location when the the command is run, ${term.rgb(255,
 Adding the ${term.gray('-f')} option, discards destination presence check. Use this to redirect on exterior URL.
 Adding the ${term.gray('-u')} option will sync/send the redirection file to the remote blog.
 
-This command si usually used to bend blog\'s entry to the last push. It can be used to redirect to any other ${term.blue('URL')},
+This command is usually used to bend blog\'s entry to the last push. It can be used to redirect to any other ${term.blue('URL')},
 in case of unavailability for example.
 
     e.g. ${term.green('vssg')} ${term.yellow('bend')} ${term.gray('-u')} will redirect to the last push in topic and sync the redirection.
