@@ -1,7 +1,7 @@
 # VSSG is a static site generator
 
-<div style="background-color:rgba(30, 0, 0)">
-Warning: This software is beta version only. It means:
+
+**Warning**: This software is beta version only. It means:
 
 - The documentation can be out of date.
 - The code is evolving daily.
@@ -9,7 +9,6 @@ Warning: This software is beta version only. It means:
 - No PR are accepted now.
 - Code contains bugs.
 
-</div>
 
 The Static Site Generator (SSG) is written in new language v. This language can be found [here](https://vlang.io/). V language
 is fast and very well suited for any application. The language is quite simple, elegant and avoid most of syntactic noise.
