@@ -15,25 +15,26 @@ pub enum RunFrom {
 	anywhere
 }
 
-pub fn (r RunFrom)str() string {
+pub fn (r RunFrom) str() string {
 	return match r {
-		.outside_blog {'outside blog directory'}
-		.blog_dir {'blog directory'}
-		.topic_dir {'topic directory'}
-		.blog_or_topic_dir {'blog or topic directory'}
-		.anywhere {'anywhere'}
+		.outside_blog { 'outside blog directory' }
+		.blog_dir { 'blog directory' }
+		.topic_dir { 'topic directory' }
+		.blog_or_topic_dir { 'blog or topic directory' }
+		.anywhere { 'anywhere' }
 	}
 }
 
 pub interface Command {
-	kind     CommandType       // Command type
-	validity RunFrom           // Valid execution location
-	name     string            // Command name as used on CLI
-	desc     string            // Single line description
-	help     string            // Detailed and formated description
-	arg_min  int               // Minimal argument number expected
-	arg_max  int               // Maximal argument number expected
-	exec     fn (s []string) ! // Command callback.
+	kind       CommandType       // Command type
+	validity   RunFrom           // Valid execution location
+	run_locked bool              // Can the command run on locked topic ?
+	name       string            // Command name as used on CLI
+	desc       string            // Single line description
+	help       string            // Detailed and formated description
+	arg_min    int               // Minimal argument number expected
+	arg_max    int               // Maximal argument number expected
+	exec       fn (s []string) ! // Command callback.
 }
 
 // get is the main command access. It returns a complete list of all available commands

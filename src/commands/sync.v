@@ -7,27 +7,29 @@ import os
 
 // Sync structure, implementing Command interface.
 struct Sync implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Sync Command.
 pub fn Sync.new() Command {
 	return Sync{
-		kind:     .command
-		validity: .blog_or_topic_dir
-		name:     'sync'
-		desc:     'Synchronizes the local blog with the remote blog. It means publish the blog.'
-		help:     Sync.help()
-		arg_min:  0
-		arg_max:  2
-		exec:     sync
+		kind:       .command
+		validity:   .blog_or_topic_dir
+		run_locked: true
+		name:       'sync'
+		desc:       'Synchronizes the local blog with the remote blog. It means publish the blog.'
+		help:       Sync.help()
+		arg_min:    0
+		arg_max:    2
+		exec:       sync
 	}
 }
 

@@ -8,27 +8,29 @@ import time
 
 // Backup structure, implementing Command interface.
 struct Backup implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Backup Command.
 pub fn Backup.new() Command {
 	return Backup{
-		kind:     .command
-		validity: .outside_blog
-		name:     'backup'
-		desc:     'Generates a backup (.zip) of the whole blog.'
-		help:     Backup.backup()
-		arg_min:  1
-		arg_max:  1
-		exec:     backup
+		kind:       .command
+		validity:   .outside_blog
+		run_locked: true
+		name:       'backup'
+		desc:       'Generates a backup (.zip) of the whole blog.'
+		help:       Backup.backup()
+		arg_min:    1
+		arg_max:    1
+		exec:       backup
 	}
 }
 

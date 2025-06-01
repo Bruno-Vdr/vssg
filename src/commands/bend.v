@@ -8,27 +8,29 @@ import structures { Topic }
 
 // Bend structure, implementing Command interface.
 struct Bend implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Bend Command.
 pub fn Bend.new() Command {
 	return Bend{
-		kind:     .command
-		validity: .anywhere
-		name:     'bend'
-		desc:     "Redirects blog's root page to given URL (usually on last push)."
-		help:     Bend.help()
-		arg_min:  0
-		arg_max:  3 // [url] [-f] [-u]
-		exec:     bend
+		kind:       .command
+		validity:   .anywhere
+		run_locked: true
+		name:       'bend'
+		desc:       "Redirects blog's root page to given URL (usually on last push)."
+		help:       Bend.help()
+		arg_min:    0
+		arg_max:    3 // [url] [-f] [-u]
+		exec:       bend
 	}
 }
 

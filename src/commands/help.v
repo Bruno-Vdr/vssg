@@ -4,27 +4,29 @@ import term
 
 // Help structure, implementing Command interface.
 struct Help implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Help Command.
 pub fn Help.new() Command {
 	return Help{
-		kind:     .command
-		validity: .anywhere
-		name:     'help'
-		desc:     'Displays help on a specific command.'
-		help:     Help.help()
-		arg_min:  1
-		arg_max:  1
-		exec:     help
+		kind:       .command
+		validity:   .anywhere
+		run_locked: true
+		name:       'help'
+		desc:       'Displays help on a specific command.'
+		help:       Help.help()
+		arg_min:    1
+		arg_max:    1
+		exec:       help
 	}
 }
 

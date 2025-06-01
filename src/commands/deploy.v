@@ -7,27 +7,29 @@ import os
 
 // Deploy structure, implementing Command interface.
 struct Deploy implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Deploy Command.
 pub fn Deploy.new() Command {
 	return Deploy{
-		kind:     .helper
-		validity: .blog_or_topic_dir
-		name:     'deploy'
-		desc:     'Deploys local CSS/HTML templates.'
-		help:     Deploy.help()
-		arg_min:  0
-		arg_max:  0
-		exec:     deploy
+		kind:       .helper
+		validity:   .blog_or_topic_dir
+		run_locked: false
+		name:       'deploy'
+		desc:       'Deploys local CSS/HTML templates.'
+		help:       Deploy.help()
+		arg_min:    0
+		arg_max:    0
+		exec:       deploy
 	}
 }
 

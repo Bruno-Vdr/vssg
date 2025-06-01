@@ -6,27 +6,29 @@ import constants as cst
 
 // Env structure, implementing Command interface.
 struct Env implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Env Command.
 pub fn Env.new() Command {
 	return Env{
-		kind:     .command
-		validity: .anywhere
-		name:     'env'
-		desc:     'Displays environment variables used by vssg.'
-		help:     Env.help()
-		arg_min:  0
-		arg_max:  0
-		exec:     env
+		kind:       .command
+		validity:   .anywhere
+		run_locked: true
+		name:       'env'
+		desc:       'Displays environment variables used by vssg.'
+		help:       Env.help()
+		arg_min:    0
+		arg_max:    0
+		exec:       env
 	}
 }
 

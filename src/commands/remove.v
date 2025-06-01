@@ -8,27 +8,29 @@ import os
 
 // Remove structure, implementing Command interface.
 struct Remove implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Remove Command.
 pub fn Remove.new() Command {
 	return Remove{
-		kind:     .command
-		validity: .topic_dir
-		name:     'remove'
-		desc:     'Removes an entry/push from a topic.'
-		help:     Remove.help()
-		arg_min:  1
-		arg_max:  2
-		exec:     remove
+		kind:       .command
+		validity:   .topic_dir
+		run_locked: false
+		name:       'remove'
+		desc:       'Removes an entry/push from a topic.'
+		help:       Remove.help()
+		arg_min:    1
+		arg_max:    2
+		exec:       remove
 	}
 }
 

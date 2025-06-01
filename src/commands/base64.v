@@ -6,27 +6,29 @@ import encoding.base64 as stdbase64
 
 // Base64 structure, implementing Command interface.
 struct Base64 implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Base64 Command.
 pub fn Base64.new() Command {
 	return Base64{
-		kind:     .helper
-		validity: .anywhere
-		name:     'base64'
-		desc:     'Encodes a given image file to its Base64 representation.'
-		help:     Base64.help()
-		arg_min:  1
-		arg_max:  1
-		exec:     base64
+		kind:       .helper
+		validity:   .anywhere
+		run_locked: true
+		name:       'base64'
+		desc:       'Encodes a given image file to its Base64 representation.'
+		help:       Base64.help()
+		arg_min:    1
+		arg_max:    1
+		exec:       base64
 	}
 }
 

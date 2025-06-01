@@ -7,27 +7,29 @@ import constants as cst
 
 // Update structure, implementing Command interface.
 struct Update implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Update Command.
 pub fn Update.new() Command {
 	return Update{
-		kind:     .command
-		validity: .blog_or_topic_dir
-		name:     'update'
-		desc:     'Updates HTML link page of Topic or Push.'
-		help:     Update.help()
-		arg_min:  0
-		arg_max:  0
-		exec:     update
+		kind:       .command
+		validity:   .blog_or_topic_dir
+		run_locked: false
+		name:       'update'
+		desc:       'Updates HTML link page of Topic or Push.'
+		help:       Update.help()
+		arg_min:    0
+		arg_max:    0
+		exec:       update
 	}
 }
 

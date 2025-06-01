@@ -19,7 +19,7 @@ pub struct Topic {
 pub:
 	title     string // Topic title
 	directory string // Dir. containing posts.
-	locked bool // Is the topic locked ?
+	locked    bool   // Is the topic locked ?
 mut:
 	posts map[u64]PostSummary
 }

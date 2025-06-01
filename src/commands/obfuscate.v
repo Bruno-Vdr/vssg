@@ -5,27 +5,29 @@ import util
 
 // Obfuscate structure, implementing Command interface.
 struct Obfuscate implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Obfuscate Command.
 pub fn Obfuscate.new() Command {
 	return Obfuscate{
-		kind:     .helper
-		validity: .anywhere
-		name:     'obfuscate'
-		desc:     'Obfuscates (hash) the given string.'
-		help:     Obfuscate.help()
-		arg_min:  1
-		arg_max:  2
-		exec:     obfuscate
+		kind:       .helper
+		validity:   .anywhere
+		run_locked: true
+		name:       'obfuscate'
+		desc:       'Obfuscates (hash) the given string.'
+		help:       Obfuscate.help()
+		arg_min:    1
+		arg_max:    2
+		exec:       obfuscate
 	}
 }
 

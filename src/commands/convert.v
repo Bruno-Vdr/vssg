@@ -9,27 +9,29 @@ import runtime
 
 // Convert structure, implementing Command interface.
 struct Convert implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Convert Command.
 pub fn Convert.new() Command {
 	return Convert{
-		kind:     .helper
-		validity: .anywhere
-		name:     'convert'
-		desc:     "Transforms images to Blog format's image size."
-		help:     Convert.help()
-		arg_min:  0
-		arg_max:  1
-		exec:     convert
+		kind:       .helper
+		validity:   .anywhere
+		run_locked: true
+		name:       'convert'
+		desc:       "Transforms images to Blog format's image size."
+		help:       Convert.help()
+		arg_min:    0
+		arg_max:    1
+		exec:       convert
 	}
 }
 

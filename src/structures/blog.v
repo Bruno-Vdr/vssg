@@ -12,8 +12,8 @@ import util
  */
 pub struct TopicItem {
 pub mut:
-	title string
-	date  i64
+	title  string
+	date   i64
 	locked bool
 }
 
@@ -134,7 +134,8 @@ fn emit_header(mut file os.File, b &Blog) ! {
 fn emit_topics(mut file os.File, b &Blog) ! {
 	// Now list the defined topics
 	for t in b.topics {
-		file.writeln('topic="${t.title}" [${t.date}] [Locked=${t.locked}] # In directory ./${b.name}/' +
+		file.writeln(
+			'topic="${t.title}" [${t.date}] [Locked=${t.locked}] # In directory ./${b.name}/' +
 			util.obfuscate(t.title)) or {
 			return error('Unable to write ${cst.blog_file}: ${err}. ${@FILE_LINE}')
 		}
@@ -164,7 +165,7 @@ pub fn (b Blog) create() ! {
 
 fn parse_blog(lines []string) !Blog {
 	mut topics := []TopicItem{}
-	//mut locked := false
+	// mut locked := false
 
 	if lines.len < 1 {
 		return error('${cst.blog_file} is empty or incomplete. ${@FILE_LINE}')

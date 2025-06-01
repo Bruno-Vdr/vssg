@@ -8,27 +8,29 @@ import os
 
 // Lock structure, implementing Command interface.
 struct Lock implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Lock Command.
 pub fn Lock.new() Command {
 	return Lock{
-		kind:     .command
-		validity: .blog_dir
-		name:     'lock'
-		desc:     'Locks/Freezes a complete topic, so it is read-only.'
-		help:     Lock.help()
-		arg_min:  1
-		arg_max:  1
-		exec:     lock_it
+		kind:       .command
+		validity:   .blog_dir
+		run_locked: false
+		name:       'lock'
+		desc:       'Locks/Freezes a complete topic, so it is read-only.'
+		help:       Lock.help()
+		arg_min:    1
+		arg_max:    1
+		exec:       lock_it
 	}
 }
 
@@ -72,11 +74,9 @@ fn lock_it(p []string) ! {
 		return error('Cannot update ${util.obfuscate(title)}${os.path_separator}${cst.topic_file}: ${err}. ${@LOCATION}')
 	}
 
-	os.chdir('..') or {
-		return error('Cannot go back to parent directory: ${err}. ${@LOCATION}')
-	}
+	os.chdir('..') or { return error('Cannot go back to parent directory: ${err}. ${@LOCATION}') }
 
 	// Now run chmod -R ugo+rX-w ./directory : Set right for all files, X means keep dir executable (browsable).
 	cmd := 'chmod -R ugo+rX-w ${util.obfuscate(title)}'
-	util.exec(cmd, true, false) !
+	util.exec(cmd, true, false)!
 }

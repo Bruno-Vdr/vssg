@@ -48,8 +48,8 @@ pub const rsync_single_file = 'rsync -avzhc'
 pub const rsync_pull_opt = 'rsync -chavzP'
 
 // Image Magick command to shrink images in the Blog. '@FILE' will be dynamically replaced. ORDER MATTERS !
-pub const convert_cmd ='magick convert -interlace Plane -quality 85% @IFILE -resize 900 -auto-orient -strip @OFILE'
-pub const image_list_name ='images.html'
+pub const convert_cmd = 'magick convert -interlace Plane -quality 85% @IFILE -resize 900 -auto-orient -strip @OFILE'
+pub const image_list_name = 'images.html'
 
 // Documentation file
 pub const doc_file = 'vssg_doc.htm'

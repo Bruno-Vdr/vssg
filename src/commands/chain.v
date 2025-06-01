@@ -8,27 +8,29 @@ import os
 
 // Chain structure, implementing Command interface.
 struct Chain implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Chain Command.
 pub fn Chain.new() Command {
 	return Chain{
-		kind:     .command
-		validity: .topic_dir
-		name:     'chain'
-		desc:     'Chains different pushes of a same topic together with previous and next links.'
-		help:     Chain.help()
-		arg_min:  0
-		arg_max:  0
-		exec:     chain
+		kind:       .command
+		validity:   .topic_dir
+		run_locked: false
+		name:       'chain'
+		desc:       'Chains different pushes of a same topic together with previous and next links.'
+		help:       Chain.help()
+		arg_min:    0
+		arg_max:    0
+		exec:       chain
 	}
 }
 

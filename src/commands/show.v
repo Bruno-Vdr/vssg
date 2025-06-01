@@ -8,27 +8,29 @@ import os
 
 // Show structure, implementing Command interface.
 struct Show implements Command {
-	kind     CommandType
-	validity RunFrom
-	name     string
-	desc     string
-	help     string
-	arg_min  int
-	arg_max  int
-	exec     fn (s []string) ! @[required]
+	kind       CommandType
+	validity   RunFrom
+	run_locked bool
+	name       string
+	desc       string
+	help       string
+	arg_min    int
+	arg_max    int
+	exec       fn (s []string) ! @[required]
 }
 
 // new builds a Show Command.
 pub fn Show.new() Command {
 	return Show{
-		kind:     .command
-		validity: .blog_or_topic_dir
-		name:     'show'
-		desc:     'Shows entries of blog or topic.'
-		help:     Show.help()
-		arg_min:  0
-		arg_max:  1
-		exec:     show
+		kind:       .command
+		validity:   .blog_or_topic_dir
+		run_locked: true
+		name:       'show'
+		desc:       'Shows entries of blog or topic.'
+		help:       Show.help()
+		arg_min:    0
+		arg_max:    1
+		exec:       show
 	}
 }
 
