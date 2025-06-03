@@ -83,15 +83,17 @@ pub fn deploy_topics_templates(dir string) ! {
 		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@LOCATION}')
 	}
 
-	// Create push.template file
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_template_file}',
-		cst.push_template.to_string()) or {
-		return error('Creation of ${cst.push_template_file} fails: ${err}. ${@LOCATION}')
+	util.deploy_template(cst.push_template_file, './', '${dir}${os.path_separator}${cst.push_template_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 
-	// Create push_style.css
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
-		cst.push_style_css.to_string()) or {
-		return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@LOCATION}')
+
+	// Create push_style.tmpl
+	// util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
+	// 	cst.push_style_css.to_string()) or {
+	// 	return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@LOCATION}')
+	// }
+	util.deploy_template(cst.push_style_template_file, './', '${dir}${os.path_separator}${cst.push_style_template_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 }

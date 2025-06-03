@@ -88,6 +88,17 @@ pub fn create_default_file(path string, output_file string, multiline string) ! 
 	file.writeln(multiline) or { return error('file.writeln() fails: ${err}. [${@FILE_LINE}]') }
 }
 
+// deploy_template performs a copy of file name taken in directory pointed by VSSG_TEMPLATE_DIR to
+// the given path / output_name
+pub fn deploy_template(name string, dest_path string, output_name string) ! {
+	if path := util.get_default_template_dir() {
+		println('deploy_template: Copying ${path+name} to ${output_name}')
+		os.cp(path + name, dest_path + output_name)!
+	} else {
+		return error('Unable to retrieve ${cst.default_tmpl_dir} environment variable. Is the variable set ?')
+	}
+}
+
 pub fn to_blog_date(date i64) string {
 	return time.unix(date).custom_format(cst.blog_date_format)
 }

@@ -102,7 +102,7 @@ fn push(p []string, run_locked bool) ! {
 	// Save topic file. Post cmd is run from within Topic dir.
 	topic.save('./')!
 
-	// Generate style.css for this post -> cp  push_style.css ./post_1/style.css  For further post customization
+	// Generate style.css for this post -> cp  push_style.tmpl ./post_1/style.css  For further post customization
 	os.cp(cst.push_style_template_file, '${path}${os.path_separator}${cst.style_file}') or {
 		return error('Unable to copy ${cst.push_style_template_file} in ${path}: ${err}. [${@LOCATION}]')
 	}
@@ -204,7 +204,7 @@ fn generate_push_html(path string, topic &Topic, post &Post, img_dir string) ! {
 		} else {
 			// Not a special section, emit line as is after substituting dynamic vars (if any).
 			substitute := dyn.substitute(tmpl_line) or {
-				return error('Wrong template ${cst.push_template} : ${err}. [${@FILE_LINE}]')
+				return error('Wrong template ${cst.push_template_file} : ${err}. [${@FILE_LINE}]')
 			}
 			push_file.writeln(substitute) or {
 				return error('Failed writing file. ${err}. [${@FILE_LINE}]')
