@@ -73,26 +73,21 @@ pub fn deploy_blog_templates(path string) ! {
 // deploy_topics_templates emit template files for topics list HTML page.
 pub fn deploy_topics_templates(dir string) ! {
 	// Create push_list style into Topic directory. File is embedded in constant.v file.
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.style_file}', cst.pushs_list_style_css.to_string()) or {
-		return error('Creation of ${cst.style_file} fails: ${err}. ${@LOCATION}')
+	util.deploy_template(cst.push_style_template_file, './', '${dir}${os.path_separator}${cst.style_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 
 	// Create default push_list into Topic directory. File is embedded in constant.v file.
-	util.create_default_file('./', '${dir}${os.path_separator}${cst.pushs_list_template_file}',
-		cst.pushs_list_template.to_string()) or {
-		return error('Creation of ${cst.pushs_list_template_file} fails: ${err}. ${@LOCATION}')
+	util.deploy_template(cst.pushs_list_template_file, './', '${dir}${os.path_separator}${cst.pushs_list_template_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 
+	// Create push.tmpl
 	util.deploy_template(cst.push_template_file, './', '${dir}${os.path_separator}${cst.push_template_file}' ) or {
 		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 
-
 	// Create push_style.tmpl
-	// util.create_default_file('./', '${dir}${os.path_separator}${cst.push_style_template_file}',
-	// 	cst.push_style_css.to_string()) or {
-	// 	return error('Creation of ${cst.push_style_template_file} fails: ${err}. ${@LOCATION}')
-	// }
 	util.deploy_template(cst.push_style_template_file, './', '${dir}${os.path_separator}${cst.push_style_template_file}' ) or {
 		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}

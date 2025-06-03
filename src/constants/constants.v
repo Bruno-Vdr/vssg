@@ -63,8 +63,5 @@ pub const doc_command = 'vssg doc | aha -b -w > vssg_doc.htm'
 pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)
 pub const topics_list_style_css = $embed_file('../templates/topics_list_style.css', .zlib)
 
-pub const pushs_list_template = $embed_file('../templates/pushs_list.htm', .zlib)
-pub const pushs_list_style_css = $embed_file('../templates/pushs_list_style.css', .zlib)
-
 // Default files right = -rw-r--r--
 pub const file_access = os.s_iwusr | os.s_irusr | os.s_irgrp | os.s_iroth
