@@ -75,19 +75,6 @@ pub fn parse_push_values(label string, s string) ?(u64, string, i64, string) {
 	return none
 }
 
-pub fn create_default_file(path string, output_file string, multiline string) ! {
-	println('Creating ${output_file}  file in ' + term.blue('${path}'))
-	mut file := os.open_file('${path}${os.path_separator}${output_file}', 'w+', cst.file_access) or {
-		return error('os.open_file() fails: ${err}. [${@FILE_LINE}]')
-	}
-
-	defer {
-		file.close()
-	}
-
-	file.writeln(multiline) or { return error('file.writeln() fails: ${err}. [${@FILE_LINE}]') }
-}
-
 // deploy_template performs a copy of file name taken in directory pointed by VSSG_TEMPLATE_DIR to
 // the given path / output_name
 pub fn deploy_template(name string, dest_path string, output_name string) ! {

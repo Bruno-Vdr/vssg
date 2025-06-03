@@ -58,15 +58,16 @@ fn deploy(p []string, run_locked bool) ! {
 // deploy_blog_templates emit template files for topics list HTML page.
 pub fn deploy_blog_templates(path string) ! {
 	// Generate a style file that will be used to generate topic lists index.htm page.
-	// This template file is embedded in constants.v file.
-	util.create_default_file(path, cst.style_file, cst.topics_list_style_css.to_string()) or {
-		return error('creating topic list style css file fails: ${err}. Command init, ${@LOCATION}')
+	// util.create_default_file(path, cst.style_file, cst.topics_list_style_css.to_string()) or {
+	// 	return error('creating topic list style css file fails: ${err}. Command init, ${@LOCATION}')
+	// }
+	util.deploy_template(cst.topics_list_style_template_file, './', '${path}${os.path_separator}${cst.style_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 
 	// Generate a template file that will be used to generate topic lists index.htm page.
-	// This template file is embedded in constants.v file.
-	util.create_default_file(path, cst.topics_list_template_file, cst.topics_list_template.to_string()) or {
-		return error('creating topic list template file fails: ${err}. Command init, ${@LOCATION}')
+	util.deploy_template(cst.topics_list_template_file, './', '${path}${os.path_separator}${cst.topics_list_template_file}' ) or {
+		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 }
 

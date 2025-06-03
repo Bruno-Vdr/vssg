@@ -9,7 +9,6 @@ pub const img_size_warning = 1024 * 512 // bytes
 pub const push_dir_prefix = 'push_'
 pub const dir_removed_suffix = '__deleted'
 pub const pushs_pic_dir = 'pictures'
-
 pub const link_model_tag = '[LinkModel]'
 pub const end_model = '[EndModel]'
 pub const list_links_tag = '[LIST_LINKS]'
@@ -17,12 +16,11 @@ pub const topics_list_filename = 'base.htm'
 pub const push_filename = 'index.htm'
 pub const pushs_list_filename = 'index.htm'
 pub const blog_entry_filename = 'index.htm'
-
 pub const push_template_file = 'push.tmpl'
 pub const push_style_template_file = 'push_style.tmpl'
 pub const topics_list_template_file = 'topics_list.tmpl'
+pub const topics_list_style_template_file = 'topics_list_style.tmpl'
 pub const pushs_list_template_file = 'pushs_list.tmpl'
-
 pub const blog_date_format = 'DD/MM/YYYY HH:mm'
 
 // Custom tags, used for chain command.
@@ -58,10 +56,6 @@ pub const image_list_name = 'images.html'
 // Documentation file
 pub const doc_file = 'vssg_doc.htm'
 pub const doc_command = 'vssg doc | aha -b -w > vssg_doc.htm'
-
-// Templates file are embedded into vssg executable.
-pub const topics_list_template = $embed_file('../templates/topics_list.htm', .zlib)
-pub const topics_list_style_css = $embed_file('../templates/topics_list_style.css', .zlib)
 
 // Default files right = -rw-r--r--
 pub const file_access = os.s_iwusr | os.s_irusr | os.s_irgrp | os.s_iroth
