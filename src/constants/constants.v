@@ -35,6 +35,7 @@ pub const default_push_dir = 'VSSG_PUSH_DIR' // Default dir of push files.
 pub const img_src_env = 'VSSG_IMG_PUSH_DIR' // Env var pointing to images used in push.
 pub const remote_url = 'VSSG_BLOG_REMOTE_URL' // Env var pointing remote site location.
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
+pub const default_tmpl_dir = 'VSSG_TEMPLATE_DIR' // Blog's template directory.
 pub const rsync_permanent_option = 'VSSG_RSYNC_OPT'
 
 // zip command related options.

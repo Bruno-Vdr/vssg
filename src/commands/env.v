@@ -41,6 +41,7 @@ The env command displays the environment variables used by vssg:
 
     ${term.bright_yellow(cst.default_push_dir)} : Default directory to get push files from.
     ${term.bright_yellow(cst.img_src_env)} : Path to grab pushed images from.
+    ${term.bright_yellow(cst.default_tmpl_dir)} : Path to grab blog\'s templates from.
     ${term.bright_yellow(cst.remote_url)} : Remote blog\'s URL (used by sync command).
     ${term.bright_yellow(cst.blog_root)} : Local blog\' location (used by sync command).
     ${term.bright_yellow(cst.rsync_permanent_option)} : Permanent customizable rsync option e.g. "-e \'ssh -p 2223\'".
@@ -58,6 +59,12 @@ fn env(p []string, run_locked bool) ! {
 	}
 	print(term.bright_yellow(cst.img_src_env) + ' = ')
 	if img_post := util.get_img_push_dir() {
+		println('"' + img_post + '"')
+	} else {
+		println(term.red('Not set'))
+	}
+	print(term.bright_yellow(cst.default_tmpl_dir) + ' = ')
+	if img_post := util.get_default_template_dir() {
 		println('"' + img_post + '"')
 	} else {
 		println(term.red('Not set'))

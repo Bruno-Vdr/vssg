@@ -134,6 +134,20 @@ pub fn get_default_push_dir() ?string {
 	}
 }
 
+// get_default_template_dir Returns push directory. Add terminal path separator if missing.
+pub fn get_default_template_dir() ?string {
+	p := os.getenv_opt(cst.default_tmpl_dir)
+	return if p != none {
+		if p.ends_with(os.path_separator) {
+			p
+		} else {
+			p + os.path_separator
+		}
+	} else {
+		none
+	}
+}
+
 pub fn get_remote_url() ?string {
 	return os.getenv_opt(cst.remote_url)
 }
