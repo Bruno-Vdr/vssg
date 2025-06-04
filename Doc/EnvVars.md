@@ -7,6 +7,8 @@
 VSSG expect several environment variable to be set before running commands. These variables must be set BEFORE
 running commands.
 
+**A good idea is to put export commands in your .bashrc (or other) file, or in a script you can run (source) before using vssg.**
+
 **VSSG_BLOG_ROOT** : This is the most important variable here. The absolute path of your blog directory. Should
 end with the os path separator '/' to indicate its directory nature. The vssg init 'xxx' command will create a
 sub-directory at your location. The VSSG_BLOG_ROOT must point there.

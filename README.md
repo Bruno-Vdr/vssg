@@ -49,14 +49,14 @@ Want an example ? [Check out the test blog, to try by yourself vssg.](./Doc/Play
 
 ## A more detailed start guide:
 
-### 1) Set VSSG environment variables:
+### 1) Set VSSG_TEMPLATE_DIR environment variable:
 
 The first thing to start is to create a directory that will contains all  vssg templates.
 To start, you can use those in vssg/tests_files/templates and modify them as you like.
 
 Then you can export the VSSG_TEMPLATE_DIR to point to the directory.
 
-[All VSSG environment variables](Doc/EnvVars.md)
+[more on other VSSG environment variables](Doc/EnvVars.md)
 
 ### 2) Init the blog with the init command:
 
@@ -167,3 +167,4 @@ but from a topic directory, only this topic will be synced.
 - [Detailed push command](./Doc/Pushing.md)
 - [Showing the last article](./Doc/Bending.md)
 - [All vssg commands](./Doc/AllCommands.md)
+- [Daily traveler's workflow](./Doc/Workflow.md)
