@@ -6,8 +6,8 @@ his personal blog.
 - Select a bunch of pictures that will be presents in today's article.
 - Copy them in the (emptied) location pointed by VSSG_IMG_PUSH_DIR.
 - Run the vssg convert command. This convert pictures in web friendly light pictures.
-- Open a text editor, and create a ascii text file [details](./Templates.md)for the article in directory pointed by VSSG_PUSH_DIR .
-- Write your text, insert any html tag and insert the selected pictures.
+- Open a text editor, and create a ascii text file [details](./Pushing.md)for the article in directory pointed by VSSG_PUSH_DIR .
+- Write your text, insert any html tag and insert the selected pictures: [img:Pic,jpg:"Nice!].
   To help you, the vssg convert command created an html page containing thumbnails with picture names, into
   the directory pointed by VSSG_IMG_PUSH_DIR.
 - When text is Ok, go in the topic directory you want to update with this article.
@@ -16,4 +16,4 @@ his personal blog.
 - Repeat previous until Ok
 - perform a **vssg chain** if you want link between topic's articles.
 - perform a **vssg bend** if you want to update redirection to the last post.
-- perform a **vssg sync [-bend]** to publish on the web.
+- perform a **vssg sync [-bend]** to publish on the web. Use -bend to update redirection after bend.
