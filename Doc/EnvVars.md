@@ -1,6 +1,6 @@
 # Environment variables
 
-**vssg** uses 5 environment variables.
+**vssg** uses 6 environment variables.
 
 ![Terminal](./pictures/env.png "The env command from blog's directory.")
 
@@ -10,6 +10,9 @@ end with the os path separator '/' to indicate its directory nature.
 **VSSG_PUSH_DIR**: This variable must contains the absolute path where the push files will be loaded from, when
 using push or modify command. All push files are taken from this directory. It should end with a '/' indicating
 it's a directory.
+
+**VSSG_TEMPLATE_DIR**: This variable must contains the absolute path where the templates are taken from.
+It should end with a '/' indicating it's a directory.
 
 **VSSG_IMG_PUSH_DIR**: This variable is the blog source of images. Images, referenced in push file are taken here,
 before being moved into ./pictures/ directory of pushes. It should end with a '/' indicating it's a directory.
