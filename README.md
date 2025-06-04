@@ -45,7 +45,7 @@ You should alias or put is in your $PATH env variable.
 
 ## Quickstart guide:
 
-Want an example: [Check out the test blog, to try by yourself vssg.](./Doc/Playground.md)
+Want an example ? [Check out the test blog, to try by yourself vssg.](./Doc/Playground.md)
 
 ## A more detailed start guide:
 
@@ -56,6 +56,11 @@ In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
 
 It's **strongly** suggested to export the absolute path of your blog to VSSG_BLOG_ROOT environment variable.
 This variable will be used by many commands.
+
+Now it's time to set some environment variables:
+
+[Configure vssg environment variable](Doc/EnvVars.md)
+
 
 ### 2) Add few topics to the Blog:
 First, **you must move in your blog directory**. All vssg commands are relatives to the
