@@ -60,7 +60,7 @@ Then you can export the VSSG_TEMPLATE_DIR to point to the directory.
 
 ### 2) Init the blog with the init command:
 
-In your favorite terminal type "vssg init "Blog"  (vssg executable must be in your $PATH) where "Blog"
+In your favorite terminal type **vssg init "Blog"**  (vssg executable must be in your $PATH) where "Blog"
 will be the main directory containing your blog.
 
  ![Terminal](Doc/pictures/init.png "The init command results:")
@@ -71,7 +71,7 @@ At this point you must also export VSSG_BLOG_ROOT to this absolute path.
 First, **you must move in your blog directory**. All vssg commands are relatives to the
 location the commands are launched from. Two locations are known: Blog's root, and Topic directory.
 
-Launch the "vssg add SolSys" to add a Topic in your blog.
+To create a new topic, just launch the **vssg add SolSys**  from inside  your blog directory.
 
 ![Terminal](Doc/pictures/add.png "The add command results:")
 
