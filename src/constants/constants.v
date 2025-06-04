@@ -21,6 +21,8 @@ pub const push_style_template_file = 'push_style.tmpl'
 pub const topics_list_template_file = 'topics_list.tmpl'
 pub const topics_list_style_template_file = 'topics_list_style.tmpl'
 pub const pushs_list_template_file = 'pushs_list.tmpl'
+pub const pushs_list_style_template_file = 'pushs_list_style.tmpl'
+
 pub const blog_date_format = 'DD/MM/YYYY HH:mm'
 
 // Custom tags, used for chain command.

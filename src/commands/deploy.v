@@ -74,7 +74,7 @@ pub fn deploy_blog_templates(path string) ! {
 // deploy_topics_templates emit template files for topics list HTML page.
 pub fn deploy_topics_templates(dir string) ! {
 	// Create push_list style into Topic directory. File is embedded in constant.v file.
-	util.deploy_template(cst.push_style_template_file, './', '${dir}${os.path_separator}${cst.style_file}' ) or {
+	util.deploy_template(cst.pushs_list_style_template_file, './', '${dir}${os.path_separator}${cst.style_file}' ) or {
 		return error('util.deploy_template: ${err}. [${@FILE_LINE}]')
 	}
 

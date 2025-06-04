@@ -1,7 +1,3 @@
-
--CHECK ALL TEMPLATE DEPLOYMENT AT ALL STAGES !
-
-
 -Factorize all Env related util.get... methods.
 
 Errors Rules:
