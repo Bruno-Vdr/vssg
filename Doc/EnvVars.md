@@ -4,15 +4,21 @@
 
 ![Terminal](./pictures/env.png "The env command from blog's directory.")
 
+VSSG expect several environment variable to be set before running commands. These variables must be set BEFORE
+running commands.
+
 **VSSG_BLOG_ROOT** : This is the most important variable here. The absolute path of your blog directory. Should
-end with the os path separator '/' to indicate its directory nature.
+end with the os path separator '/' to indicate its directory nature. The vssg init 'xxx' command will create a
+sub-directory at your location. The VSSG_BLOG_ROOT must point there.
+
+**VSSG_TEMPLATE_DIR**: This variable must contains the absolute path where the templates are taken from.
+It should end with a '/' indicating it's a directory. In this directory, you should copy your templates.
+To start, you can copy templates in vssg tests_files, and adapt them. There names are hardcoded and must be
+conserved.
 
 **VSSG_PUSH_DIR**: This variable must contains the absolute path where the push files will be loaded from, when
 using push or modify command. All push files are taken from this directory. It should end with a '/' indicating
 it's a directory.
-
-**VSSG_TEMPLATE_DIR**: This variable must contains the absolute path where the templates are taken from.
-It should end with a '/' indicating it's a directory.
 
 **VSSG_IMG_PUSH_DIR**: This variable is the blog source of images. Images, referenced in push file are taken here,
 before being moved into ./pictures/ directory of pushes. It should end with a '/' indicating it's a directory.

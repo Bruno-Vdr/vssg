@@ -49,20 +49,25 @@ Want an example ? [Check out the test blog, to try by yourself vssg.](./Doc/Play
 
 ## A more detailed start guide:
 
-### 1) Init the blog with the command:
-In your favorite terminal type "vssg init Blog"  (vssg must be in your $PATH)
+### 1) Set VSSG environment variables:
+
+The first thing to start is to create a directory that will contains all  vssg templates.
+To start, you can use those in vssg/tests_files/templates and modify them as you like.
+
+Then you can export the VSSG_TEMPLATE_DIR to point to the directory.
+
+[All VSSG environment variables](Doc/EnvVars.md)
+
+### 2) Init the blog with the init command:
+
+In your favorite terminal type "vssg init "Blog"  (vssg executable must be in your $PATH) where "Blog"
+will be the main directory containing your blog.
 
  ![Terminal](Doc/pictures/init.png "The init command results:")
 
-It's **strongly** suggested to export the absolute path of your blog to VSSG_BLOG_ROOT environment variable.
-This variable will be used by many commands.
+At this point you must also export VSSG_BLOG_ROOT to this absolute path.
 
-Now it's time to set some environment variables:
-
-[Configure vssg environment variable](Doc/EnvVars.md)
-
-
-### 2) Add few topics to the Blog:
+### 3) Add few topics to the Blog:
 First, **you must move in your blog directory**. All vssg commands are relatives to the
 location the commands are launched from. Two locations are known: Blog's root, and Topic directory.
 
@@ -78,10 +83,20 @@ you can perform a "vssg show" to list topics, from blog's directory:
 
 ![Terminal](Doc/pictures/show.png "The show command from blog's directory.")
 
-### 3) Insert a push into a given topic.
+### 4) Insert a push into a given topic.
+
 To insert a push in a specific Topic, just move (cd) into the Topic directory. To retrieve the topic hashed name
-just perform a "vssg show" (see above). The pushes are provided through text files (format specified later). These
-files are typically grabbed from a location specified by the VSSG_PUSH_DIR, setup via export VSSG_PUSH_DIR="Absolute dir path".
+just perform a "vssg show" (see above). The pushes (articles) are provided through text files (format specified later).
+These files are typically grabbed from a location specified by the VSSG_PUSH_DIR, setup via the bash command :
+export VSSG_PUSH_DIR="Absolute dir path". This is done to avoid giving a full path to the push command but rather a
+filename.
+
+To start, you can set your VSSG_PUSH_DIR to point to vssg/tests_files/VSSG_Push and use tests Push.
+
+All images in push are taken from a directory pointed by the environment variable VSSG_IMG_PUSH_DIR. You should put
+your pictures there and mention them from your push file, with the name of the file, without path.
+
+To start, you can set your VSSG_IMG_PUSH_DIR to point to vssg/tests_files/VSSG_Img and use these images.
 
 Environment variable used by vssg can be shown with "vssg env" command.
 
@@ -89,7 +104,12 @@ Environment variable used by vssg can be shown with "vssg env" command.
 
 Then, from topic's directory
 
-Just perform "vssg push Jupiter.txt" (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
+Just perform **vssg push Jupiter.txt** (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
+For tests you can use push files given in vssg/tests_files/VSSG_Push
+
+[More information on push file here](Doc/Pushing.md)
+
+The command should give:
 
 ![Terminal](Doc/pictures/push.png "The push command from SolSys directory.")
 
@@ -104,14 +124,14 @@ directories.
 
 ![Terminal](Doc/pictures/modify.png "The modify command from SolSys directory.")
 
-### 4) Browse your blog:
+### 5) Browse your blog:
 
 Now, you have a base.html file in your blog directory that allow to navigate through your blog. With vssg, the index.html
 file, in the blog's root directory is use to redirect to the last push. To generate it, just launch the command "vssg bend":
 
 ![Terminal](Doc/pictures/bend.png "The bend command from SolSys directory.")
 
-### 5) Publish your blog:
+### 6) Publish your blog:
 
 For publishing a blog, vssg relies on the [rsync](https://manpages.debian.org/bookworm/rsync/rsync.1.en.html) command.
 Defaults parameters are: --delete -avzhrc to ensure perfect mirroring with local and distant blog.

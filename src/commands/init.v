@@ -4,6 +4,7 @@ import term
 import os
 import constants as cst
 import structures
+import util
 
 // Init structure, implementing Command interface.
 struct Init implements Command {
@@ -53,6 +54,11 @@ fn init(p []string, run_locked bool) ! {
 
 	if os.exists('${path}') {
 		return error('creating ${path} : The directory "${path}" already exists.')
+	}
+
+	// Check the VSSG_TEMPLATE_DIR is set.
+	if util.get_default_template_dir() == none {
+		return error('The environment variable ${term.yellow(cst.default_tmpl_dir)} is not set. Export it to point to your template directory.')
 	}
 
 	os.mkdir('./${path}', os.MkdirParams{0o755}) or {
