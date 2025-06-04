@@ -107,8 +107,6 @@ Then, from topic's directory
 Just perform **vssg push Jupiter.txt** (provided Jupiter.txt exists in the directory pointed by VSSG_PUSH_DIR)
 For tests you can use push files given in vssg/tests_files/VSSG_Push
 
-[More information on push file here](Doc/Pushing.md)
-
 The command should give:
 
 ![Terminal](Doc/pictures/push.png "The push command from SolSys directory.")
@@ -123,6 +121,8 @@ E.g. "vssg modify 0 Jupiter.txt". This will regenerate dependant HTML, file, cop
 directories.
 
 ![Terminal](Doc/pictures/modify.png "The modify command from SolSys directory.")
+
+[More details on information on push file here](Doc/Pushing.md)
 
 ### 5) Browse your blog:
 
