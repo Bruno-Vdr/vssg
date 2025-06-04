@@ -127,7 +127,8 @@ directories.
 ### 5) Browse your blog:
 
 Now, you have a base.html file in your blog directory that allow to navigate through your blog. With vssg, the index.html
-file, in the blog's root directory is use to redirect to the last push. To generate it, just launch the command "vssg bend":
+file, in the blog's root directory is used to redirect to the last push. To generate it, just launch the command
+"vssg bend" from the topic directory. It will generate a redirection to the last Topic entry (highest id).
 
 ![Terminal](Doc/pictures/bend.png "The bend command from SolSys directory.")
 
