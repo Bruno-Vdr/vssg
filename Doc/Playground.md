@@ -8,10 +8,11 @@ directory.
 
 This directory contains all needed files to generate a toy project blog, and start using vssg's commands.
 
-In order to build it, you have 5 thing to do:
+In order to build it, you have few thing to do:
 
 - export VSSG_PUSH_DIR= **xxx**/vssg/tests_files/VSSG_push/
-- export VSSG_PUSH_DIR= **xxx**/vssg/tests_files/VSSG_Img/
+- export VSSG_IMG_PUSH_DIR= **xxx**/vssg/tests_files/VSSG_Img/
+- export VSSG_TEMPLATE_DIR= **xxx**/vssg/tests_files/templates/
 - export VSSG_BLOG_ROOT= **xxx**/vssg/Blog
 
 where **xxx** is the absolute path from / to the location you have installed vssg.
@@ -47,7 +48,7 @@ Then, you should end with a new directory called Blog, with 3 topics and several
 
 #### *Text and Images source: [Wikipedia](https://en.wikipedia.org/wiki/Main_Page)
 
-Enter the Blog directory by doing cd Blog, and then running 'vssg show' you should get:
+Enter the Blog directory by doing cd Blog, and then running 'vssg show -a' you should get:
 
 ![image](pictures/vssg_show.png)
 
