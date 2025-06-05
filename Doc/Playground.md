@@ -2,35 +2,43 @@
 # Playground - The test blog
 
 Sometimes, a simple example is better than a long explanation. For this, you'll find a toy blog in the tests_files
-directory.
+directory. Before all, we assume that you build vssg, and that the executable is in your $PATH, runnable from any
+location.
+
+To generate the toy blog, you can copy the whole the tests_files directory where you want.
 
 ![image](pictures/toy_blog.png)
 
-This directory contains all needed files to generate a toy project blog, and start using vssg's commands.
+Then enter in the copied tests_files directory check that the script build.sh is executable. if not
+execute chmod +x build.sh
 
-In order to build it, you have few thing to do:
+Now you can **source** (don't simply run build.sh) the file by running:
 
-- export VSSG_PUSH_DIR= **xxx**/vssg/tests_files/VSSG_push/
-- export VSSG_IMG_PUSH_DIR= **xxx**/vssg/tests_files/VSSG_Img/
-- export VSSG_TEMPLATE_DIR= **xxx**/vssg/tests_files/templates/
-- export VSSG_BLOG_ROOT= **xxx**/vssg/Blog
-
-where **xxx** is the absolute path from / to the location you have installed vssg.
-
-Note that :
-- these variables must be exported before running the build.sh script.
-- vssg executable must be aliased or in you PATH (export PATH=$PATH:/....containing vssg executable)
-
-Then you can source the build script from vssg root directory:
-
-![image](pictures/source1.png)
+![image](pictures/source_build_sh.png)
 
 or
 
-![image](pictures/source2.png)
+![image](pictures/dot_build.png)
 
-Both command are equivalent.
-Then, you should end with a new directory called Blog, with 3 topics and several (repeted) push inside, fully browsable.
+Both command are equivalent. Many command are executed by the script to build the toy blog.
+
+![image](pictures/built.png)
+
+Just ignore  the last statement about sync command.
+
+At this point, you should have a new directory called Blog, with 3 topics and several (repeted) push inside,
+fully browsable. The script also has exported  mandatory environment variable (**vssg env** to display them) that allow
+you to run vssg commands. Now you can enter the Blog (using cd Blog) and start to play with vssg command.
+
+**Warning:** The exported variable will be set until you close your terminal. To make them permanent, add them in your
+.bashrc file.
+
+**vssg show -a**   should show this:
+
+![image](pictures/toy_show_a.png)
+
+Now you're ready to experiment vssg commands. Should you break something, just delete the Blog directory, or as last
+solution, remove the tests_files directory and start again from a new copy.
 
 ### The topic list:
 

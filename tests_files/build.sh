@@ -1,11 +1,19 @@
 #!/bin/bash
+
+export VSSG_PUSH_DIR=`pwd`/VSSG_Push/
+export VSSG_IMG_PUSH_DIR=`pwd`/VSSG_Img/
+export VSSG_TEMPLATE_DIR=`pwd`/templates/
+unset VSSG_BLOG_REMOTE_URL
+unset VSSG_RSYNC_OPT
+
 vssg init Blog
+export VSSG_BLOG_ROOT=`pwd`/Blog/
 cd Blog
 
 # Copy files common to al HTML page
-cp ../tests_files/blog_menu/menu.htm ./
-cp ../tests_files/blog_menu/navbar_style.css ./
-cp ../tests_files/Common/banner.png ./
+cp ../blog_menu/menu.htm ./
+cp ../blog_menu/navbar_style.css ./
+cp ../Common/banner.png ./
 
 # Create Topics
 pushes=("Cydonia.txt" "Jupiter.txt" "Lorem.txt" "Mercure.txt" "Neptune.txt" "Sedna.txt")
