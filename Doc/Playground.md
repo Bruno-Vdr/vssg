@@ -2,8 +2,8 @@
 # Playground - The test blog
 
 Sometimes, a simple example is better than a long explanation. For this, you'll find a toy blog in the tests_files
-directory. Before all, we assume that you build vssg, and that the executable is in your $PATH, runnable from any
-location.
+directory. Before all, we assume that you have build vssg, and that the executable is in your $PATH, runnable from
+any location.
 
 To generate the toy blog, you can copy the whole the tests_files directory where you want.
 
