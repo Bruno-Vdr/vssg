@@ -69,3 +69,5 @@ At anytime you can browse the Blog by opening a .htm file in your browser.
 You can now have a look at all vssg command, and try updating and customizing things.
 
 - [All vssg commands](AllCommands.md)
+
+[[Back to documentation]](../README.md)
