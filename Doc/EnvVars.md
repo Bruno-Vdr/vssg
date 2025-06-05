@@ -35,3 +35,4 @@ keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
 
 ![Terminal](pictures/rsync_opt.png "VSSG_RSYNC_OPT env example")
 
+[[Back to documentation]](../README.md)

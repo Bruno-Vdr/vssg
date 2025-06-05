@@ -64,3 +64,5 @@ Pushing (vssg push file.txt) several times, will lead to the same push posted mu
 That's why the modify command exists. It patches an existing push.
 
 You can remove a push using the command **remove**.
+
+[[Back to documentation]](../README.md)

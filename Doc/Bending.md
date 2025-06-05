@@ -18,3 +18,5 @@ topics. Its file hierarchy is as this:
 To update the index.htm redirection file we use the command **vssg bend**
 
 ![image](pictures/bend_help.png)
+
+[[Back to documentation]](../README.md)

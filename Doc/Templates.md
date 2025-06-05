@@ -59,3 +59,4 @@ to generate any links in the push list page. It recognizes 4 dynamic variables, 
 
 This page is working the same way push list does. It here to allow different customization of push list page.
 
+[[Back to documentation]](../README.md)

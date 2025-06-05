@@ -7,3 +7,5 @@ vssg doc
 To generate a full html file of all commands run: vssg doc -html
 
 ![All commands](./pictures/All-cmds.png)
+
+[[Back to documentation]](../README.md)

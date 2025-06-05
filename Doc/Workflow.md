@@ -3,7 +3,7 @@
 VSSG has been written by and for travelers. Walking, visiting, taking picture, and finally writing article in
 his personal blog.
 
-- Select a bunch of JPG pictures for today's article,cand copy them in the (emptied) location pointed by VSSG_IMG_PUSH_DIR.
+- Select a bunch of JPG pictures for today's article, copy them in the (emptied) location pointed by VSSG_IMG_PUSH_DIR.
 - [optional] Run the **vssg convert** command. This convert JPG pictures in web friendly and light pictures.
 - Create an ascii text file [details](./Pushing.md) for the article in directory pointed by VSSG_PUSH_DIR .
 - Write your text, insert any html tag and insert the selected pictures (Format: [img:picture.jpg:"Picture comment"] ).
@@ -20,3 +20,5 @@ his personal blog.
 - perform a **vssg chain** if you want link between topic's articles.
 - perform a **vssg bend** if you want to update redirection to the last post.
 - perform a **vssg sync [-bend]** to publish on the web. Use -bend to update redirection after bend.
+
+[[Back to documentation]](../README.md)

@@ -40,3 +40,5 @@ From a topic directory show the available pushes:
 **vssg show -a** from blog directory shows the whole hierarchy:
 
 ![Terminal](pictures/show_a.png "command vssg show from blog directory:")
+
+[[Back to documentation]](../README.md)
