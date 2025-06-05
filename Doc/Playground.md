@@ -20,7 +20,7 @@ or
 
 ![image](pictures/dot_build.png)
 
-Both command are equivalent. Many command are executed by the script to build the toy blog.
+Both command are equivalent. Many commands are executed by the script to build the toy blog.
 
 ![image](pictures/built.png)
 
@@ -39,6 +39,8 @@ you to run vssg commands. Now you can enter the Blog (using cd Blog) and start t
 
 Now you're ready to experiment vssg commands. Should you break something, just delete the Blog directory, or as last
 solution, remove the tests_files directory and start again from a new copy.
+
+Now, opening with your favorite browser the Blog/index.htm file you can browse the toy blog:
 
 ### The topic list:
 
@@ -59,20 +61,6 @@ solution, remove the tests_files directory and start again from a new copy.
 Enter the Blog directory by doing cd Blog, and then running 'vssg show -a' you should get:
 
 ![image](pictures/vssg_show.png)
-
-From there you can add a push in Topic 1 by doing:
-cd ./81a0f184b9a5e507
-vssg push Lorem.txt
-
-Link the pushes between them :
-
-vssg chain
-
-Bend the redirection to the last entry (this Lorem.txt)
-
-vssg bend
-
-At anytime you can browse the Blog by opening a .htm file in your browser.
 
 You can now have a look at all vssg command, and try updating and customizing things.
 
