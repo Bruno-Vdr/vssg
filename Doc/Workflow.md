@@ -10,6 +10,9 @@ his personal blog.
 - Write your text, insert any html tag and insert the selected pictures: [img:Pic,jpg:"Nice!].
   To help you, the vssg convert command created an html page containing thumbnails with picture names, into
   the directory pointed by VSSG_IMG_PUSH_DIR.
+
+![Generated HTML page by convert command](pictures/images.png)
+
 - When text is Ok, go in the topic directory you want to update with this article.
 - Perform a **vssg push the_article.txt**. Check with a local browser if all is fine.
 - If modifications are needed: change the_article.txt and run a vssg modify to update you work.
