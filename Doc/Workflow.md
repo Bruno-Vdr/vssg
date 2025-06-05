@@ -3,13 +3,13 @@
 VSSG has been written by and for travelers. Walking, visiting, taking picture, and finally writing article in
 his personal blog.
 
-- Select a bunch of pictures that will be presents in today's article.
-- Copy them in the (emptied) location pointed by VSSG_IMG_PUSH_DIR.
-- Run the vssg convert command. This convert pictures in web friendly light pictures.
-- Open a text editor, and create a ascii text file [details](./Pushing.md)for the article in directory pointed by VSSG_PUSH_DIR .
-- Write your text, insert any html tag and insert the selected pictures: [img:Pic,jpg:"Nice!].
-  To help you, the vssg convert command created an html page containing thumbnails with picture names, into
-  the directory pointed by VSSG_IMG_PUSH_DIR.
+- Select a bunch of JPG pictures for today's article,cand copy them in the (emptied) location pointed by VSSG_IMG_PUSH_DIR.
+- Run the **vssg convert** command. This convert pictures in web friendly and light pictures.
+- Open a text editor, and create an ascii text file [details](./Pushing.md)for the article in directory pointed by VSSG_PUSH_DIR .
+- Write your text, insert any html tag and insert the selected pictures (Format: [img:picture.jpg:"Picture comment"] ).
+  To help you, the **vssg convert** command created an html page containing thumbnails with picture names, into
+  the directory pointed by VSSG_IMG_PUSH_DIR. To insert an image in your article, just copy the corresponding image label
+  **[img:mypic.jpg:""]**  tag where you want your image to be, and write a comment if any.
 
 ![Generated HTML page by convert command](pictures/images.png)
 
