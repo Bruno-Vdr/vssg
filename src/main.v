@@ -5,6 +5,7 @@ import commands { Command }
 import os
 import maps
 import strings
+import util
 
 enum Param {
 	exe
@@ -19,6 +20,11 @@ fn main() {
 
 	if os.args.len == 1 { // case: No parameters given
 		usage(cmds)
+
+		if b := util.get_blog_root() {
+			i := b.split_any(os.path_separator)
+			println('[Target blog: ${term.blue(i.last())}]')
+		}
 		println('\nvssg compiled on ${@BUILD_DATE} ${@BUILD_TIME}')
 		return
 	}

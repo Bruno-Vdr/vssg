@@ -61,11 +61,11 @@ fn env(p []string, run_locked bool) ! {
 		export = p.len == 1
 	}
 
+	print_std(export, cst.blog_root, util.get_blog_root())
+	print_std(export, cst.default_tmpl_dir, util.get_default_template_dir())
 	print_std(export, cst.default_push_dir, util.get_default_push_dir())
 	print_std(export, cst.img_src_env, util.get_img_push_dir())
-	print_std(export, cst.default_tmpl_dir, util.get_default_template_dir())
 	print_std(export, cst.remote_url, util.get_remote_url())
-	print_std(export, cst.blog_root, util.get_blog_root())
 	print_std(export, cst.rsync_permanent_option, util.get_sync_opt())
 	println('')
 }

@@ -5,6 +5,7 @@ export VSSG_IMG_PUSH_DIR=`pwd`/VSSG_Img/
 export VSSG_TEMPLATE_DIR=`pwd`/templates/
 unset VSSG_BLOG_REMOTE_URL
 unset VSSG_RSYNC_OPT
+echo "unset following variables: VSSG_BLOG_REMOTE_URL, VSSG_RSYNC_OPT."
 
 vssg init Blog
 export VSSG_BLOG_ROOT=`pwd`/Blog/
