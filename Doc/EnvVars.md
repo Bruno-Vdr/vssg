@@ -37,7 +37,7 @@ keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
 
 **VSSG_PREV_NEXT_LABELS** : The chain commands creates links to previous and next push inside a topic. This variable is
 here to allow override of default values. The expected string format is Previous label and Next label separated with the
-pipe symbol '|'
+pipe symbol '|'. Example:  "Before|After", "Previous article|Next article".
 
 
 [[Back to documentation]](../README.md)
