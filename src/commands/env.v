@@ -67,6 +67,8 @@ fn env(p []string, run_locked bool) ! {
 	print_std(export, cst.img_src_env, util.get_img_push_dir())
 	print_std(export, cst.remote_url, util.get_remote_url())
 	print_std(export, cst.rsync_permanent_option, util.get_sync_opt())
+	print_std(export, cst.prev_next_label, util.get_prev_next())
+
 	println('')
 }
 

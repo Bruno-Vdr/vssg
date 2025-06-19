@@ -108,7 +108,8 @@ fn generate_link(to ?int, kind LnkType, title string) string {
 	//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev> ON
 	//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>  OFF
 	href := if to != none {
-		label := if kind == .previous { cst.lnk_prev_label } else { cst.lnk_next_label }
+		prv, nex := util.get_prev_next_labels()
+		label := if kind == .previous { prv } else { nex }
 		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
 		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button  style="font-size: medium; font-weight: bolder;">${
 			label + '<br>' + title}</button></a>'

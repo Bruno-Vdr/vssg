@@ -30,8 +30,8 @@ pub const lnk_next_tag = '<vssg-lnk-next>'
 pub const next_tag_close = '</vssg-lnk-next>'
 pub const lnk_prev_tag = '<vssg-lnk-prev>'
 pub const prev_tag_close = '</vssg-lnk-prev>'
-pub const lnk_next_label = 'Article suivant &gt;'
-pub const lnk_prev_label = '&lt; Article précédent'
+pub const lnk_next_label = 'Next &gt;'
+pub const lnk_prev_label = '&lt; Prev.'
 
 // VSSG environment variables.
 pub const default_push_dir = 'VSSG_PUSH_DIR' // Default dir of push files.
@@ -40,6 +40,7 @@ pub const remote_url = 'VSSG_BLOG_REMOTE_URL' // Env var pointing remote site lo
 pub const blog_root = 'VSSG_BLOG_ROOT' // Current blog's root
 pub const default_tmpl_dir = 'VSSG_TEMPLATE_DIR' // Blog's template directory.
 pub const rsync_permanent_option = 'VSSG_RSYNC_OPT'
+pub const prev_next_label = 'VSSG_PREV_NEXT_LABELS'
 
 // zip command related options.
 pub const zip_cmd = 'zip'

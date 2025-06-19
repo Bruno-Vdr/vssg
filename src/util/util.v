@@ -154,6 +154,27 @@ pub fn get_sync_opt() ?string {
 	return os.getenv_opt(cst.rsync_permanent_option)
 }
 
+pub fn get_prev_next() ?string {
+	return os.getenv_opt(cst.prev_next_label)
+}
+
+// Return the Previous and Next labels used for chain command. The env variable is supposed to follow the format:
+// "Prev|Next" format with label for previous link, followed by the label for the next link separated by a |
+pub fn get_prev_next_labels() (string, string) {
+
+	if labs := get_prev_next() {
+		strs := labs.split('|')
+		if strs.len == 2 {
+			return strs[0], strs[1]
+		} else {
+			println('${term.yellow(cst.prev_next_label)} must be formed out of 2 labels separated by a pipe |  symbol. E.g: "Prev|Next". Using default values.')
+		}
+	}
+
+	// Non set or malformed cst.prev_next_label, return default values
+	return cst.lnk_prev_label, cst.lnk_next_label
+}
+
 // obfuscate obfuscate/mangle a topic name
 pub fn obfuscate(title string) string {
 	return fnv1a.sum64_string(title).hex()
