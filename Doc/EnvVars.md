@@ -1,6 +1,6 @@
 # Environment variables
 
-**vssg** uses 6 environment variables.
+**vssg** uses 7 environment variables.
 
 ![Terminal](./pictures/env.png "The env command from blog's directory.")
 
@@ -34,5 +34,10 @@ an additional option. That's why this environment variable exists. My hosting re
 keep untouched (.well-known) so here is my VSSG_RSYNC_OPT:
 
 ![Terminal](pictures/rsync_opt.png "VSSG_RSYNC_OPT env example")
+
+**VSSG_PREV_NEXT_LABELS** : The chain commands creates links to previous and next push inside a topic. This variable is
+here to allow override of default values. The expected string format is Previous label and Next label separated with the
+pipe symbol '|'
+
 
 [[Back to documentation]](../README.md)
