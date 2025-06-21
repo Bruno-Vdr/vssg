@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<!--
+    push.tmpl file is a VSSG template file. It's the default template for all article/push published into
+    topics. To be customized.
+    [section:label]  are replaced with push file text by the HTML generator.
+-->
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type"/>
+    <title>[@title]</title>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+
+
+<!-- Floating button back to the top. -->
+<a class="float my-float" href="#" style="color: lightgrey">
+    Top
+</a>
+
+<div>
+<a href="../index.htm">
+    <img src="data:image/png;base64,
+    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
+    " style="width:64px;height:64px; float:left">
+</a>
+    <!-- PUSH HEADER -->
+    <h1>
+        [@title]
+    </h1>
+    <hr>
+    <p style="text-align:center">&#x1F554; [@date] - &#x1F4C1; [@topic]</p>
+    <hr>
+    [section:main]
+    <hr>
+    <vssg-lnk-prev></vssg-lnk-prev>
+    <vssg-lnk-next></vssg-lnk-next>
+    <br/>
+</div>
+<!-- Footer -->
+<h6>
+    <a style="text-align:center;color:#FFF;" href="https://github.com/Bruno-Vdr/vssg">[Generated with vssg]</a>
+</h6>
+</body>
+</html>

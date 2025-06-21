@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<!--
+    topics_list.tmpl file is a VSSG template file. It's the default template for generating HTML pages enumerating
+    topics within the blog. To be customized.
+
+    The LinkModel  tag MUST be present, it signals where and how the
+    generator will insert topic list.
+-->
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Available Topics</title>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>
+    <h2 style="text-align:center">
+        [@num] available topic(s)
+    </h2>
+    <hr>
+    <ul>
+        [LinkModel]
+        <li><a href="[@url]"> [@title] </a> &#x1F553; - [@date]</li>
+        [EndModel]
+    </ul>
+    <hr>
+    <br>
+</div>
+<!-- Footer -->
+<h6>
+    <a style="text-align:center;color:#FFF;" href="https://github.com/Bruno-Vdr/vssg">[Generated with vssg]</a>
+</h6>
+</body>
+</html>

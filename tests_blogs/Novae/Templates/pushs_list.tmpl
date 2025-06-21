@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<!--
+    pushs_list.tmpl file is a VSSG template file. It's the default template for generating HTML pages enumerating
+    pushes/article within topics. To be customized.
+
+    The LinkModel  tag MUST be present, it signals where and how the
+    generator will insert the posts list.
+-->
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+    <title>Available Posts</title>
+    <link href="./style.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<div>
+    <h2 style="text-align:center">
+        &#x1F4C1; [@topic] - [@num] entries
+    </h2>
+    <hr>
+    <ul>
+        [LinkModel]
+        <li><a href="[@url]"> [@title] </a> &#x1F553; - [@date]</li>
+        [EndModel]
+    </ul>
+    <hr>
+</div>
+<!-- Footer -->
+<h6>
+    <a style="text-align:center;color:#FFF;" href="https://github.com/Bruno-Vdr/vssg">[Generated with vssg]</a>
+</h6>
+</body>
+</html>
