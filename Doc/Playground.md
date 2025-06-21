@@ -65,6 +65,11 @@ Enter the Blog directory by doing cd Blog, and then running 'vssg show -a' you s
 
 ![image](pictures/vssg_show.png)
 
+
+Here is a screenshot of the other example 'Novae' blog, that looks different:
+
+![image](pictures/novae.png)
+
 You can now have a look at all vssg command, and try updating and customizing things.
 
 - [All vssg commands](AllCommands.md)
