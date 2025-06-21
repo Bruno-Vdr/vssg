@@ -1,30 +1,33 @@
 
 # Playground - The test blog
 
-Sometimes, a simple example is better than a long explanation. For this, you'll find a toy blog in the tests_files
+Sometimes, a simple example is better than a long explanation. For this, you'll find a 2 toys blogs in the tests_blogs
 directory. Before all, we assume that you have build vssg, and that the executable is in your $PATH, runnable from
 any location.
 
-To generate the toy blog, you can copy the whole the tests_files directory where you want.
+To generate the toy blog, you can copy the whole the tests_blogs directory where you want.
 
 ![image](pictures/toy_blog.png)
 
-Then enter in the copied tests_files directory check that the script build.sh is executable. if not
+Then enter in the copied tests_blogs directory choose (cd) First or Novae examples. You'll find a script named build.sh
+that contains commands to build to blog. First, check that the script build.sh is **executable**. if not
 execute chmod +x build.sh
 
 Now you can **source** (don't simply run build.sh) the file by running:
-
-![image](pictures/source_build_sh.png)
-
+```
+source ./build.sh
+```
 or
-
-![image](pictures/dot_build.png)
+```
+. ./build.sh
+```
 
 Both command are equivalent. Many commands are executed by the script to build the toy blog.
 
 ![image](pictures/built.png)
 
-Just ignore  the last statement about sync command.
+Just ignore  the last statement about sync command. Here is the typical output when generating the 'First' example
+blog:
 
 At this point, you should have a new directory called Blog, with 3 topics and several (repeted) push inside,
 fully browsable. The script also has exported  mandatory environment variable (**vssg env** to display them) that allow
