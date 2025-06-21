@@ -25,6 +25,7 @@ The project aims to have zero dependencies:
 **vssg** is command line driven, and almost fully self documented. All operations are done via command
 line. The project is very Linux and developer centric. No particular effort were made to support MS Windows.
 
+[!WARNING]
 The SSG was written for my personal needs as traveler, and doesn't aim to be widely used. It is provided as is, with hope to
 be useful for others people. The project is released under MIT license, as most of V projects.
 
