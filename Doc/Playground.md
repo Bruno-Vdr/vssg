@@ -23,11 +23,11 @@ or
 ```
 
 Both command are equivalent. Many commands are executed by the script to build the toy blog.
+Here is the typical output when generating the 'First' example blog:
 
 ![image](pictures/built.png)
 
-Just ignore  the last statement about sync command. Here is the typical output when generating the 'First' example
-blog:
+Just ignore  the last statement about sync command.
 
 At this point, you should have a new directory called Blog, with 3 topics and several (repeted) push inside,
 fully browsable. The script also has exported  mandatory environment variable (**vssg env** to display them) that allow
