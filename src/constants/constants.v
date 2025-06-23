@@ -26,6 +26,7 @@ pub const pushs_list_style_template_file = 'pushs_list_style.tmpl'
 pub const blog_date_format = 'DD/MM/YYYY HH:mm'
 
 // Custom tags, used for chain command.
+pub const max_lnk_label_len = 16
 pub const lnk_next_tag = '<vssg-lnk-next>'
 pub const next_tag_close = '</vssg-lnk-next>'
 pub const lnk_prev_tag = '<vssg-lnk-prev>'

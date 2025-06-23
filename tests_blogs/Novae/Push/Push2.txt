@@ -1,5 +1,5 @@
 [title:Walk in Mongolia]
-[link label:The walk]
+[link label:The walk with a super long title]
 [date:]
 [section:main]
 

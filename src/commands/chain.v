@@ -107,12 +107,18 @@ fn generate_link(to ?int, kind LnkType, title string) string {
 	// href style is used as HTML On/Off button to show and hide the link.
 	//<vssg-lnk-prev><a href="../push_2/index.html">Prev Push</a></vssg-lnk-prev> ON
 	//<vssg-lnk-prev><a style="display: none;">Prev Push</a></vssg-lnk-prev>  OFF
+
 	href := if to != none {
+		bnd_title := if title.len <= cst.max_lnk_label_len {
+			title
+		} else {
+			title.substr(0, cst.max_lnk_label_len - 3) + '...'
+		}
 		prv, nex := util.get_prev_next_labels()
 		label := if kind == .previous { prv } else { nex }
-		style := if kind == .previous { 'style="float : left" ' } else { 'style="float : right"' }
+		style := if kind == .previous { 'style="float:left;" ' } else { 'style="float:right;"' }
 		'<a href="..${os.path_separator}${cst.push_dir_prefix}${to}${os.path_separator}${cst.push_filename}" ${style}><button  style="font-size: medium; font-weight: bolder;">${
-			label + '<br>' + title}</button></a>'
+			label + '<br>' + bnd_title}</button></a>'
 	} else {
 		'<a style="visibility: hidden;"></a>'
 	}
