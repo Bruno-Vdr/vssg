@@ -82,7 +82,7 @@ fn sync(p []string, run_locked bool) ! {
 	abs_path := util.get_blog_root() or {
 		return error('${cst.blog_root} environment variable not set.')
 	}
-	cwd := os.getwd() + os.path_separator // get current working directory, happend "/"
+	cwd := os.getwd() + os.path_separator // get current working directory, append "/"
 
 	println('${cwd} != ${abs_path}')
 	if !cwd.starts_with(abs_path) {
@@ -104,11 +104,11 @@ fn sync(p []string, run_locked bool) ! {
 	if sync_bend {
 		// Also synchronize blog entrance  redirection.
 		Sync.sync_file(abs_path + cst.blog_entry_filename, url, dry)!
-		Sync.sync_file(abs_path + cst.blog_entry_filename, url, dry)!
 	}
 	println('${msg} : Done.')
 }
 
+// sync_file synchronizes a single file.
 fn Sync.sync_file(src string, dst string, dry bool) ! {
 	permanent_opt := util.get_sync_opt() or { '' }
 	cmd := cst.rsync_single_file + ' ${permanent_opt} ${src} ${dst}'
