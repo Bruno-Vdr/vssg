@@ -25,7 +25,7 @@ pub fn PSync.new() Command {
 		validity:   .blog_or_topic_dir
 		run_locked: true
 		name:       'psync'
-		desc:       'Partial synchronization of the blog.'
+		desc:       'Partial synchronization of the local files or specific directory.'
 		help:       PSync.help()
 		arg_min:    0
 		arg_max:    2
@@ -38,12 +38,34 @@ fn PSync.help() string {
 	return '
 Command: ${term.green('vssg')} ${term.yellow('psync')} [${term.gray('-dry')}] [${term.blue('directory')}] command
 
-The psync performs a partial synchronization.
+The psync performs a partial synchronization. This command allow to sync specific file or directory unlike sync
+command, that sync everything. This command is usefull when blog size becomes high, and performs blog update only
+on the modified part, avoiding change checks of all topics/pushes.
 
 Without directory specification, only the files in the current directory are synchronized (no directory).
 If a directory is specified, then only this directory is recursively synchronized (no local files).
 
-The ${term.gray('-dry')} option prevents command execution, and only prints the rsync command(s).
+The ${term.gray('-dry')} option prevents command execution, and only prints the rsync command.
+
+To manually add a Topic, from Blog root\'s directory:
+
+-Do: ${term.green('vssg')} ${term.yellow('add')} Topic
+-Do: ${term.green('vssg')} ${term.yellow('psync')}
+-Do: ${term.green('vssg')} ${term.yellow('psync')} Topic_dir  (obfuscated name !)
+
+To get obfuscated name of topic just do: ${term.green('vssg')} ${term.yellow('obfuscate')} Topic_name
+
+To manually push a Push, from the topic directory:
+
+-Do: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('Push.txt')}
+-Do: ${term.green('vssg')} ${term.yellow('psync')}
+-Do: ${term.green('vssg')} ${term.yellow('psync')} push_X (with X the push ID)
+
+${term.rgb(255,
+		165, 0, 'Warning:')} Don\'t forget that chain command acts on several directories. using psync on the last push_x dir
+could lead to not beeing chained from the push_(X-1). A solution could be to perform psync on last 2 push directories.
+If more articles are unchained, just perform a sync or psync on all push_X directories.
+
 '
 }
 
@@ -102,6 +124,18 @@ fn psync(p []string, run_locked bool) ! {
 			util.exec(cmd, true, false)!
 		}
 	} else {
+		// source dir should NOT ends with '/' for rsync command.
+		if dir.ends_with('/') {
+			dir = dir.substr(0, dir.len - 1)
+		}
+		sub_dir := if cwd.len > abs_path.len {
+			cwd.substr(abs_path.len, cwd.len)
+		} else {
+			''
+		}
+		cmd := '${cst.rsync_specific_dir_only} ${permanent_opt} ${cwd}${dir} ${url}${sub_dir}'
+		println('Syncing specific directory:${cwd}${dir}')
+
 		// Directory is specified, sync the directory only.
 		if dry {
 			println('Dry-run: ${term.yellow(cmd)}')
