@@ -81,6 +81,9 @@ pub fn Command.get() map[string]Command {
 	sync := Sync.new()
 	c[sync.name] = sync
 
+	psync := PSync.new()
+	c[psync.name] = psync
+
 	bend := Bend.new()
 	c[bend.name] = bend
 

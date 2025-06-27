@@ -39,9 +39,11 @@ fn Sync.help() string {
 Command: ${term.green('vssg')} ${term.yellow('sync')} [-bend] [-dry]
 
 ${term.rgb(255,
-		165, 0, 'Warning:')} This command must be launched from within blor or topic directory.
+		165, 0, 'Warning:')} This command must be launched from within blog or topic directory.
 
-The sync command performs a synchronization between local and remote directories:
+The sync command performs a full synchronization between local and remote directories of the whole blog or topic,
+based on the current directory.
+
 Source is defined with the env var ${term.yellow(cst.blog_root)}  (set to: ${util.get_blog_root() or {
 		term.red('Not set')
 	}})
