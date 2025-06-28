@@ -36,30 +36,33 @@ pub fn PSync.new() Command {
 // psync give a complete description of the command, including parameters.
 fn PSync.help() string {
 	return '
-Command: ${term.green('vssg')} ${term.yellow('psync')} [${term.gray('-dry')}] [${term.blue('directory')}] command
+Command: ${term.green('vssg')} ${term.yellow('psync')} [${term.gray('-dry')}] [${term.blue('directory | file')}] command
 
 The psync performs a partial synchronization. This command allow to sync specific file or directory unlike sync
-command, that sync everything. This command is usefull when blog size becomes high, and performs blog update only
-on the modified part, avoiding change checks of all topics/pushes.
+command, that sync everything. This command is useful when blog size becomes high; it performs blog transfer only
+on the specified part, avoiding modification checks (local/remote) of all topics/pushes.
 
-Without directory specification, only the files in the current directory are synchronized (no directory).
-If a directory is specified, then only this directory is recursively synchronized (no local files).
+Transfer rules:
+
+  -Without directory specification, all files in the current directory are sent (no directory).
+  -If a directory is specified, then only this directory is recursively synchronized (no local files).
+  -If a file is specified, then only this file is sent.
 
 The ${term.gray('-dry')} option prevents command execution, and only prints the rsync command.
 
 To manually add a Topic, from Blog root\'s directory:
 
--Do: ${term.green('vssg')} ${term.yellow('add')} Topic
--Do: ${term.green('vssg')} ${term.yellow('psync')}
--Do: ${term.green('vssg')} ${term.yellow('psync')} Topic_dir  (obfuscated name !)
+  -Do: ${term.green('vssg')} ${term.yellow('add')} Topic
+  -Do: ${term.green('vssg')} ${term.yellow('psync')}
+  -Do: ${term.green('vssg')} ${term.yellow('psync')} Topic_dir  (obfuscated name !)
 
 To get obfuscated name of topic just do: ${term.green('vssg')} ${term.yellow('obfuscate')} Topic_name
 
 To manually push a Push, from the topic directory:
 
--Do: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('Push.txt')}
--Do: ${term.green('vssg')} ${term.yellow('psync')}
--Do: ${term.green('vssg')} ${term.yellow('psync')} push_X (with X the push ID)
+  -Do: ${term.green('vssg')} ${term.yellow('push')} ${term.blue('Push.txt')}
+  -Do: ${term.green('vssg')} ${term.yellow('psync')}
+  -Do: ${term.green('vssg')} ${term.yellow('psync')} push_X (with X the push ID)
 
 ${term.rgb(255,
 		165, 0, 'Warning:')} Don\'t forget that chain command acts on several directories. using psync on the last push_x dir
@@ -71,8 +74,8 @@ If more articles are unchained, just perform a sync or psync on all push_X direc
 
 // psync command feature are implemented here. The parameters number has been checked before call.
 fn psync(p []string, run_locked bool) ! {
-	mut dir := ''
-	// location := util.where_am_i()
+	mut fname := ''
+	mut ptype := util.FileType.neither
 
 	// Check command parameters.
 	dry := '-dry' in p
@@ -81,20 +84,20 @@ fn psync(p []string, run_locked bool) ! {
 			return error('Wrong command parameters: The 2 params must be -dry and a directory name.')
 		} else {
 			// the other param should be a directory
-			dir = if p[0] == '-dry' { p[1] } else { p[0] }
-
-			// Check that dir is really a directory
-			if !os.is_dir(dir) {
-				return error('"${dir}" is not a directory.')
+			fname = if p[0] == '-dry' { p[1] } else { p[0] }
+			ptype = util.check_type(fname)
+			if ptype == .neither {
+				return error('"${fname}" is not a directory nor a file.')
 			}
 		}
 	}
 
 	if p.len == 1 && !dry {
-		// Check that dir is really a directory
-		dir = p[0]
-		if !os.is_dir(dir) {
-			return error('"${dir}" is not a directory.')
+		// p[0] should be a dir or file name.
+		fname = p[0]
+		ptype = util.check_type(fname)
+		if ptype == .neither {
+			return error('"${fname}" is not a directory nor a file.')
 		}
 	}
 
@@ -108,8 +111,8 @@ fn psync(p []string, run_locked bool) ! {
 		return error('${cst.remote_url} environment variable not set.')
 	}
 
-	if dir.len == 0 {
-		// No directory specified, sync the files only.
+	if fname.len == 0 {
+		// No directory specified, sync the local files only.
 		sub_dir := if cwd.len > abs_path.len {
 			cwd.substr(abs_path.len, cwd.len)
 		} else {
@@ -124,19 +127,25 @@ fn psync(p []string, run_locked bool) ! {
 			util.exec(cmd, true, false)!
 		}
 	} else {
-		// source dir should NOT ends with '/' for rsync command.
-		if dir.ends_with('/') {
-			dir = dir.substr(0, dir.len - 1)
-		}
+		// Directory or a file was specified. sync the directory or file only.
+		mut cmd := ''
 		sub_dir := if cwd.len > abs_path.len {
 			cwd.substr(abs_path.len, cwd.len)
 		} else {
 			''
 		}
-		cmd := '${cst.rsync_specific_dir_only} ${permanent_opt} ${cwd}${dir} ${url}${sub_dir}'
-		println('Syncing specific directory:${cwd}${dir}')
+		if ptype == .file {
+			cmd = '${cst.rsync_single_file} ${permanent_opt} ${cwd}${fname} ${url}${sub_dir}'
+			println('Syncing specific file:${cwd}${fname}')
+		} else {
+			// source dir should NOT ends with '/' for rsync command.
+			if fname.ends_with('/') {
+				fname = fname.substr(0, fname.len - 1)
+			}
+			cmd = '${cst.rsync_specific_dir_only} ${permanent_opt} ${cwd}${fname} ${url}${sub_dir}'
+			println('Syncing specific directory:${cwd}${fname}')
+		}
 
-		// Directory is specified, sync the directory only.
 		if dry {
 			println('Dry-run: ${term.yellow(cmd)}')
 		} else {

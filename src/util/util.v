@@ -328,3 +328,23 @@ pub fn exec(cmd string, verbose bool, dry_run bool) ! {
 		println('Command(s) was skipped (-dry) option.')
 	}
 }
+
+
+pub enum FileType as int {
+	file
+	directory
+	neither
+}
+
+// check_type return type of the given fname
+pub fn check_type(fname string) FileType {
+	if os.is_dir(fname) {
+		return .directory
+	} else {
+		if os.is_file(fname) {
+			return .file
+		} else {
+			return .neither
+		}
+	}
+}
