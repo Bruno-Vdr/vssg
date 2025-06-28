@@ -134,14 +134,23 @@ fn psync(p []string, run_locked bool) ! {
 		} else {
 			''
 		}
+
+		// Remove trailing / on directory name.
+		if fname.ends_with('/') {
+			fname = fname.substr(0, fname.len - 1)
+		}
+
+		// Check that no subdir are specified !
+		if fname.contains('/') {
+			return error('The "${fname}" parameter cannot contain "${os.path_separator}". Only local file or directory can be used with psync.')
+		}
+
 		if ptype == .file {
 			cmd = '${cst.rsync_single_file} ${permanent_opt} ${cwd}${fname} ${url}${sub_dir}'
 			println('Syncing specific file:${cwd}${fname}')
 		} else {
 			// source dir should NOT ends with '/' for rsync command.
-			if fname.ends_with('/') {
-				fname = fname.substr(0, fname.len - 1)
-			}
+
 			cmd = '${cst.rsync_specific_dir_only} ${permanent_opt} ${cwd}${fname} ${url}${sub_dir}'
 			println('Syncing specific directory:${cwd}${fname}')
 		}
