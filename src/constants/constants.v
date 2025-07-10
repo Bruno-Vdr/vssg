@@ -56,7 +56,9 @@ pub const rsync_files_only = 'rsync -avzc --exclude=\'*/\' '
 pub const rsync_specific_dir_only = 'rsync -avzcr '
 
 // Image Magick command to shrink images in the Blog. '@FILE' will be dynamically replaced. ORDER MATTERS !
-pub const convert_cmd = 'magick convert -interlace Plane -quality 85% @IFILE -resize 900 -auto-orient -strip @OFILE'
+//pub const convert_cmd = 'magick convert -interlace Plane -quality 85% @IFILE -resize 900 -auto-orient -strip @OFILE'
+pub const convert_cmd = 'magick convert -interlace Plane -quality 85% @IFILE -resize "900x900>" -auto-orient -strip @OFILE'
+
 pub const image_list_name = 'images.html'
 
 // Documentation file
