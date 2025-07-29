@@ -161,7 +161,7 @@ displays the whole rsync command.
 but from a topic directory, only this topic will be synced.
 
 ### Further readings:
-
+- [Real use case (French)](https://cam2025.vedder.fr/)
 - [Blog files hierarchy](./Doc/Hierarchy.md)
 - [VSSG templates](./Doc/Templates.md)
 - [Environment variables](./Doc/EnvVars.md)
