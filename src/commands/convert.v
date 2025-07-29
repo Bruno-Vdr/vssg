@@ -4,6 +4,7 @@ import term
 import util
 import constants as cst
 import os
+// import time
 import sync.pool
 import runtime
 
@@ -59,6 +60,19 @@ pub struct Sd {
 	dst string
 }
 
+struct PathWithStats {
+mut:
+	path  string
+	ctime i64
+}
+
+fn stats(path string) PathWithStats {
+	return PathWithStats{
+		path:  path
+		ctime: if stat := os.lstat(path) { stat.mtime } else { 0 }
+	}
+}
+
 // convert command feature are implemented here. The parameters number has been checked before call.
 fn convert(p []string, run_locked bool) ! {
 	overwrite := '-o' in p
@@ -71,22 +85,30 @@ fn convert(p []string, run_locked bool) ! {
 		return error('Unable to get ${cst.img_src_env}. Is the env variable set ?')
 	}
 
-	entries := os.ls(path) or { [] }
-	mut filtered := []Sd{}
+	mut entries := []string{}
 
+	// Get file list ORDERED by Modified date.
+	for f in os.ls(path)!.map(stats(path + it)).sorted(|a, b| a.ctime < b.ctime) {
+		entry := f.path
+		entries << entry
+		println('${entry} ${f.ctime}')
+	}
+
+	mut filtered := []Sd{}
 	for entry in entries {
-		if !os.is_dir(os.join_path(os.home_dir(), entry)) {
-			if entry.ends_with('.JPG') || entry.ends_with('.jpg') {
-				src_name := path + entry
-				dst_name := if !overwrite {
-					path + 'resized_' + entry
-				} else {
-					src_name
-				}
-				filtered << Sd{
-					src: src_name
-					dst: dst_name
-				}
+		if entry.ends_with('.JPG') || entry.ends_with('.jpg') {
+			src_name := entry
+			dst_name := if !overwrite {
+				// Prefix filename with resized
+				name := os.file_name(entry)
+				pth := entry.replace(name, '')
+				pth + os.path_separator + 'resized_' + name
+			} else {
+				src_name
+			}
+			filtered << Sd{
+				src: src_name
+				dst: dst_name
 			}
 		}
 	}
