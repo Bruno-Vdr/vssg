@@ -131,6 +131,9 @@ fn generate_redirection_file(filename string, url string) ! {
 <!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Cache-Control" content="no-cache">
+        <meta http-equiv="Pragma" content="no-cache">
+        <meta http-equiv="Expires" content="Thu, 01 Jan 1970 00:00:00 GMT">
         <meta http-equiv="refresh" content="0; url=\'${url}\'"/>
     </head>
     <body>
