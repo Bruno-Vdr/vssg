@@ -3,7 +3,7 @@ module main
 import term
 import commands { Command }
 import os
-import maps
+// import maps   // Until bugfix: https://github.com/vlang/v/issues/26567
 import strings
 import util
 
@@ -13,6 +13,18 @@ enum Param {
 	param1
 	param2
 	param3
+}
+
+// Work around found by StunxFS
+// Until bugfix: https://github.com/vlang/v/issues/26567
+pub fn to_array[K, V, I](m map[K]V, f fn (key K, val V) I) []I {
+	mut a := []I{cap: m.len}
+
+	for k, v in m {
+		a << f(k, unsafe { v })
+	}
+
+	return a
 }
 
 fn main() {
@@ -32,7 +44,7 @@ fn main() {
 	cm := cmds[os.args[1]] or {
 		eprintln('${term.red('Error')}: Unknown command "${os.args[Param.command]}".')
 
-		cmds_names := maps.to_array(cmds, fn (key string, val Command) string {
+		cmds_names := to_array(cmds, fn (key string, val Command) string {
 			return key
 		})
 
